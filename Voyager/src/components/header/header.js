@@ -1,16 +1,21 @@
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { LogoVoyager } from "../Logo/style";
 import { ContainerHeader } from "../container/style";
-import { AvatarUser, BoxUser, Menu } from "./style";
+import { AvatarUser, BoxUser, HeaderView, Menu, TextDefault } from "./style";
 
-export const Header = ({}) => {
+export const Header = ({ }) => {
   return (
-    <View>
-        
-        <LogoVoyager source={(require("../../assets/images/VoyagerLogo.png"))}/>
-        {/* <AvatarUser source={require("../../assets/images/Vectoravatar.png")}/>  
-        <Menu source={require("../../assets/images/Vectormenu.png")}/>  */}
-     
-    </View>
+    <ContainerHeader>
+      <BoxUser>
+        <AvatarUser
+         source={require('../../assets/images/pedro.png')}
+        />
+        <DataUser>
+          <TextDefault>Bem vind </TextDefault>
+          <NameUser>Pedro</NameUser>
+        </DataUser>
+      </BoxUser>
+
+    </ContainerHeader>
   );
 };

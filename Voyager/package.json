@@ -13,7 +13,9 @@
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.1",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "expo-linear-gradient": "~13.0.2",
+    "expo-font": "~12.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
