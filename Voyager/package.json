@@ -15,10 +15,16 @@
     "react": "18.2.0",
     "react-native": "0.74.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-native-date-picker": "^5.0.3",
 =======
 >>>>>>> Gabriel
     "styled-components": "^6.1.11"
+=======
+    "styled-components": "^6.1.11",
+    "expo-linear-gradient": "~13.0.2",
+    "expo-font": "~12.0.5"
+>>>>>>> origin/Gabriel
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
