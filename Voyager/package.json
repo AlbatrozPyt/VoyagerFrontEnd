@@ -9,22 +9,18 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
     "expo": "~51.0.8",
+    "expo-font": "~12.0.5",
+    "expo-linear-gradient": "~13.0.2",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.1",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "react-native-date-picker": "^5.0.3",
-=======
->>>>>>> Gabriel
+    "react-native-drop-shadow": "^1.0.0",
+    "react-native-shadow-2": "^7.1.0",
     "styled-components": "^6.1.11"
-=======
-    "styled-components": "^6.1.11",
-    "expo-linear-gradient": "~13.0.2",
-    "expo-font": "~12.0.5"
->>>>>>> origin/Gabriel
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
