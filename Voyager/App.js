@@ -1,12 +1,23 @@
+import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Login } from './src/screens/Login/Login';
+
 
 export default function App() {
+
+  const Stack = createStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen
+        name='Login'
+        component={Login}
+        options={{
+          title: 'Login'
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
