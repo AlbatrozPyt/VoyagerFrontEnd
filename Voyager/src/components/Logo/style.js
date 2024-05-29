@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const LogoVoyager = styled.Image`
-width: 120px;
-height: 90px;  
+width: 214px;
+height: 180px;
+margin: 30px 0;
 
- 
-`;
-
+`; 

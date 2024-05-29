@@ -1,21 +1,21 @@
 import styled from "styled-components/native";
 
-export const ContainerHeader = styled(LinearGradient).attrs({
-    colors: ["#8531C6", "#FF50E4"],
-    start: { x: -0.05, y: 1.08 },
-    end: { x: 1, y: 0 },
-  })`
-    width: 100%;
-    padding: 20px;
-    padding-bottom: 22px;
+// export const ContainerHeader = styled(LinearGradient).attrs({
+//     colors: ["#8531C6", "#FF50E4"],
+//     start: { x: -0.05, y: 1.08 },
+//     end: { x: 1, y: 0 },
+//   })`
+//     width: 100%;
+//     padding: 20px;
+//     padding-bottom: 22px;
   
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+//     flex-direction: row;
+//     align-items: center;
+//     justify-content: space-between;
   
-    border-radius: 0px 0px 15px 15px;
-    box-shadow: 0px 4px 15px #00000014;
-  `;
+//     border-radius: 0px 0px 15px 15px;
+//     box-shadow: 0px 4px 15px #00000014;
+//   `;
 
   export const BoxUser = styled.View`
   gap: 10px;
