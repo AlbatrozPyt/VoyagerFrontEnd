@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { Home } from './src/screens/Home/Home';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import { Main } from './src/screens/Main/Main';
 
 export default function App() {
 
@@ -20,8 +20,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name='home'
-          component={Home}
+          name='main'
+          component={Main}
           options={{
             headerShown: false
           }}

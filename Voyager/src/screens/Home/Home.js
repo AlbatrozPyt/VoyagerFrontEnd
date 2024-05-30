@@ -10,6 +10,24 @@ import { Guia } from "../../components/MenuGuia/MenuGuia";
 import { PostFeed } from "../../components/PostFeed/PostFeed";
 import { useState } from "react";
 
+
+const mockFeed = [
+    {
+        title: "Pedro - Roma",
+        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
+    },
+    {
+        title: "Renato - Paris",
+        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
+    },   
+    {
+        title: "Murilo - Japão",
+        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
+    },
+]
+
+
+
 export const Home = () => {
   const [guia, setGuia] = useState("feed");
 
@@ -27,8 +45,8 @@ export const Home = () => {
 
       {guia === "feed" ? (
         <ListFeed
-          data={[0, 1, 2]}
-          renderItem={() => <PostFeed />}
+          data={mockFeed}
+          renderItem={({item}) => <PostFeed post={item}/>}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />

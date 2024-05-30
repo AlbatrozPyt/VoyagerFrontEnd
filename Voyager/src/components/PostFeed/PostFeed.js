@@ -17,7 +17,7 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { useState } from "react";
 
-export const PostFeed = () => {
+export const PostFeed = ({ post }) => {
   const [like, setLike] = useState(false);
 
   return (
@@ -25,10 +25,12 @@ export const PostFeed = () => {
       <BoxOne>
         <BoxTwo>
           <BoxThree>
+            {/* Imagem da postagem */}
             <ThumbnailFeed
               source={require("../../assets/images/FotoViagemFeed.png")}
             />
 
+            {/* Botões de comentar e gostei */}
             <ContainerIcons>
               <TouchableOpacity>
                 <CommentPost
@@ -51,13 +53,13 @@ export const PostFeed = () => {
               </TouchableOpacity>
             </ContainerIcons>
 
+            {/* Prévia do conteudo */}
             <PreviewFeed>
               <ContentPreviewFeed>
-                <TitlePreviewFeed>Pedro - Roma</TitlePreviewFeed>
+                <TitlePreviewFeed>{post.title}</TitlePreviewFeed>
 
                 <TextPreviewFeed>
-                  Essa foi minha primeira viagem para o exterior e não poderia
-                  ser melhor...
+                  {post.description.substr(0, 57)}...
                 </TextPreviewFeed>
               </ContentPreviewFeed>
 
