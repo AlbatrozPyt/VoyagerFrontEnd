@@ -1,22 +1,40 @@
-import { StatusBar, Text, View } from "react-native"
+import { StatusBar } from "react-native";
 
-import { Container } from "../../components/Container/style";
-import { Header } from "../../components/Header/Header";
+import {
+  Container,
+  ContainerFeed,
+  ListFeed,
+} from "../../components/Container/style";
+import { Header } from "../../components/Header/header";
 import { Guia } from "../../components/MenuGuia/MenuGuia";
+import { PostFeed } from "../../components/PostFeed/PostFeed";
+import { useState } from "react";
 
 export const Home = () => {
-    return (
-        <Container>
-            <StatusBar
-                barStyle={"light-content"}
-                translucent={true}
-                backgroundColor={'transparent'}
-            />
+  const [guia, setGuia] = useState("feed");
 
+  return (
+    <Container>
+      <StatusBar
+        barStyle={"light-content"}
+        translucent={true}
+        backgroundColor={"transparent"}
+      />
 
-            <Header />
+      <Header />
 
-            <Guia />
-        </Container>
-    )
-}
+      <Guia setGuia={setGuia} />
+
+      {guia === "feed" ? (
+        <ListFeed
+          data={[0, 1, 2]}
+          renderItem={() => <PostFeed />}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        />
+      ) : (
+        <></>
+      )}
+    </Container>
+  );
+};

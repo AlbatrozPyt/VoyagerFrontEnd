@@ -24,7 +24,7 @@ export const LogoHeader = styled.Image`
 
 export const ContentUser = styled.View`
   width: 150px;
-  align-items: flex-end;
+  padding: 0 11px;
 `
 
 export const UserName = styled.Text`
@@ -32,6 +32,8 @@ export const UserName = styled.Text`
   font-size: 16px;
   color: white;
   text-transform: uppercase;
+  width: 100%;
+  text-align: right;
 `
 
 export const BoxShadowUser = styled.View`

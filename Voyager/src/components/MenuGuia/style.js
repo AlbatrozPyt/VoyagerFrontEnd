@@ -6,10 +6,12 @@ export const ContainerGuia = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 24px 0;
+    margin: 32px 0;
 `
 
-export const ButtonGuia = styled.TouchableOpacity`
+export const ButtonGuia = styled.TouchableHighlight.attrs({
+    underlayColor: `#8531C6`
+})`
     width: 144px;
     height: 45px;
     justify-content: center;

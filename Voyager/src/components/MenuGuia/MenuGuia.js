@@ -2,14 +2,13 @@ import { useState } from "react"
 import { ButtonGuia, ContainerGuia, TextGuia } from "./style"
 import { Shadow } from "react-native-shadow-2"
 
-export const Guia = () => {
+export const Guia = ({setGuia}) => {
 
     const [buttonClicked, setButtonClicked] = useState(true)
 
     return (
         <ContainerGuia>
             <Shadow
-                disabled={!buttonClicked}
                 startColor="#000"
                 endColor="#000"
                 distance={0}
@@ -17,7 +16,10 @@ export const Guia = () => {
             >
                 <ButtonGuia
                     style={buttonClicked && { backgroundColor: `#8531C6` }}
-                    onPress={() => setButtonClicked(true)}
+                    onPress={() => {
+                        setButtonClicked(true)
+                        setGuia('feed')
+                    }}
                 >
                     <TextGuia
                         style={buttonClicked && { color: `#fff` }}
@@ -29,7 +31,6 @@ export const Guia = () => {
 
 
             <Shadow
-                disabled={buttonClicked}
                 startColor="#000"
                 endColor="#000"
                 distance={0}
@@ -37,7 +38,10 @@ export const Guia = () => {
             >
                 <ButtonGuia
                     style={!buttonClicked && { backgroundColor: `#8531C6` }}
-                    onPress={() => setButtonClicked(false)}
+                    onPress={() => {
+                        setButtonClicked(false)
+                        setGuia('explorar')
+                    }}
                 >
                     <TextGuia
                         style={!buttonClicked && { color: `#fff` }}

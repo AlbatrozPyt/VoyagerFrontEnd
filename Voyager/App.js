@@ -12,6 +12,8 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     'LouisGeorgeCafe-Bold': require('./src/assets/fonts/LouisGeorgeCafe-Bold.ttf'),
     'LouisGeorgeCafe': require('./src/assets/fonts/LouisGeorgeCafe.ttf'),
+    'LouisGeorgeCafe-Light': require('./src/assets/fonts/LouisGeorgeCafe-Light.ttf'),
+    'MoonGet': require('./src/assets/fonts/moon_get-Heavy.ttf')
   })
 
   return (
