@@ -8,15 +8,16 @@ export const IconBack = styled.Image`
 export const TitlePost = styled.Text`
   font-family: "MoonGet";
   font-size: 25px;
+  margin: 32px 0;
 `;
 
 export const BoxDescription = styled.View`
-  margin: 32px 0;
   padding: 10px;
-  width: 90%;
+  width: 318px;
   border: 2px solid;
   border-radius: 10px;
   gap: 10px;
+  background-color: #fff;
 `;
 export const About = styled.Text`
   font-family: "LouisGeorgeCafe-Bold";
@@ -31,6 +32,9 @@ export const Description = styled.Text`
 
 
 export const ImageGaleria = styled.Image`
-    width: 90%;
+    width: 318px;
     height: 195px;
+    border-radius: 10px;
+    border: 2px solid;
+    margin-bottom: 20px;
 `

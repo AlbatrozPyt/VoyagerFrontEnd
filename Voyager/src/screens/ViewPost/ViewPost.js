@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView, StatusBar, TouchableOpacity } from "react-native";
 import { Container } from "../../components/Container/style";
 import {
   About,
@@ -14,27 +14,70 @@ export const ViewPost = ({ route, navigation }) => {
   console.log(route);
 
   return (
-    <Container>
-      <TouchableOpacity
-        style={{ width: "100%" }}
-        onPress={() => navigation.replace("main")}
-      >
-        <IconBack source={require("../../assets/images/back.png")} />
-      </TouchableOpacity>
+    <ScrollView style={{ width: "100%" }}>
+      <StatusBar backgroundColor={"#8531C6"} />
 
-      <TitlePost>{route.params.post.title}</TitlePost>
+      <Container>
+        <TouchableOpacity
+          style={{ width: "100%" }}
+          onPress={() => navigation.replace("main")}
+        >
+          <IconBack source={require("../../assets/images/back.png")} />
+        </TouchableOpacity>
+        <TitlePost>{route.params.post.title}</TitlePost>
 
-      <BoxDescription>
-        <About>Sobre a minha viagem:</About>
+        <Shadow
+          startColor="#8531C6"
+          endColor="#8531C6"
+          distance={0}
+          offset={[8, 8]}
+          style={{ borderRadius: 10 }}
+        >
+          <Shadow
+            startColor="#000"
+            endColor="#000"
+            distance={0}
+            offset={[2.5, 2.5]}
+            style={{ borderRadius: 10 }}
+          >
+            <BoxDescription>
+              <About>Sobre a minha viagem:</About>
 
-        <Description>{route.params.post.description}</Description>
-      </BoxDescription>
+              <Description>{route.params.post.description}</Description>
+            </BoxDescription>
+          </Shadow>
+        </Shadow>
 
-      <TitlePost>Fotos</TitlePost>
+        <TitlePost>Fotos</TitlePost>
 
-      <ImageGaleria
-        source={require("../../assets/images/FotoViagemFeed.png")}
-      />
-    </Container>
+        {/* Fotos tiradas */}
+        {[0, 1, 2].map(() => {
+          return (
+            <Shadow
+              startColor="#8531C6"
+              endColor="#8531C6"
+              distance={0}
+              offset={[8, 8]}
+            >
+              <Shadow
+                startColor="#000"
+                endColor="#000"
+                distance={0}
+                offset={[2.5, 2.5]}
+                style={{
+                  borderRadius: 10,
+                  height: 195,
+                  marginBottom: 20,
+                }}
+              >
+                <ImageGaleria
+                  source={require("../../assets/images/FotoViagemFeed.png")}
+                />
+              </Shadow>
+            </Shadow>
+          );
+        })}
+      </Container>
+    </ScrollView>
   );
 };
