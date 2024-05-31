@@ -14,21 +14,21 @@ import { useState } from "react";
 const mockFeed = [
     {
         title: "Pedro - Roma",
-        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
+        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
     },
     {
         title: "Renato - Paris",
-        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
+        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
     },   
     {
         title: "Murilo - Japão",
-        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
+        description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
     },
 ]
 
 
 
-export const Home = () => {
+export const Home = ({navigation}) => {
   const [guia, setGuia] = useState("feed");
 
   return (
@@ -46,7 +46,7 @@ export const Home = () => {
       {guia === "feed" ? (
         <ListFeed
           data={mockFeed}
-          renderItem={({item}) => <PostFeed post={item}/>}
+          renderItem={({item}) => <PostFeed post={item} navigation={navigation}/>}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />

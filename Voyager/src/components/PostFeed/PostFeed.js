@@ -17,11 +17,11 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { useState } from "react";
 
-export const PostFeed = ({ post }) => {
+export const PostFeed = ({ post, navigation }) => {
   const [like, setLike] = useState(false);
 
   return (
-    <ContainerBoxs>
+    <ContainerBoxs onPress={() => navigation.replace('ViewPost', {post: post})}>
       <BoxOne>
         <BoxTwo>
           <BoxThree>

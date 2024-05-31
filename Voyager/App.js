@@ -1,30 +1,34 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Main } from './src/screens/Main/Main';
+import { createStackNavigator } from "@react-navigation/stack";
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import { Main } from "./src/screens/Main/Main";
+import { ViewPost } from "./src/screens/ViewPost/ViewPost";
 
 export default function App() {
-
   const Stack = createStackNavigator();
 
   const [fontsLoaded] = useFonts({
-    'LouisGeorgeCafe-Bold': require('./src/assets/fonts/LouisGeorgeCafe-Bold.ttf'),
-    'LouisGeorgeCafe': require('./src/assets/fonts/LouisGeorgeCafe.ttf'),
-    'LouisGeorgeCafe-Light': require('./src/assets/fonts/LouisGeorgeCafe-Light.ttf'),
-    'MoonGet': require('./src/assets/fonts/moon_get-Heavy.ttf')
-  })
+    "LouisGeorgeCafe-Bold": require("./src/assets/fonts/LouisGeorgeCafe-Bold.ttf"),
+    "LouisGeorgeCafe": require("./src/assets/fonts/LouisGeorgeCafe.ttf"),
+    "LouisGeorgeCafe-Light": require("./src/assets/fonts/LouisGeorgeCafe-Light.ttf"),
+    "MoonGet": require("./src/assets/fonts/moon_get-Heavy.ttf"),
+  });
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name='main'
+          name="main"
           component={Main}
-          options={{
-            headerShown: false
-          }}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="ViewPost"
+          component={ViewPost}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -34,6 +38,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
 });
