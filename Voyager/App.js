@@ -5,15 +5,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Main } from "./src/screens/Main/Main";
 import { ViewPost } from "./src/screens/ViewPost/ViewPost";
+import { ViagensFuturas } from "./src/screens/ViagensFuturas/ViagensFuturas";
+import { Viagens } from "./src/screens/Viagens/Viagens";
+import { HistoricoViagens } from "./src/screens/HistoricoViagens/HistoricoViagens";
 
 export default function App() {
   const Stack = createStackNavigator();
 
   const [fontsLoaded] = useFonts({
     "LouisGeorgeCafe-Bold": require("./src/assets/fonts/LouisGeorgeCafe-Bold.ttf"),
-    "LouisGeorgeCafe": require("./src/assets/fonts/LouisGeorgeCafe.ttf"),
+    LouisGeorgeCafe: require("./src/assets/fonts/LouisGeorgeCafe.ttf"),
     "LouisGeorgeCafe-Light": require("./src/assets/fonts/LouisGeorgeCafe-Light.ttf"),
-    "MoonGet": require("./src/assets/fonts/moon_get-Heavy.ttf"),
+    MoonGet: require("./src/assets/fonts/moon_get-Heavy.ttf"),
   });
 
   return (

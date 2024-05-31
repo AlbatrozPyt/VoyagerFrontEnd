@@ -56,9 +56,16 @@ export const AcompanharViagem = ({ viagem }) => {
   );
 };
 
-export const PostItDefault = ({ title, description, icon, postItColor = "#fff" }) => {
+export const PostItDefault = ({
+  title,
+  description,
+  icon,
+  postItColor = "#fff",
+  navigation,
+  screen
+}) => {
   return (
-    <ContainerBoxs>
+    <ContainerBoxs onPress={() => navigation.navigate(screen)}>
       <BoxOneViagem color={postItColor}>
         <BoxTwoViagem color={postItColor}>
           <BoxThreeViagem color={postItColor}>

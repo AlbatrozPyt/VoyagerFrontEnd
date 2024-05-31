@@ -10,10 +10,9 @@ const viagem = {
   destino: "Ilhas Maldivas",
 };
 
-export const Viagens = () => {
+export const Viagens = ({ navigation }) => {
   return (
     <Container>
-
       <LogoViagens
         source={require("../../assets/images/LogoMinhasViagens.png")}
       />
@@ -25,12 +24,16 @@ export const Viagens = () => {
         description={"Veja suas viagens que já aconteceram"}
         icon={"historico"}
         postItColor={"#F7E87B"}
+        navigation={navigation}
+        screen={'HistoricoViagens'}
       />
 
       <PostItDefault
         title={"Viagens futuras"}
         description={"Veja suas viagens que ainda irão acontecer"}
         postItColor={"#B7FBFF"}
+        navigation={navigation}
+        screen={'ViagensFuturas'}
       />
 
       <Shadow
@@ -38,7 +41,7 @@ export const Viagens = () => {
         endColor="#000"
         distance={0}
         offset={[4, 4]}
-        containerStyle={{alignSelf: 'flex-end', margin: 20}}
+        containerStyle={{ alignSelf: "flex-end", margin: 20 }}
       >
         <NovaViagem>
           <Image source={require("../../assets/images/nova-viagem.png")} />
