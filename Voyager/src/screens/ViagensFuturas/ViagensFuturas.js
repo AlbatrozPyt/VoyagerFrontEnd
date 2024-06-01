@@ -32,9 +32,11 @@ export const ViagensFuturas = ({ navigation }) => {
 
       <ScrollView style={{ width: "100%" }}>
         <ContainerPostIts>
-          {[0, 1, 2, 3, 4].map(() => {
+          {[0, 1, 2, 3, 4].map((x) => {
             return (
-              <PostIts>
+              <PostIts
+                key={x}
+              >
                 <Image
                   style={{ position: "absolute" }}
                   source={require("../../assets/images/post-it.png")}

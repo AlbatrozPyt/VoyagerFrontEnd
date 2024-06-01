@@ -14,8 +14,8 @@ export const HistoricoViagens = ({ navigation }) => {
   return (
     <Container>
       <TouchableOpacity
-        style={{width: '100%'}}
-        onPress={() => navigation.navigate('Viagens')}
+        style={{ width: "100%" }}
+        onPress={() => navigation.navigate("Viagens")}
       >
         <IconBack source={require("../../assets/images/back.png")} />
       </TouchableOpacity>
@@ -31,9 +31,9 @@ export const HistoricoViagens = ({ navigation }) => {
 
       <ScrollView style={{ width: "100%" }}>
         <ContainerPostIts>
-          {[0, 1, 2, 3, 4].map(() => {
+          {[0, 1, 2, 3, 4].map((x) => {
             return (
-              <PostIts>
+              <PostIts key={x}>
                 <Image
                   style={{ position: "absolute" }}
                   source={require("../../assets/images/post-it-2.png")}
