@@ -14,7 +14,13 @@ import { Shadow } from "react-native-shadow-2";
 export const ViagensFuturas = ({ navigation }) => {
   return (
     <Container>
-
+       <TouchableOpacity
+        style={{width: '100%'}}
+        onPress={() => navigation.navigate('Viagens')}
+      >
+        <IconBack source={require("../../assets/images/back.png")} />
+      </TouchableOpacity>
+      
       <LogoViagens
         source={require("../../assets/images/LogoMinhasViagens.png")}
       />

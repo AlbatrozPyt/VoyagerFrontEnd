@@ -14,11 +14,15 @@ export const Viagens = ({ navigation }) => {
   return (
     <Container>
       <LogoViagens
+        style={{marginTop: 80}}
         source={require("../../assets/images/LogoMinhasViagens.png")}
       />
 
-      <AcompanharViagem viagem={viagem} />
 
+      {/* PostIt para acompanhar a sua viagem */}
+      <AcompanharViagem viagem={viagem} navigation={navigation}/>
+      
+      {/* PostIt para ver o histórico de viagens*/}
       <PostItDefault
         title={"Histórico de viagens"}
         description={"Veja suas viagens que já aconteceram"}
@@ -28,6 +32,7 @@ export const Viagens = ({ navigation }) => {
         screen={'HistoricoViagens'}
       />
 
+      {/* PostIt para as viagens que ainda vão acontecer */}
       <PostItDefault
         title={"Viagens futuras"}
         description={"Veja suas viagens que ainda irão acontecer"}
@@ -36,6 +41,7 @@ export const Viagens = ({ navigation }) => {
         screen={'ViagensFuturas'}
       />
 
+      {/* Botão para criar uma nova viagem */}
       <Shadow
         startColor="#000"
         endColor="#000"
@@ -43,9 +49,7 @@ export const Viagens = ({ navigation }) => {
         offset={[4, 4]}
         containerStyle={{ alignSelf: "flex-end", margin: 20 }}
       >
-        <NovaViagem
-          onPress={() => navigation.navigate('ViagemAtual')}
-        >
+        <NovaViagem>
           <Image source={require("../../assets/images/nova-viagem.png")} />
         </NovaViagem>
       </Shadow>

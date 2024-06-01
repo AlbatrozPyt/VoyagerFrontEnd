@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const IconBack = styled.Image`
-  margin: 40px;
+  margin:  40px 0 0 20px;
   align-self: flex-start;
 `;
 

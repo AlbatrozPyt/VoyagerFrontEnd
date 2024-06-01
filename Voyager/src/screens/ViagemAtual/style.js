@@ -63,7 +63,9 @@ export const IconCheck = styled.Image`
   height: 22px;
 `;
 
-export const ButtonViagem = styled.TouchableOpacity`
+export const ButtonViagem = styled.TouchableOpacity.attrs({
+  underlayColor: 'red'
+})`
   align-items: center;
   justify-content: center;
   width: 340px;

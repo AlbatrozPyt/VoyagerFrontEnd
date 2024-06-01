@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const LogoViagens = styled.Image`
   width: 195px;
   height: 118px;
-  margin: 50px 0;
+  margin: 20px 0;
 `;
 
 export const NovaViagem = styled.TouchableOpacity.attrs({
@@ -15,4 +15,5 @@ export const NovaViagem = styled.TouchableOpacity.attrs({
   align-items: center;
   justify-content: center;
   align-self: flex-end;
+  border: 2px solid;
 `;

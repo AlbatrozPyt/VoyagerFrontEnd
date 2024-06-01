@@ -1,8 +1,7 @@
-
-// Titulo da tela de login
-
 import styled from "styled-components";
 
-export const TitleLogin = styled.Text`
-
+export const TitleDefault = styled.Text`
+    font-family: 'LouisGeorgeCafe-Bold';
+    font-size: 20px;
+    text-transform: uppercase;
 `
