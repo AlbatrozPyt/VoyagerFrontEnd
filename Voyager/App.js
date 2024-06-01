@@ -8,6 +8,7 @@ import { ViewPost } from "./src/screens/ViewPost/ViewPost";
 import { ViagensFuturas } from "./src/screens/ViagensFuturas/ViagensFuturas";
 import { Viagens } from "./src/screens/Viagens/Viagens";
 import { HistoricoViagens } from "./src/screens/HistoricoViagens/HistoricoViagens";
+import { ViagemAtual } from "./src/screens/ViagemAtual/ViagemAtual";
 
 export default function App() {
   const Stack = createStackNavigator();

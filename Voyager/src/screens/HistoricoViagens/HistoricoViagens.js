@@ -7,12 +7,6 @@ import { ContainerPostIts, PostIts, TextData, TextDestino, TitleViagensFuturas }
 export const HistoricoViagens = ({navigation}) => {
     return (
         <Container>
-        <TouchableOpacity
-          style={{ width: "100%" }}
-          onPress={() => navigation.replace("main")}
-        >
-          <IconBack source={require("../../assets/images/back.png")} />
-        </TouchableOpacity>
   
         <LogoViagens
           source={require("../../assets/images/LogoMinhasViagens.png")}

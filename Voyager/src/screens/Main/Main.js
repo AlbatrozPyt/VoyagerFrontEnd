@@ -6,6 +6,7 @@ import { Perfil } from "../Perfil/Perfil";
 import { Viagens } from "../Viagens/Viagens";
 import { ViagensFuturas } from "../ViagensFuturas/ViagensFuturas";
 import { HistoricoViagens } from "../HistoricoViagens/HistoricoViagens";
+import { ViagemAtual } from "../ViagemAtual/ViagemAtual";
 
 export const Main = () => {
   const BottomTab = createBottomTabNavigator();
@@ -13,7 +14,7 @@ export const Main = () => {
   return (
     <BottomTab.Navigator
       screenOptions={({ route }) => ({
-        initialRouteName: 'Home',
+        initialRouteName: "Home",
         headerShown: false,
         tabBarStyle: { height: 60, borderTopWidth: 2, borderColor: "#000" },
         tabBarActiveBackgroundColor: "transparent",
@@ -59,17 +60,23 @@ export const Main = () => {
       <BottomTab.Screen name="Viagens" component={Viagens} />
       <BottomTab.Screen name="Perfil" component={Perfil} />
 
-      {/* <BottomTab.Screen
-          name="ViagensFuturas"
-          component={ViagensFuturas}
-          options={{ tabBarStyle: {display: 'none'}}}
-        />
+      <BottomTab.Screen
+        name="ViagensFuturas"
+        component={ViagensFuturas}
+        options={{ tabBarButton: () => null }}
+      />
 
-        <BottomTab.Screen
-          name="HistoricoViagens"
-          component={HistoricoViagens}
-          options={{tabBarVisible: false}}
-        /> */}
+      <BottomTab.Screen
+        name="HistoricoViagens"
+        component={HistoricoViagens}
+        options={{ tabBarButton: () => null }}
+      />
+
+      <BottomTab.Screen
+        name="ViagemAtual"
+        component={ViagemAtual}
+        options={{ tabBarButton: () => null }}
+      />
     </BottomTab.Navigator>
   );
 };
