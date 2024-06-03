@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import { Container, FormBox, InputBox, MainContent, MainContentScroll } from "../../components/container/style";
+import { ButtonBox, Container, FormBox, InputBox, MainContent, MainContentScroll } from "../../components/container/style";
 import { LogoComponent } from "../../components/Logo/Logo";
-import { Title } from "../../components/Title/Title";
+import { Title, TitleB } from "../../components/Title/Title";
 import { Input, Sombra } from "../../components/Input/style";
+import { LinkMedium } from "../../components/Link/style";
+import { Button, ButtonTitle } from "../../components/Button/style";
+import { Shadow } from "react-native-shadow-2";
+
 
 export const Login = ({ navigation }) => {
     return (
@@ -17,14 +21,33 @@ export const Login = ({ navigation }) => {
                         </Title>
 
                         <InputBox>
-                            <Sombra /> 
+                            <Sombra />
                             <Input placeholder="Email:" placeholderTextColor="#D527B7" />
                         </InputBox>
+
                         <InputBox>
                             <Sombra />
                             <Input placeholder="Senha:" placeholderTextColor="#D527B7" secureTextEntry />
                         </InputBox>
+
+                        <LinkMedium>
+                            Esqueceu sua Senha?
+                        </LinkMedium>
+
+                        <ButtonBox>
+                            <Sombra />
+                            <Button>
+                                <ButtonTitle>
+                                    Entrar
+                                </ButtonTitle>
+                            </Button>
+                        </ButtonBox>
+                        <TitleB>
+                            Não tem conta? <LinkMedium>Crie uma Agora !</LinkMedium>
+                        </TitleB>
+
                     </FormBox>
+
                 </MainContent>
             </MainContentScroll>
         </Container>

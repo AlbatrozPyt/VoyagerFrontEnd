@@ -6,6 +6,7 @@ export const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
   justify-content: center; 
+ background-color: #FCEDFF; 
 `;
 
 export const ContainerHeader = styled.SafeAreaView`
@@ -20,16 +21,15 @@ justify-content: space-between;
 
 export const MainContentScroll = styled(ScrollView)`
   width: 100%;
-  background-color: white; 
+  background-color: #FCEDFF; 
 `;
 
 export const MainContent = styled.View`
-  background-color: theme;
+  background-color: #FCEDFF;
   width: ${(props) => (props.fieldWidth ? props.fieldWidth : "100%")};
   height: ${(props) => (props.fieldHeight ? props.fieldHeight : "max-content")};
   margin: ${(props) => (props.fieldMargin ? props.fieldMargin : "0 0 90px 0")};
   align-items: center;
-  background-color: white;
   /* margin-top: 10px; */
 `;
 
@@ -48,8 +48,19 @@ margin-vertical: 20px;
 gap: ${(props) => (props.gap ? props.gap : "0px")};
 margin: ${(props) => (props.margin ? props.margin : "0")};
 flex-direction: ${(props) =>
-  props.fieldFlexDirection ? props.fieldFlexDirection : "column"};
+    props.fieldFlexDirection ? props.fieldFlexDirection : "column"};
 justify-content: ${(props) =>
-  props.justifyContent ? props.justifyContent : "center"};
+    props.justifyContent ? props.justifyContent : "center"};
 align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
+`;
+
+export const ButtonBox = styled(FormBox)`
+  width: ${(props) => (props.fieldWidth ? props.fieldWidth : "100%")};
+  justify-content: ${(props) =>
+    props.fieldJustifyContent ? props.fieldJustifyContent : "start"};
+  align-items: ${(props) =>
+    props.fieldAlignItems ? props.fieldAlignItems : "center"};
+  flex-direction: ${(props) =>
+    props.fieldFlexDirection ? props.fieldFlexDirection : "column"};
+  margin: ${(props) => (props.fieldMargin ? props.fieldMargin : "0")};
 `;

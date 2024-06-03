@@ -6,3 +6,9 @@ export const Title = styled.Text`
   font-size: 20px;
   text-align: center;
 `;
+
+export const TitleB = styled(Title) `
+
+color: "#0000"; 
+
+`
