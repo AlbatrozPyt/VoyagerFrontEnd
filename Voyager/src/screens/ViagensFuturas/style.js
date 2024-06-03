@@ -16,7 +16,7 @@ export const ContainerPostIts = styled.View`
     margin: 10px 0;
 `
 
-export const PostIts = styled.View`
+export const PostIts = styled.TouchableOpacity`
     margin: 20px 0;
     position: relative;
     width: 140px;

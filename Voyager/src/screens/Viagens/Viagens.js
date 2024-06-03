@@ -1,8 +1,8 @@
 import { Image, StatusBar, Text } from "react-native";
-import { Container } from "../../components/Container/style";
 import { LogoViagens, NovaViagem } from "./style";
 import { AcompanharViagem, PostItDefault } from "../../components/ViewViagens";
 import { Shadow } from "react-native-shadow-2";
+import { Container } from '../../components/container/style'
 
 const viagem = {
   dataInicial: "29/05",
@@ -47,7 +47,7 @@ export const Viagens = ({ navigation }) => {
         endColor="#000"
         distance={0}
         offset={[4, 4]}
-        containerStyle={{ alignSelf: "flex-end", margin: 20 }}
+        containerStyle={{alignSelf: `flex-end`, margin: 22}}
       >
         <NovaViagem>
           <Image source={require("../../assets/images/nova-viagem.png")} />

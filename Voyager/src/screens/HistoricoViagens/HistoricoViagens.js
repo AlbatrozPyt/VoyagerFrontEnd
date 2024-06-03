@@ -1,5 +1,5 @@
 import { Image, ScrollView, TouchableOpacity } from "react-native";
-import { Container } from "../../components/Container/style";
+import { Container } from "../../components/container/style";
 import { IconBack } from "../ViewPost/style";
 import { LogoViagens } from "../Viagens/style";
 import {
@@ -33,7 +33,10 @@ export const HistoricoViagens = ({ navigation }) => {
         <ContainerPostIts>
           {[0, 1, 2, 3, 4].map((x) => {
             return (
-              <PostIts key={x}>
+              <PostIts
+                key={x}
+                onPress={() => navigation.navigate('ViagemAtual', { type: 'historico' })}
+              >
                 <Image
                   style={{ position: "absolute" }}
                   source={require("../../assets/images/post-it-2.png")}

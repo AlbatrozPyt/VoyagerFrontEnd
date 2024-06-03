@@ -16,7 +16,7 @@ export const Guia = ({ setGuia }) => {
             setGuia("feed");
           }}
         >
-          <TextGuia style={buttonClicked && { color: `#fff` }}>Feed</TextGuia>
+          <TextGuia style={buttonClicked && { color: `#fff`, fontFamily: `LouisGeorgeCafe-Bold` }}>Feed</TextGuia>
         </ButtonGuia>
       </Shadow>
 
@@ -28,7 +28,7 @@ export const Guia = ({ setGuia }) => {
             setGuia("explorar");
           }}
         >
-          <TextGuia style={!buttonClicked && { color: `#fff` }}>
+          <TextGuia style={!buttonClicked && { color: `#fff`, fontFamily: `LouisGeorgeCafe-Bold` }}>
             Explorar
           </TextGuia>
         </ButtonGuia>

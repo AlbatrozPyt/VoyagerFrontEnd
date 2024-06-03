@@ -1,5 +1,5 @@
 import { FlatList, Image, ScrollView, TouchableOpacity } from "react-native";
-import { Container } from "../../components/Container/style";
+import { Container } from "../../components/container/style";
 import { LogoViagens } from "../Viagens/style";
 import { IconBack } from "../ViewPost/style";
 import {
@@ -36,6 +36,7 @@ export const ViagensFuturas = ({ navigation }) => {
             return (
               <PostIts
                 key={x}
+                onPress={() => navigation.navigate('ViagemAtual', {type: 'futuras'})}
               >
                 <Image
                   style={{ position: "absolute" }}

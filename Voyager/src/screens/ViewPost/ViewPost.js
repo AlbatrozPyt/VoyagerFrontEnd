@@ -1,5 +1,5 @@
 import { ScrollView, StatusBar, TouchableOpacity } from "react-native";
-import { Container } from "../../components/Container/style";
+import { Container } from "../../components/container/style";
 import {
   About,
   BoxDescription,
@@ -51,7 +51,7 @@ export const ViewPost = ({ route, navigation }) => {
         <TitlePost>Fotos</TitlePost>
 
         {/* Fotos tiradas */}
-        {[0, 1, 2].map(() => {
+        {[0, 1, 2].map((x) => {
           return (
             <Shadow
               startColor="#8531C6"
@@ -71,6 +71,7 @@ export const ViewPost = ({ route, navigation }) => {
                 }}
               >
                 <ImageGaleria
+                  key={x}
                   source={require("../../assets/images/FotoViagemFeed.png")}
                 />
               </Shadow>

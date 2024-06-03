@@ -1,5 +1,5 @@
 import { Image, ScrollView } from "react-native";
-import { Container } from "../../components/Container/style";
+import { Container } from "../../components/container/style";
 import {
   ButtonEdit,
   ButtonGuiaPerfil,

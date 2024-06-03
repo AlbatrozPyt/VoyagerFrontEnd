@@ -25,7 +25,7 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image source={require("../../assets/images/icon-home.png")} />
+                <Image style={{width: 20, height: 20}} source={require("../../assets/images/icon-home.png")} />
               </BoxIcon>
             );
           }

@@ -14,6 +14,5 @@ export const NovaViagem = styled.TouchableOpacity.attrs({
   background-color: #8531c6;
   align-items: center;
   justify-content: center;
-  align-self: flex-end;
   border: 2px solid;
 `;

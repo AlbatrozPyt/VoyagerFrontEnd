@@ -34,7 +34,7 @@ export const ContentViagens = styled.View`
 export const TitleViagens = styled.Text`
   font-family: "LouisGeorgeCafe-Bold";
   font-size: 20px;
-  width: 80%;
+  width: 82%;
 `;
 
 export const DescriptionViagens = styled.Text`

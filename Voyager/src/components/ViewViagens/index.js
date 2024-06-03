@@ -16,7 +16,7 @@ import {
 // Acompanhar viagem atual
 export const AcompanharViagem = ({ viagem, navigation }) => {
   return (
-    <ContainerBoxs  onPress={() => navigation.navigate('ViagemAtual')}>
+    <ContainerBoxs  onPress={() => navigation.navigate('ViagemAtual', {type: 'acompanhar'})}>
       <BoxOneViagem color={"#DEFF97"}>
         <BoxTwoViagem color={"#DEFF97"}>
           <BoxThreeViagem color={"#DEFF97"}>
