@@ -9,6 +9,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // Importar telas
 import { Navegacao } from './src/screens/Navegacao/Navegacao';
 import { Login } from './src/screens/Login/Login';
+import { Cadastro } from './src/screens/Cadastro/Cadastro';
+import { RecuperarSenha } from './src/screens/RecuperarSenha/RecuperarSenha';
 
 // Instância do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -37,6 +39,7 @@ export default function App() {
           // Título da tela
           options={{ title: "Navegação" }}
         />
+
         {/* Tela de Login */}
         <Stack.Screen
           // Nome da tela
@@ -45,6 +48,20 @@ export default function App() {
           component={Login}
           // Título da tela
           options={{ title: "Login" }}
+        />
+
+        {/* Tela de Cadastro */}
+        <Stack.Screen
+          name="Cadastro"
+          component={Cadastro}
+          options={{ title: "Cadastro" }}
+        />
+
+        {/* Tela de Recuperar Senha */}
+        <Stack.Screen
+          name="RecuperarSenha"
+          component={RecuperarSenha}
+          options={{ title: "RecuperarSenha" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

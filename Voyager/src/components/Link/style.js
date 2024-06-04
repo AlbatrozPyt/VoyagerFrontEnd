@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const LinkMedium = styled.Text`
   font-size: 16px;
   font-family: "LouisGeorgeCafe";

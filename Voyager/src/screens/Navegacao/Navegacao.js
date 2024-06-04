@@ -1,10 +1,21 @@
-import { Button, StyleSheet, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Componente Navegacao
+// Componente Navegação
 export const Navegacao = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Button title="Login" onPress={() => navigation.navigate("Login")} />
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Cadastro")}>
+        <Text style={styles.buttonText}>Cadastro</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("RecuperarSenha")}>
+        <Text style={styles.buttonText}>RecuperarSenha</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -14,16 +25,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    paddingTop: 20, // Adiciona um pouco de espaço no topo
-    alignItems: 'center'
-  }
+    paddingTop: 20,
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#8531C6', 
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 10, 
+    borderRadius: 5,
+    width: '80%'
+  },
+  buttonText: {
+    color: 'white', 
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
-
-// Componente Login básico
-export const Login = () => {
-  return (
-    <View style={styles.container}>
-      <Button title="Voltar para Navegação" onPress={() => navigation.navigate("Navegacao")} />
-    </View>
-  );
-};

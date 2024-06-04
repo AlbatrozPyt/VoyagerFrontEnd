@@ -17,7 +17,7 @@ export const Input = styled.TextInput.attrs({
   `;
 
 
-
+//Efeito de sombras dos Inputs 
   export const Sombra = styled.View`
   position: absolute;
    top: 15px;

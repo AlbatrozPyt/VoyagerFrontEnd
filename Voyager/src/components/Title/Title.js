@@ -10,5 +10,6 @@ export const Title = styled.Text`
 export const TitleB = styled(Title) `
 
 color: "#0000"; 
+margin-bottom: 0px; 
 
 `
