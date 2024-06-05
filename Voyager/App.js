@@ -11,6 +11,7 @@ import { Navegacao } from './src/screens/Navegacao/Navegacao';
 import { Login } from './src/screens/Login/Login';
 import { Cadastro } from './src/screens/Cadastro/Cadastro';
 import { RecuperarSenha } from './src/screens/RecuperarSenha/RecuperarSenha';
+import { VerificarCodigo } from './src/screens/VerificarCodigo/VerificarCodigo';
 
 // Instância do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -62,6 +63,13 @@ export default function App() {
           name="RecuperarSenha"
           component={RecuperarSenha}
           options={{ title: "RecuperarSenha" }}
+        />
+
+        {/* Tela de Verificar Codigo */}
+        <Stack.Screen
+          name="VerificarCodigo"
+          component={VerificarCodigo}
+          options={{ title: "VerificarCodigo" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

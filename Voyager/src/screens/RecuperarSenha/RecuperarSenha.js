@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { Button, ButtonTitle } from "../../components/Button/style";
 import { Input, Sombra } from "../../components/Input/style";
 import { LinkMedium } from "../../components/Link/style";
@@ -7,6 +8,8 @@ import { ButtonBox, CenteredContent, Container, FormBox, InputBox, MainContentSc
 
 export const RecuperarSenha = ({ }) => {
 
+    const navigation = useNavigation();
+
     return (
         <Container>
             <MainContentScroll>
@@ -15,20 +18,19 @@ export const RecuperarSenha = ({ }) => {
                     <FormBox>
                         <Title>RECUPERAR SENHA</Title>
                         <TitleB>Informe um email para receber um código de verificação.</TitleB>
-                        {/* Caixa de entrada para o nome */}
+                        {/* Caixa de entrada para o email */}
                         <InputBox>
                             {/* Sombra para o estilo da caixa de entrada */}
-                            <Sombra />
-                            {/* Entrada para o nome */}
+                            <Sombra style={{ width: 310 }} />
+                            {/* Entrada para o email */}
                             <Input style={{ width: 320 }} placeholder="Informe seu email:" placeholderTextColor="#D527B7" />
                         </InputBox>
 
                         {/* Caixa de botão */}
                         <ButtonBox>
                             {/* Sombra para o estilo da caixa de botão */}
-                            <Sombra style={{ top: 100, right: 90 }} />
-                            {/* Botão para navegar para a tela de login */}
-                            <Button style={{ marginTop: 60, width: 320 }}>
+                            <Sombra style={{ top: 95, width: 312 }} />                       
+                            <Button onPress={() => navigation.navigate("VerificarCodigo")} style={{ marginTop: 90, width: 320 }}>
                                 {/* Título do botão */}
                                 <ButtonTitle>
                                     Entrar
@@ -36,8 +38,9 @@ export const RecuperarSenha = ({ }) => {
                             </Button>
                         </ButtonBox>
 
-
-                        <LinkMedium >
+                              {/* Cancelar levando para Login  */}
+                        <LinkMedium onPress={() => navigation.navigate("Login")}
+                            style={{ marginTop: 20, left: -140, color: '#8531C6' }} >
                             Cancelar
                         </LinkMedium>
 

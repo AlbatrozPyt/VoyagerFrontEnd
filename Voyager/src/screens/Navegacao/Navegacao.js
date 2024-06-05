@@ -16,6 +16,10 @@ export const Navegacao = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("RecuperarSenha")}>
         <Text style={styles.buttonText}>RecuperarSenha</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("VerificarCodigo")}>
+        <Text style={styles.buttonText}>VerificarCodigo</Text>
+      </TouchableOpacity>
     </View>
   );
 };

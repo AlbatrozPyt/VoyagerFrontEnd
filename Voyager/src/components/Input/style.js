@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: "#BA31C6",
@@ -13,18 +13,25 @@ export const Input = styled.TextInput.attrs({
   font-size: 16px;
   color: #000;
   background-color: #fff;
+`;
 
-  `;
-
-
-//Efeito de sombras dos Inputs 
-  export const Sombra = styled.View`
+export const Sombra = styled.View`
   position: absolute;
-   top: 15px;
-   left: 25px;
+  top: 15px;
+  left: 25px;
   width: 87%;
-   height: 50px;
+  height: 50px;
   background-color: #000;
-   border-radius: 0px;
-   z-index: -1;
- `;
+  border-radius: 0px;
+  z-index: -1;
+`;
+
+export const InputCode = styled(Input)`
+  height: 140px;
+  width: 80px;
+  font-size: 80px;
+  font-family: "LouisGeorgeCafe-Bold";
+  text-align: center;
+  placeholderTextColor: #F17DDF; 
+  margin-left: 20px; 
+`;
