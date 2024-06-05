@@ -49,7 +49,7 @@ export const Viagens = ({ navigation }) => {
         offset={[4, 4]}
         containerStyle={{alignSelf: `flex-end`, margin: 22}}
       >
-        <NovaViagem>
+        <NovaViagem onPress={() => navigation.navigate(`CadastrarViagem`)}>
           <Image source={require("../../assets/images/nova-viagem.png")} />
         </NovaViagem>
       </Shadow>

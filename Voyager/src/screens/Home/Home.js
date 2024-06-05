@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Shadow } from "react-native-shadow-2";
 import { SearchBar } from "../../components/Search/style";
 import { NovaViagem } from "../Viagens/style";
+import { Explorar } from "../../components/Explorar/Explorar";
 
 
 const mockFeed = [
@@ -58,34 +59,7 @@ export const Home = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
         />
       ) : (
-        <View
-          style={{
-            width: '90%',
-            flexDirection: 'row',
-            justifyContent: "flex-end",
-            alignItems: `center`
-          }}
-        >
-          <SearchBar />
-          <Shadow
-            startColor="#000"
-            endColor="#000"
-            distance={0}
-            offset={[4, 4]}
-            containerStyle={{marginRight: 20}}
-          >
-            <NovaViagem
-              style={{
-                widht: 35,
-                height: 30,
-              }}
-            >
-              <Image
-                source={require("../../assets/images/search.png")}
-              />
-            </NovaViagem>
-          </Shadow>
-        </View>
+        <Explorar />
       )}
     </Container>
   );
