@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContainerTipoViagem = styled.View`
     width: 85%;
-    margin: 20px 0;
+    margin: 40px 0;
 `
 
 export const ContainerIconsTipo = styled.View`

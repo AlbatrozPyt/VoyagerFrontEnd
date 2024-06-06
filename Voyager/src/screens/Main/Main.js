@@ -8,6 +8,7 @@ import { ViagensFuturas } from "../ViagensFuturas/ViagensFuturas";
 import { HistoricoViagens } from "../HistoricoViagens/HistoricoViagens";
 import { ViagemAtual } from "../ViagemAtual/ViagemAtual";
 import { CadastrarViagem } from "../CadastrarViagem/CadastrarViagem";
+import { CriarRotina } from "../CriarRotina/CriarRotina";
 
 export const Main = () => {
   const BottomTab = createBottomTabNavigator();
@@ -26,7 +27,10 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image style={{width: 20, height: 20}} source={require("../../assets/images/icon-home.png")} />
+                <Image
+                  style={{ width: 20, height: 20 }}
+                  source={require("../../assets/images/icon-home.png")}
+                />
               </BoxIcon>
             );
           }
@@ -78,10 +82,16 @@ export const Main = () => {
         component={ViagemAtual}
         options={{ tabBarButton: () => null }}
       />
-      
+
       <BottomTab.Screen
         name="CadastrarViagem"
         component={CadastrarViagem}
+        options={{ tabBarButton: () => null }}
+      />
+
+      <BottomTab.Screen
+        name="CriarRotina"
+        component={CriarRotina}
         options={{ tabBarButton: () => null }}
       />
     </BottomTab.Navigator>

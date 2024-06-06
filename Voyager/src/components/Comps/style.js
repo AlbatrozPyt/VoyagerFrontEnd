@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InputCadastarViagem = styled.TextInput`
-    width: 320px;
+    width: 345px;
     height: 40px;
     background-color: #fff;
     padding: 8px;
