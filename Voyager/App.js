@@ -12,6 +12,7 @@ import { Login } from './src/screens/Login/Login';
 import { Cadastro } from './src/screens/Cadastro/Cadastro';
 import { RecuperarSenha } from './src/screens/RecuperarSenha/RecuperarSenha';
 import { VerificarCodigo } from './src/screens/VerificarCodigo/VerificarCodigo';
+import { RedefinirSenha } from './src/screens/RedefinirSenha/RedefinirSenha';
 
 // Instância do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -70,6 +71,13 @@ export default function App() {
           name="VerificarCodigo"
           component={VerificarCodigo}
           options={{ title: "VerificarCodigo" }}
+        />
+
+        {/* Tela de Redefinir Senha */}
+        <Stack.Screen
+          name="RedefinirSenha"
+          component={RedefinirSenha}
+          options={{ title: "RedefinirSenha" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -35,3 +35,15 @@ export const InputCode = styled(Input)`
   placeholderTextColor: #F17DDF; 
   margin-left: 20px; 
 `;
+
+
+export const SombraCode = styled.View`
+  position: absolute;
+  left: 15px;
+ top: -5px; 
+  width: 100%;
+  height: 140px;
+  background-color: #000;
+  border-radius: 0px;
+  z-index: -1;
+`;

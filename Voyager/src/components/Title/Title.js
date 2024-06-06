@@ -6,10 +6,7 @@ export const Title = styled.Text`
   font-size: 20px;
   text-align: center;
 `;
-
-export const TitleB = styled(Title) `
-
-color: "#0000"; 
-margin-bottom: 0px; 
-
-`
+export const SubTitle = styled(Title)`
+    color: black; 
+    margin-bottom: 0; 
+`;

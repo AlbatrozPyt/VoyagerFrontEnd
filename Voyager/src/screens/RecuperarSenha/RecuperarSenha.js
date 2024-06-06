@@ -3,7 +3,7 @@ import { Button, ButtonTitle } from "../../components/Button/style";
 import { Input, Sombra } from "../../components/Input/style";
 import { LinkMedium } from "../../components/Link/style";
 import { LogoComponent } from "../../components/Logo/Logo";
-import { Title, TitleB } from "../../components/Title/Title";
+import { SubTitle, Title, TitleB } from "../../components/Title/Title";
 import { ButtonBox, CenteredContent, Container, FormBox, InputBox, MainContentScroll } from "../../components/container/style";
 
 export const RecuperarSenha = ({ }) => {
@@ -17,7 +17,7 @@ export const RecuperarSenha = ({ }) => {
                     <LogoComponent />
                     <FormBox>
                         <Title>RECUPERAR SENHA</Title>
-                        <TitleB>Informe um email para receber um código de verificação.</TitleB>
+                        <SubTitle>Informe um email para receber um código de verificação.</SubTitle>
                         {/* Caixa de entrada para o email */}
                         <InputBox>
                             {/* Sombra para o estilo da caixa de entrada */}

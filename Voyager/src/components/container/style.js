@@ -77,3 +77,17 @@ export const CenteredContent = styled.View`
     align-items: center; 
     justify-content: center; 
 `;
+
+export const InputCodeContainer = styled.View`
+  position: relative;
+  width: 80px;  /* Ajuste conforme necessário */
+  height: 120px;  /* Ajuste conforme necessário */
+  margin: 5px;  /* Espaçamento entre os inputs */
+  justify-content: center; 
+  align-items: center; 
+`;
+
+export const InputBoxCode = styled(InputBox)`
+  justify-content: center; 
+  align-items: center; 
+`;

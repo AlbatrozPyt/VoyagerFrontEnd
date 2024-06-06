@@ -1,10 +1,9 @@
 import { ButtonBox, Container, CreateAccountBox, FormBox, InputBox, MainContent, MainContentScroll } from "../../components/container/style";
 import { LogoComponent } from "../../components/Logo/Logo";
-import { Title, TitleB } from "../../components/Title/Title";
+import { SubTitle, Title, TitleB } from "../../components/Title/Title";
 import { Input, Sombra } from "../../components/Input/style";
 import { LinkMedium } from "../../components/Link/style";
 import { Button, ButtonTitle } from "../../components/Button/style";
-import { Shadow } from "react-native-shadow-2";
 import { useNavigation } from "@react-navigation/native";
 
 // Componente de tela de login
@@ -58,11 +57,11 @@ export const Login = () => {
 
                         {/* Caixa para criar uma nova conta */}
                         <CreateAccountBox>
-                            <TitleB>
+                            <SubTitle>
                                 Não tem conta?
                                 <LinkMedium onPress={() => navigation.navigate("Cadastro")}>
                                     Crie uma Agora !</LinkMedium>
-                            </TitleB>
+                            </SubTitle>
                         </CreateAccountBox>
 
                     </FormBox>

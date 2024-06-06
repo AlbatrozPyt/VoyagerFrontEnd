@@ -20,6 +20,10 @@ export const Navegacao = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("VerificarCodigo")}>
         <Text style={styles.buttonText}>VerificarCodigo</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("RedefinirSenha")}>
+        <Text style={styles.buttonText}>RedefinirSenha</Text>
+      </TouchableOpacity>
     </View>
   );
 };
