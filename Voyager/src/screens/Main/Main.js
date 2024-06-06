@@ -9,6 +9,7 @@ import { HistoricoViagens } from "../HistoricoViagens/HistoricoViagens";
 import { ViagemAtual } from "../ViagemAtual/ViagemAtual";
 import { CadastrarViagem } from "../CadastrarViagem/CadastrarViagem";
 import { CriarRotina } from "../CriarRotina/CriarRotina";
+import { CriarPost } from "../CriarPost/CriarPost";
 
 export const Main = () => {
   const BottomTab = createBottomTabNavigator();
@@ -92,6 +93,12 @@ export const Main = () => {
       <BottomTab.Screen
         name="CriarRotina"
         component={CriarRotina}
+        options={{ tabBarButton: () => null }}
+      />
+
+      <BottomTab.Screen
+        name="CriarPost"
+        component={CriarPost}
         options={{ tabBarButton: () => null }}
       />
     </BottomTab.Navigator>

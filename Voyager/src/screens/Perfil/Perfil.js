@@ -23,6 +23,7 @@ import {
 import { useState } from "react";
 import { GuiaPerfil } from "../../components/MenuGuia/MenuGuia";
 import { PostFeed } from "../../components/PostFeed/PostFeed";
+import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
 
 const mockFeed = [
   {
@@ -46,7 +47,7 @@ const mockFeed = [
 ];
 
 export const Perfil = ({ navigation }) => {
-  const [guia, setGuia] = useState(true);
+  const [guia, setGuia] = useState(`posts`);
 
   return (
     <ScrollView>
@@ -64,7 +65,9 @@ export const Perfil = ({ navigation }) => {
               source={require("../../assets/images/PedroPerfil.png")}
             />
 
-            <ButtonEdit>
+            <ButtonEdit
+              onPress={() => navigation.navigate(`EditPerfil`)}
+            >
               <EditIcon source={require("../../assets/images/edit.png")} />
             </ButtonEdit>
           </Shadow>
@@ -105,13 +108,35 @@ export const Perfil = ({ navigation }) => {
 
         <GuiaPerfil setGuia={setGuia} />
 
+        {
+          guia === `posts` &&
+          <Shadow
+            startColor="#8531C6"
+            endColor="#8531C6"
+            distance={0}
+            offset={[8, 8]}
+            containerStyle={{ marginBottom: 20 }}
+          >
+            <Shadow
+              startColor="#000"
+              endColor="#000"
+              distance={0}
+              offset={[2.5, 2.5]}
+            >
+              <ButtonViagem onPress={() => navigation.navigate(`CriarPost`)}>
+                <TextButtonViagem>compartilhe sua viagem</TextButtonViagem>
+              </ButtonViagem>
+            </Shadow>
+          </Shadow>
+        }
+
         {guia === "posts"
           ? mockFeed.map((x) => {
-              return <PostFeed key={x.id} post={x} navigation={navigation} />;
-            })
+            return <PostFeed key={x.id} post={x} navigation={navigation} />;
+          })
           : mockFeed.map((x) => {
-              return <PostFeed key={x.id} post={x} navigation={navigation} />;
-            })}
+            return <PostFeed key={x.id} post={x} navigation={navigation} />;
+          })}
       </Container>
     </ScrollView>
   );

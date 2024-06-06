@@ -149,23 +149,8 @@ export const ViagemAtual = ({ navigation, route }) => {
       </Shadow>
 
       {
-        route.params.type === 'acompanhar' ? <Shadow
-          startColor="#000"
-          endColor="#000"
-          distance={0}
-          offset={[2.5, 2.5]}
-          containerStyle={{ marginBottom: 10 }}
-        >
-          <ButtonViagem style={{ backgroundColor: "#8531C6" }}>
-            <TextButtonViagem style={{ color: "#fff" }}>
-              finalizar viagem
-            </TextButtonViagem>
-          </ButtonViagem>
-        </Shadow>
-
-          :
-
-          route.params.type === 'historico' ? <Shadow
+        route.params !== undefined ?
+          route.params.type === 'acompanhar' ? <Shadow
             startColor="#000"
             endColor="#000"
             distance={0}
@@ -174,26 +159,43 @@ export const ViagemAtual = ({ navigation, route }) => {
           >
             <ButtonViagem style={{ backgroundColor: "#8531C6" }}>
               <TextButtonViagem style={{ color: "#fff" }}>
-                Adicionar post
+                finalizar viagem
               </TextButtonViagem>
             </ButtonViagem>
           </Shadow>
 
             :
 
-            <Shadow
+            route.params.type === 'historico' ? <Shadow
               startColor="#000"
               endColor="#000"
               distance={0}
               offset={[2.5, 2.5]}
               containerStyle={{ marginBottom: 10 }}
             >
-              <ButtonViagem style={{ backgroundColor: "#8531C6" }}>
+              <ButtonViagem onPress={() => navigation.navigate(`CriarPost`)} style={{ backgroundColor: "#8531C6" }}>
                 <TextButtonViagem style={{ color: "#fff" }}>
-                  Iniciar viagem
+                  Adicionar post
                 </TextButtonViagem>
               </ButtonViagem>
             </Shadow>
+
+              :
+
+              <Shadow
+                startColor="#000"
+                endColor="#000"
+                distance={0}
+                offset={[2.5, 2.5]}
+                containerStyle={{ marginBottom: 10 }}
+              >
+                <ButtonViagem style={{ backgroundColor: "#8531C6" }}>
+                  <TextButtonViagem style={{ color: "#fff" }}>
+                    Iniciar viagem
+                  </TextButtonViagem>
+                </ButtonViagem>
+              </Shadow>
+          : null
       }
 
 

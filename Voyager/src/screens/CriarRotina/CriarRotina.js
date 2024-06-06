@@ -4,12 +4,21 @@ import { Container } from "../../components/container/style";
 import {
   AboutGemini,
   AboutGeminiDashed,
+  BackgroundModalRotina,
   ButtonAddAtividade,
+  ButtonModalRotina,
+  ContainerModalRotina,
+  InputRotina,
+  LabelModalRotina,
   TitleRotina,
 } from "./style";
-import { FlatList, Image, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Modal, TouchableOpacity, View } from "react-native";
 import moment from "moment";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
+import { InputViagem } from "../../components/Comps";
+import { useState } from "react";
+import { TitleDefault } from "../../components/Text/style";
+import { ModalRotina } from "../../components/Modal";
 
 const data = [
   {
@@ -38,7 +47,10 @@ const data = [
   },
 ];
 
-export const CriarRotina = () => {
+export const CriarRotina = ({navigation}) => {
+
+  const [visible, setVisible] = useState(false)
+
   return (
     <Container>
       <TitleRotina>crie sua rotina</TitleRotina>
@@ -47,7 +59,7 @@ export const CriarRotina = () => {
       <Atividade />
       <Atividade />
 
-      <TouchableOpacity style={{ width: "80%", alignItems: "flex-end" }}>
+      <TouchableOpacity onPress={() => setVisible(true)} style={{ width: "80%", alignItems: "flex-end" }}>
         <ButtonAddAtividade>+ Adicionar tarefa</ButtonAddAtividade>
       </TouchableOpacity>
 
@@ -59,7 +71,7 @@ export const CriarRotina = () => {
         containerStyle={{ marginTop: 40 }}
       >
         <ButtonViagem
-          onPress={() => navigation.navigate("CriarRotina")}
+          onPress={() => navigation.navigate("ViagemAtual", {type: `acompanhar`})}
           style={{ backgroundColor: "#8531C6" }}
         >
           <TextButtonViagem style={{ color: "#fff" }}>
@@ -76,6 +88,9 @@ export const CriarRotina = () => {
       <Image
         source={require('../../assets/images/gemini-logo.png')}
       />
+
+      <ModalRotina visible={visible} setVisible={setVisible}/>
+
     </Container>
   );
 };

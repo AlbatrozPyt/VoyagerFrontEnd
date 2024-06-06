@@ -9,6 +9,7 @@ import { ViagensFuturas } from "./src/screens/ViagensFuturas/ViagensFuturas";
 import { Viagens } from "./src/screens/Viagens/Viagens";
 import { HistoricoViagens } from "./src/screens/HistoricoViagens/HistoricoViagens";
 import { ViagemAtual } from "./src/screens/ViagemAtual/ViagemAtual";
+import { EditPerfil } from "./src/screens/EditPerfil/EditPerfil";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -32,6 +33,12 @@ export default function App() {
         <Stack.Screen
           name="ViewPost"
           component={ViewPost}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="EditPerfil"
+          component={EditPerfil}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

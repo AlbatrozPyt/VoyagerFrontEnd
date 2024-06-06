@@ -17,7 +17,7 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { useState } from "react";
 
-export const PostFeed = ({ post, navigation }) => {
+export const PostFeed = ({ post, navigation, setModalComment }) => {
   const [like, setLike] = useState(false);
 
   return (
@@ -32,7 +32,7 @@ export const PostFeed = ({ post, navigation }) => {
 
             {/* Botões de comentar e gostei */}
             <ContainerIcons>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => setModalComment(true)}>
                 <CommentPost
                   source={require("../../assets/images/comment.png")}
                 />

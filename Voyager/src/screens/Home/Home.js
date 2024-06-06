@@ -13,6 +13,7 @@ import { Shadow } from "react-native-shadow-2";
 import { SearchBar } from "../../components/Search/style";
 import { NovaViagem } from "../Viagens/style";
 import { Explorar } from "../../components/Explorar/Explorar";
+import { ModalComentario } from "../../components/Modal";
 
 
 const mockFeed = [
@@ -35,6 +36,8 @@ const mockFeed = [
 export const Home = ({ navigation }) => {
   const [guia, setGuia] = useState("feed");
 
+  const [modalComment, setModalComment] = useState(false);
+
   return (
     <Container>
       <StatusBar
@@ -54,13 +57,18 @@ export const Home = ({ navigation }) => {
       {guia === "feed" ? (
         <ListFeed
           data={mockFeed}
-          renderItem={({ item }) => <PostFeed post={item} navigation={navigation} />}
+          renderItem={
+            ({ item }) => <PostFeed setModalComment={setModalComment} post={item} navigation={navigation} />
+          }
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />
       ) : (
         <Explorar />
       )}
+
+
+      <ModalComentario visible={modalComment} setVisible={setModalComment} />
     </Container>
   );
 };
