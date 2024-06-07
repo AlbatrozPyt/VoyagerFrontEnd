@@ -15,15 +15,11 @@ import {
 } from "./style";
 import { Shadow } from "react-native-shadow-2";
 import { TitleDefault } from "../../components/Text/style";
-import {
-  ButtonGuia,
-  ContainerGuia,
-  TextGuia,
-} from "../../components/MenuGuia/style";
 import { useState } from "react";
 import { GuiaPerfil } from "../../components/MenuGuia/MenuGuia";
 import { PostFeed } from "../../components/PostFeed/PostFeed";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
+import { Feather } from '@expo/vector-icons';
 
 const mockFeed = [
   {
@@ -62,13 +58,13 @@ export const Perfil = ({ navigation }) => {
             style={{ borderRadius: 8 }}
           >
             <UserImage
-              source={require("../../assets/images/PedroPerfil.png")}
+              source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroPerfil.png?raw=true` }}
             />
 
             <ButtonEdit
               onPress={() => navigation.navigate(`EditPerfil`)}
             >
-              <EditIcon source={require("../../assets/images/edit.png")} />
+              <Feather name="edit-2" size={24} color="#000" />
             </ButtonEdit>
           </Shadow>
 

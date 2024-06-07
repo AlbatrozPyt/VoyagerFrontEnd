@@ -4,13 +4,9 @@ import { SubTitle, Title, TitleB } from "../../components/Title/Title";
 import { Input, Sombra } from "../../components/Input/style";
 import { LinkMedium } from "../../components/Link/style";
 import { Button, ButtonTitle } from "../../components/Button/style";
-import { useNavigation } from "@react-navigation/native";
 
 // Componente de tela de login
-export const Login = () => {
-
-    const navigation = useNavigation();
-
+export const Login = ({navigation}) => {
     return (
         // Container principal da tela, que ocupa toda a área segura da tela
         <Container>
@@ -48,7 +44,7 @@ export const Login = () => {
                         {/* Caixa de botão para o botão de login */}
                         <ButtonBox>
                             <Sombra />
-                            <Button>
+                            <Button onPress={() => navigation.navigate(`main`)}>
                                 <ButtonTitle>
                                     Entrar
                                 </ButtonTitle>

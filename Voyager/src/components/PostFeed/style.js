@@ -115,7 +115,7 @@ export const TextPreviewFeed = styled.Text`
 `;
 
 // Imagem do usuário que postou
-export const ImageUserFeed = styled(Image)`
+export const ImageUserFeed = styled.Image`
   width: 64px;
   height: 58px;
   border-radius: 8px;

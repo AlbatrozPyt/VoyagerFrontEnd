@@ -22,7 +22,7 @@ export const ViewPost = ({ route, navigation }) => {
           style={{ width: "100%" }}
           onPress={() => navigation.replace("main")}
         >
-          <IconBack source={require("../../assets/images/back.png")} />
+          <IconBack source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/back.png?raw=true` }} />
         </TouchableOpacity>
         <TitlePost>{route.params.post.title}</TitlePost>
 
@@ -73,7 +73,7 @@ export const ViewPost = ({ route, navigation }) => {
               >
                 <ImageGaleria
                   key={x}
-                  source={require("../../assets/images/FotoViagemFeed.png")}
+                  source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/FotoViagemFeed.png?raw=true` }}
                 />
               </Shadow>
             </Shadow>

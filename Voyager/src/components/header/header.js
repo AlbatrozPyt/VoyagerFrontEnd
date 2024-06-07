@@ -8,7 +8,7 @@ export const Header = ({ }) => {
     <ContainerHeader>
 
       <LogoHeader
-        source={require('../../assets/images/VoyagerLogo.png')}
+        source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/VoyagerLogo.png?raw=true` }}
       />
 
       <ContentUser>
@@ -19,7 +19,7 @@ export const Header = ({ }) => {
 
       <BoxShadowUser>
         <UserImage
-          source={require('../../assets/images/pedro.png')}
+          source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/pedro.png?raw=true` }}
         />
       </BoxShadowUser>
     </ContainerHeader>

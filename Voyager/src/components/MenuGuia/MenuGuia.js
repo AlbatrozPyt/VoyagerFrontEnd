@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ButtonGuia, ContainerGuia, TextGuia } from "./style";
 import { Shadow } from "react-native-shadow-2";
 import { Image } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const Guia = ({ setGuia }) => {
   const [buttonClicked, setButtonClicked] = useState(true);
@@ -52,7 +53,7 @@ export const GuiaPerfil = ({ setGuia }) => {
           {buttonClicked ? (
             <Image source={require("../../assets/images/image-white.png")} />
           ) : (
-            <Image source={require("../../assets/images/image-black.png")} />
+            <MaterialCommunityIcons name="image-area" size={30} color="black" />
           )}
         </ButtonGuia>
       </Shadow>

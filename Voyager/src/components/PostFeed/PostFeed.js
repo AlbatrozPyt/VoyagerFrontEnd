@@ -29,7 +29,7 @@ export const PostFeed = ({ post, navigation, setModalComment }) => {
           <BoxThree>
             {/* Imagem da postagem */}
             <ThumbnailFeed
-              source={require("../../assets/images/FotoViagemFeed.png")}
+              source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/FotoViagemFeed.png?raw=true` }}
             />
 
             {/* Botões de comentar e gostei */}
@@ -73,7 +73,7 @@ export const PostFeed = ({ post, navigation, setModalComment }) => {
                 style={{ borderRadius: 8 }}
               >
                 <ImageUserFeed
-                  source={require("../../assets/images/PedroFeed.png")}
+                  source={{ uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroFeed.png?raw=true" }}
                 />
               </Shadow>
             </PreviewFeed>

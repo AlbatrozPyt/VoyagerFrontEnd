@@ -10,7 +10,9 @@ import { ViagemAtual } from "../ViagemAtual/ViagemAtual";
 import { CadastrarViagem } from "../CadastrarViagem/CadastrarViagem";
 import { CriarRotina } from "../CriarRotina/CriarRotina";
 import { CriarPost } from "../CriarPost/CriarPost";
+
 import { AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const Main = () => {
   const BottomTab = createBottomTabNavigator();
@@ -49,7 +51,7 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <AntDesign name="user" size={30} color="#8531C6" />
+                <MaterialCommunityIcons name="airplane-takeoff" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }

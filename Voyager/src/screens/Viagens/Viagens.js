@@ -3,6 +3,7 @@ import { LogoViagens, NovaViagem } from "./style";
 import { AcompanharViagem, PostItDefault } from "../../components/ViewViagens";
 import { Shadow } from "react-native-shadow-2";
 import { Container } from '../../components/container/style'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const viagem = {
   dataInicial: "29/05",
@@ -14,14 +15,14 @@ export const Viagens = ({ navigation }) => {
   return (
     <Container>
       <LogoViagens
-        style={{marginTop: 80}}
+        style={{ marginTop: 80 }}
         source={require("../../assets/images/LogoMinhasViagens.png")}
       />
 
 
       {/* PostIt para acompanhar a sua viagem */}
-      <AcompanharViagem viagem={viagem} navigation={navigation}/>
-      
+      <AcompanharViagem viagem={viagem} navigation={navigation} />
+
       {/* PostIt para ver o histórico de viagens*/}
       <PostItDefault
         title={"Histórico de viagens"}
@@ -47,10 +48,10 @@ export const Viagens = ({ navigation }) => {
         endColor="#000"
         distance={0}
         offset={[4, 4]}
-        containerStyle={{alignSelf: `flex-end`, margin: 22}}
+        containerStyle={{ alignSelf: `flex-end`, margin: 22 }}
       >
         <NovaViagem onPress={() => navigation.navigate(`CadastrarViagem`)}>
-          <Image source={require("../../assets/images/nova-viagem.png")} />
+          <MaterialCommunityIcons name="airplane-plus" size={30} color="#fff" />
         </NovaViagem>
       </Shadow>
     </Container>

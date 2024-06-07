@@ -13,15 +13,17 @@ import {
   TitleViagens,
 } from "./style";
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 // Acompanhar viagem atual
 export const AcompanharViagem = ({ viagem, navigation }) => {
   return (
-    <ContainerBoxs  onPress={() => navigation.navigate('ViagemAtual', {type: 'acompanhar'})}>
+    <ContainerBoxs onPress={() => navigation.navigate('ViagemAtual', { type: 'acompanhar' })}>
       <BoxOneViagem color={"#DEFF97"}>
         <BoxTwoViagem color={"#DEFF97"}>
           <BoxThreeViagem color={"#DEFF97"}>
             <IconViagens
-              source={require("../../assets/images/binoculos.png")}
+              source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/binoculos.png?raw=true` }}
             />
 
             <ContentViagens>
@@ -42,7 +44,7 @@ export const AcompanharViagem = ({ viagem, navigation }) => {
                   <TextInfo>
                     Destino{"       "}
                     <Image
-                      source={require("../../assets/images/destino.png")}
+                      source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/destino.png` }}
                     />
                   </TextInfo>
                   <TextInfo>{viagem.destino.substr(0, 15)}...</TextInfo>
@@ -72,8 +74,8 @@ export const PostItDefault = ({
             <IconViagens
               source={
                 icon === "historico"
-                  ? require("../../assets/images/historico.png")
-                  : require("../../assets/images/agenda.png")
+                  ? { uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/historico.png?raw=true` }
+                  : { uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/agenda.png?raw=true` }
               }
             />
 

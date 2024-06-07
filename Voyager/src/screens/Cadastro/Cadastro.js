@@ -6,10 +6,7 @@ import { Title } from "../../components/Title/Title"
 import { ButtonBox, CenteredContent, Container, FormBox, InputBox, MainContent, MainContentScroll } from "../../components/container/style"
 import { LinkMedium } from "../../components/Link/style"
 
-export const Cadastro = () => {
-
-    // UseNavigation hook para acessar a navegação
-    const navigation = useNavigation();
+export const Cadastro = ({navigation}) => {
 
     return (
         <Container>
