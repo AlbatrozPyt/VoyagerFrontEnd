@@ -1,7 +1,8 @@
-import { Modal, View } from "react-native"
-import { BackgroundModalRotina, ButtonModalRotina, ContainerComment, ContainerListComment, ContainerModalRotina, ContentComment, ImageComment, InputRotina, LabelModalRotina, TitleComment } from "../../screens/CriarRotina/style"
+import { FlatList, Modal, View } from "react-native"
+import { BackgroundModalRotina, ButtonModalRotina, ContainerComment, ContainerListComment, ContainerModalRotina, ContainerText, ContentComment, ImageComment, InputComment, InputRotina, LabelModalRotina, TextComment, TitleComment, UserComment } from "../../screens/CriarRotina/style"
 import { Shadow } from "react-native-shadow-2"
 import { TitleDefault } from "../Text/style"
+import { ButtonViagem, TextButtonViagem } from "../../screens/ViagemAtual/style"
 
 export const ModalRotina = ({ visible, setVisible }) => {
     return (
@@ -84,20 +85,74 @@ export const ModalComentario = ({ visible, setVisible }) => {
                     <TitleComment>Comentários</TitleComment>
 
                     <ContainerListComment>
-                        <ContentComment>
-                            <Shadow
-                                startColor="#000"
-                                endColor="#000"
-                                distance={0}
-                                offset={[2.5, 2.5]}
-                                style={{ borderRadius: 13 }}
-                            >
-                                <ImageComment
-                                    source={require(`../../assets/images/pedro-comment.png`)}
-                                />
-                            </Shadow>
-                        </ContentComment>
+
+                        <FlatList
+                            data={[0, 1, 2]}
+                            renderItem={() =>
+                                <ContentComment>
+                                    <Shadow
+                                        startColor="#000"
+                                        endColor="#000"
+                                        distance={0}
+                                        offset={[2.5, 2.5]}
+                                        style={{ borderRadius: 13 }}
+                                    >
+                                        <ImageComment
+                                            source={require(`../../assets/images/pedro-comment.png`)}
+                                        />
+                                    </Shadow>
+
+                                    <ContainerText>
+                                        <UserComment>Junior</UserComment>
+
+                                        <TextComment>Esse é o melhor Lorem Ipsum da minha vida, que experiência incrível, oh my god.</TextComment>
+                                    </ContainerText>
+                                </ContentComment>
+                            }
+                        />
+
                     </ContainerListComment>
+
+
+                    <Shadow
+                        startColor="#000"
+                        endColor="#000"
+                        distance={0}
+                        offset={[2.5, 2.5]}
+                        containerStyle={{ margin: 20 }}
+                    >
+                        <InputComment
+                            placeholder={`Comentar...`}
+                            multiline={true}
+                        />
+                    </Shadow>
+
+
+                    <Shadow
+                        startColor="#000"
+                        endColor="#000"
+                        distance={0}
+                        offset={[2.5, 2.5]}
+                        containerStyle={{marginBottom: 20}}
+                    >
+                        <ButtonViagem style={{ backgroundColor: `#8531C6` }}>
+                            <TextButtonViagem style={{color: `#fff`}}>Adicionar Comentário</TextButtonViagem>
+                        </ButtonViagem>
+                    </Shadow>
+
+                    <Shadow
+                        startColor="#000"
+                        endColor="#000"
+                        distance={0}
+                        offset={[2.5, 2.5]}
+                    >
+                        <ButtonViagem 
+                            style={{ backgroundColor: `#8531C6` }}
+                            onPress={() => setVisible(false)}
+                        >
+                            <TextButtonViagem style={{color: `#fff`}}>Voltar</TextButtonViagem>
+                        </ButtonViagem>
+                    </Shadow>
                 </ContainerComment>
             </BackgroundModalRotina>
         </Modal>

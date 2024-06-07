@@ -54,6 +54,7 @@ export const ViewPost = ({ route, navigation }) => {
         {[0, 1, 2].map((x) => {
           return (
             <Shadow
+              key={x}
               startColor="#8531C6"
               endColor="#8531C6"
               distance={0}

@@ -12,7 +12,7 @@ export const CardExplorar = ({ urlImage, title }) => {
                         <Image
                             style={{
                                 width: `100%`,
-                                height: `70%`
+                                height: `70%`,
                             }}
                             source={{ uri: urlImage }}
                         />
