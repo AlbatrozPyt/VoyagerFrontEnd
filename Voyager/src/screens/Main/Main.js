@@ -10,6 +10,7 @@ import { ViagemAtual } from "../ViagemAtual/ViagemAtual";
 import { CadastrarViagem } from "../CadastrarViagem/CadastrarViagem";
 import { CriarRotina } from "../CriarRotina/CriarRotina";
 import { CriarPost } from "../CriarPost/CriarPost";
+import { AntDesign } from '@expo/vector-icons';
 
 export const Main = () => {
   const BottomTab = createBottomTabNavigator();
@@ -28,10 +29,7 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image
-                  style={{ width: 20, height: 20 }}
-                  source={require("../../assets/images/icon-home.png")}
-                />
+                <AntDesign name="home" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }
@@ -41,9 +39,7 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image
-                  source={require("../../assets/images/icon-perfil.png")}
-                />
+                <AntDesign name="user" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }
@@ -53,9 +49,7 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image
-                  source={require("../../assets/images/icon-viagens.png")}
-                />
+                <AntDesign name="user" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }

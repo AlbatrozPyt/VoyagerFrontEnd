@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import {
   BoxOne,
   BoxThree,
@@ -17,11 +17,13 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { useState } from "react";
 
+import PedroImage from "../../assets/images/PedroFeed.png"
+
 export const PostFeed = ({ post, navigation, setModalComment }) => {
   const [like, setLike] = useState(false);
 
   return (
-    <ContainerBoxs onPress={() => navigation.replace('ViewPost', {post: post})}>
+    <ContainerBoxs onPress={() => navigation.replace('ViewPost', { post: post })}>
       <BoxOne>
         <BoxTwo>
           <BoxThree>
