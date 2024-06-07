@@ -1,5 +1,7 @@
+import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 
+<<<<<<< HEAD:Voyager/src/components/headerGabriel/style.js
 // export const ContainerHeader = styled(LinearGradient).attrs({
 //     colors: ["#8531C6", "#FF50E4"],
 //     start: { x: -0.05, y: 1.08 },
@@ -16,50 +18,56 @@ import styled from "styled-components/native";
 //     border-radius: 0px 0px 15px 15px;
 //     box-shadow: 0px 4px 15px #00000014;
 //   `;
+=======
+export const ContainerHeader = styled(LinearGradient).attrs({
+  colors: ["#FF50E4", "#8531C6"],
+  start: { x: -0.1, y: 1.0 },
+  end: { x: 1, y: 2 },
+})`
+    width: 100%;
+    height: 131px;
+    padding: 0 36px;
+    padding-top: 20px;
+  
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  `;
+>>>>>>> origin/Matheus:Voyager/src/components/header/style.js
 
-  export const BoxUser = styled.View`
-  gap: 10px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-`;
 
+export const LogoHeader = styled.Image`
+  width: 85px;
+  height: 71px;
+`
 
-export const AvatarUser = styled.Image`
-   width: 60px;
-  height: 60px;
-  border-radius: 5px;
- `;
+export const ContentUser = styled.View`
+  width: 150px;
+  padding: 0 11px;
+`
 
- export const TextDefault = styled.Text`
-  font-size: 14px;
-  font-family: "Quicksand_500Medium";
-`;
-
-export const NameUser = styled.Text`
-  color: #fbfbfb;
+export const UserName = styled.Text`
+  font-family: 'LouisGeorgeCafe-Bold';
   font-size: 16px;
-  margin-top: 5px;
-  font-family: "MontserratAlternates_600SemiBold";
-`;
+  color: white;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: right;
+`
 
-// export const Menu = styled.Image`
-//   width: 30px;
-//   height: 30px;
-// `;
+export const BoxShadowUser = styled.View`
+  background-color: black;
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  position: relative;
+`
 
-// export const HeaderView = styled.View`
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding-horizontal: 20px;
-//   padding-top: 40px;
-//   padding-bottom: 10px;
-//   background-color: white;
-// `;
-
-// export const LogoVoyager = styled.Image`
-//   width: 100px;
-//   height: 40px;
-//   resize-mode: contain;
-// `;
+export const UserImage = styled.Image`
+  border-radius: 8px;
+  width: 70px;
+  height: 70px;
+  position: relative;
+  right: 3px;
+  bottom: 3px;
+`

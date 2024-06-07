@@ -1,21 +1,27 @@
 import { SafeAreaView, View } from "react-native";
-import { LogoVoyager } from "../Logo/style";
-import { ContainerHeader } from "../container/style";
-import { AvatarUser, BoxUser, HeaderView, Menu, TextDefault } from "./style";
+import { BoxShadowUser, ContainerHeader, ContentUser, LogoHeader, UserImage, UserName } from "./style";
+import DropShadow from "react-native-drop-shadow";
+
 
 export const Header = ({ }) => {
   return (
     <ContainerHeader>
-      <BoxUser>
-        <AvatarUser
-         source={require('../../assets/images/pedro.png')}
-        />
-        <DataUser>
-          <TextDefault>Bem vind </TextDefault>
-          <NameUser>Pedro</NameUser>
-        </DataUser>
-      </BoxUser>
 
+      <LogoHeader
+        source={require('../../assets/images/VoyagerLogo.png')}
+      />
+
+      <ContentUser>
+        <UserName>bem vindo</UserName>
+        <UserName>Pedro</UserName>
+      </ContentUser>
+
+
+      <BoxShadowUser>
+        <UserImage
+          source={require('../../assets/images/pedro.png')}
+        />
+      </BoxShadowUser>
     </ContainerHeader>
-  );
-};
+  )
+}
