@@ -1,4 +1,10 @@
-import { FlatList, Image, ScrollView, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Container } from "../../components/container/style";
 import { LogoViagens } from "../Viagens/style";
 import {
@@ -16,6 +22,11 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { TitleViagens } from "../../components/ViewViagens/style";
 import { IconBack } from "../ViewPost/style";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Back } from "../../components/Button";
+import { MinhasViagens } from "../../components/Logo/Logo";
+import { ContainerShadowViagens, ShadowDefault } from "../../components/Shadow";
 
 let checklist = [
   {
@@ -71,61 +82,30 @@ let checklist = [
 export const ViagemAtual = ({ navigation, route }) => {
   return (
     <Container>
-      <TouchableOpacity
-        style={{ width: "100%" }}
-        onPress={() => navigation.navigate("Viagens")}
-      >
-        <IconBack source={require("../../assets/images/back.png")} />
-      </TouchableOpacity>
+      <Back navigation={navigation} />
 
-      <LogoViagens
-        source={require("../../assets/images/LogoMinhasViagens.png")}
-      />
+      <MinhasViagens />
 
-      <Shadow
-        startColor="#8531C6"
-        endColor="#8531C6"
-        distance={0}
-        offset={[8, 8]}
-        containerStyle={{ marginBottom: 20 }}
-      >
-        <Shadow
-          startColor="#000"
-          endColor="#000"
-          distance={0}
-          offset={[2.5, 2.5]}
-          style={{ borderRadius: 10 }}
-        >
+      <ContainerShadowViagens
+        render={
           <ContainerRota>
             <ContentRota>
               <Rota>Origem</Rota>
               <Lugar>São Paulo</Lugar>
             </ContentRota>
 
-            <Image source={require("../../assets/images/mini-aviao.png")} />
+            <MaterialCommunityIcons name="airplane" size={40} color="black" />
 
             <ContentRota>
               <Rota>Destino</Rota>
               <Lugar>Roma</Lugar>
             </ContentRota>
           </ContainerRota>
-        </Shadow>
-      </Shadow>
+        }
+      />
 
-      <Shadow
-        startColor="#8531C6"
-        endColor="#8531C6"
-        distance={0}
-        offset={[8, 8]}
-        containerStyle={{ marginBottom: 20 }}
-      >
-        <Shadow
-          startColor="#000"
-          endColor="#000"
-          distance={0}
-          offset={[2.5, 2.5]}
-          style={{ borderRadius: 10 }}
-        >
+      <ContainerShadowViagens
+        render={
           <Checklist>
             <TitleViagens>Rotina da viagem</TitleViagens>
 
@@ -135,8 +115,10 @@ export const ViagemAtual = ({ navigation, route }) => {
                 <ContentCheck>
                   <Check>
                     {item.status === 0 ? null : (
-                      <IconCheck
-                        source={require("../../assets/images/check.png")}
+                      <MaterialCommunityIcons
+                        name="check-bold"
+                        size={20}
+                        color="yellowgreen"
                       />
                     )}
                   </Check>
@@ -145,60 +127,45 @@ export const ViagemAtual = ({ navigation, route }) => {
               )}
             />
           </Checklist>
-        </Shadow>
-      </Shadow>
+        }
+      />
 
-      {
-        route.params !== undefined ?
-          route.params.type === 'acompanhar' ? <Shadow
-            startColor="#000"
-            endColor="#000"
-            distance={0}
-            offset={[2.5, 2.5]}
-            containerStyle={{ marginBottom: 10 }}
-          >
-            <ButtonViagem style={{ backgroundColor: "#8531C6" }}>
-              <TextButtonViagem style={{ color: "#fff" }}>
-                finalizar viagem
-              </TextButtonViagem>
-            </ButtonViagem>
-          </Shadow>
-
-            :
-
-            route.params.type === 'historico' ? <Shadow
-              startColor="#000"
-              endColor="#000"
-              distance={0}
-              offset={[2.5, 2.5]}
-              containerStyle={{ marginBottom: 10 }}
-            >
-              <ButtonViagem onPress={() => navigation.navigate(`CriarPost`)} style={{ backgroundColor: "#8531C6" }}>
+      {route.params !== undefined ? (
+        route.params.type === "acompanhar" ? (
+          <ShadowDefault
+            render={
+              <ButtonViagem bgColor={"#8531C6"}>
+                <TextButtonViagem style={{ color: "#fff" }}>
+                  finalizar viagem
+                </TextButtonViagem>
+              </ButtonViagem>
+            }
+          />
+        ) : route.params.type === "historico" ? (
+          <ShadowDefault
+            render={
+              <ButtonViagem
+                onPress={() => navigation.navigate(`CriarPost`)}
+                bgColor={"#8531C6"}
+              >
                 <TextButtonViagem style={{ color: "#fff" }}>
                   Adicionar post
                 </TextButtonViagem>
               </ButtonViagem>
-            </Shadow>
-
-              :
-
-              <Shadow
-                startColor="#000"
-                endColor="#000"
-                distance={0}
-                offset={[2.5, 2.5]}
-                containerStyle={{ marginBottom: 10 }}
-              >
-                <ButtonViagem style={{ backgroundColor: "#8531C6" }}>
-                  <TextButtonViagem style={{ color: "#fff" }}>
-                    Iniciar viagem
-                  </TextButtonViagem>
-                </ButtonViagem>
-              </Shadow>
-          : null
-      }
-
-
+            }
+          />
+        ) : (
+          <ShadowDefaut
+            render={
+              <ButtonViagem bgColor={"#8531C6"}>
+                <TextButtonViagem style={{ color: "#fff" }}>
+                  Iniciar viagem
+                </TextButtonViagem>
+              </ButtonViagem>
+            }
+          />
+        )
+      ) : null}
     </Container>
   );
 };

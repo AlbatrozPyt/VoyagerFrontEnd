@@ -54,7 +54,7 @@ export const Login = ({navigation}) => {
                         {/* Caixa para criar uma nova conta */}
                         <CreateAccountBox>
                             <SubTitle>
-                                Não tem conta?
+                                Não tem conta?{"  "}
                                 <LinkMedium onPress={() => navigation.navigate("Cadastro")}>
                                     Crie uma Agora !</LinkMedium>
                             </SubTitle>

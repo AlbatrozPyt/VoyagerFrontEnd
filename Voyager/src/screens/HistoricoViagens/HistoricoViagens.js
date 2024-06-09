@@ -1,32 +1,30 @@
 import { Image, ScrollView, TouchableOpacity } from "react-native";
 import { Container } from "../../components/container/style";
-import { IconBack } from "../ViewPost/style";
 import { LogoViagens } from "../Viagens/style";
 import {
   ContainerPostIts,
+  PostItImage,
   PostIts,
   TextData,
   TextDestino,
   TitleViagensFuturas,
 } from "../ViagensFuturas/style";
 
+import { Back } from "../../components/Button/index";
+import { MinhasViagens } from "../../components/Logo/Logo";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 export const HistoricoViagens = ({ navigation }) => {
   return (
     <Container>
-      <TouchableOpacity
-        style={{ width: "100%" }}
-        onPress={() => navigation.navigate("Viagens")}
-      >
-        <IconBack source={require("../../assets/images/back.png")} />
-      </TouchableOpacity>
+      <Back navigation={navigation} screen={"Viagens"} />
 
-      <LogoViagens
-        source={require("../../assets/images/LogoMinhasViagens.png")}
-      />
+      <MinhasViagens />
 
       <TitleViagensFuturas>
         Histórico de viagens{" "}
-        <Image source={require("../../assets/images/historico.png")} />
+        <MaterialCommunityIcons name="airplane-clock" size={30} color="black" />
       </TitleViagensFuturas>
 
       <ScrollView style={{ width: "100%" }}>
@@ -35,11 +33,14 @@ export const HistoricoViagens = ({ navigation }) => {
             return (
               <PostIts
                 key={x}
-                onPress={() => navigation.navigate('ViagemAtual', { type: 'historico' })}
+                onPress={() =>
+                  navigation.navigate("ViagemAtual", { type: "historico" })
+                }
               >
-                <Image
-                  style={{ position: "absolute" }}
-                  source={require("../../assets/images/post-it-2.png")}
+                <PostItImage
+                  source={{
+                    uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/post-it-2.png?raw=true",
+                  }}
                 />
 
                 <TextDestino>Paris</TextDestino>

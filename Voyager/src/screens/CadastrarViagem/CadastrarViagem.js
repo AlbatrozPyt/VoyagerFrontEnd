@@ -1,20 +1,13 @@
-import {
-  ScrollView,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, View } from "react-native";
 import { Container } from "../../components/container/style";
-import { LogoViagens } from "../Viagens/style";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
 import { ButtonViagemDate, InputViagem } from "../../components/Comps";
-import DatePicker from "react-native-date-picker";
-import { useEffect, useRef, useState } from "react";
-import DateTimePickerAndroid from "@react-native-community/datetimepicker";
+import { useState } from "react";
 import moment from "moment";
 import { SelectTipoViagem } from "../../components/SelectTipoAtividade";
-import { Shadow } from "react-native-shadow-2";
+import { ShadowDefault } from "../../components/Shadow";
+
+import { MinhasViagens } from "../../components/Logo/Logo";
 
 export const CadastrarViagem = ({ navigation }) => {
   const [datePartida, setDatePartida] = useState(new Date());
@@ -22,25 +15,10 @@ export const CadastrarViagem = ({ navigation }) => {
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
 
-  const onChangeDate1 = ({ type }, selectedDate) => {
-    const currentDate = selectedDate;
-    setShow1(false);
-    setDatePartida(currentDate);
-  };
-
-  const onChangeDate2 = ({ type }, selectedDate) => {
-    const currentDate = selectedDate;
-    setDateRetorno(currentDate);
-    setShow2(false);
-  };
-
   return (
     <ScrollView>
       <Container>
-        <LogoViagens
-          style={{ marginTop: 80 }}
-          source={require(`../../assets/images/LogoMinhasViagens.png`)}
-        />
+        <MinhasViagens />
 
         <View style={{ gap: 20, padding: 10 }}>
           <InputViagem placeholder={`País`} />
@@ -60,45 +38,23 @@ export const CadastrarViagem = ({ navigation }) => {
               labelButton={"Data de retorno"}
               value={moment(dateRetorno).format("DD/MM/YYYY")}
             />
-
-            {show1 && (
-              <DateTimePickerAndroid
-                value={new Date()}
-                display="calendar"
-                mode="datetime"
-                onChange={onChangeDate1}
-              />
-            )}
-
-            {show2 && (
-              <DateTimePickerAndroid
-                value={new Date()}
-                display="calendar"
-                mode="datetime"
-                onChange={onChangeDate2}
-              />
-            )}
           </View>
         </View>
 
         <SelectTipoViagem />
 
-        <Shadow
-          startColor="#000"
-          endColor="#000"
-          distance={0}
-          offset={[2.5, 2.5]}
-          containerStyle={{ marginBottom: 10 }}
-        >
-          <ButtonViagem
-            onPress={() => navigation.navigate("CriarRotina")}
-            style={{ backgroundColor: "#8531C6" }}
-          >
-            <TextButtonViagem style={{ color: "#fff" }}>
-              Continuar
-            </TextButtonViagem>
-          </ButtonViagem>
-        </Shadow>
+        <ShadowDefault
+          render={
+            <ButtonViagem
+              onPress={() => navigation.navigate("CriarRotina")}
+              style={{ backgroundColor: "#8531C6" }}
+            >
+              <TextButtonViagem style={{ color: "#fff" }}>
+                Continuar
+              </TextButtonViagem>
+            </ButtonViagem>
+          }
+        />
       </Container>
     </ScrollView>
   );

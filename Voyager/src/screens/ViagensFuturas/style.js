@@ -1,6 +1,7 @@
+import { Image } from "react-native";
 import styled from "styled-components";
 
-export const TitleViagensFuturas = styled.Text`
+export const TitleViagensFuturas = styled.Text`;
     font-family: 'LouisGeorgeCafe-Bold';
     font-size: 20px;
     height: 80px;
@@ -14,6 +15,12 @@ export const ContainerPostIts = styled.View`
     align-self: center;
     justify-content: space-between;
     margin: 10px 0;
+`
+
+export const PostItImage = styled(Image)`
+    position: absolute;
+    width: 100%;
+    height: 100%;
 `
 
 export const PostIts = styled.TouchableOpacity`

@@ -4,30 +4,32 @@ import { LogoViagens } from "../Viagens/style";
 import { IconBack } from "../ViewPost/style";
 import {
   ContainerPostIts,
+  PostItImage,
   PostIts,
   TextData,
   TextDestino,
   TitleViagensFuturas,
 } from "./style";
 import { Shadow } from "react-native-shadow-2";
+import { Back } from "../../components/Button";
+import { MinhasViagens } from "../../components/Logo/Logo";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const ViagensFuturas = ({ navigation }) => {
   return (
     <Container>
-       <TouchableOpacity
-        style={{width: '100%'}}
-        onPress={() => navigation.navigate('Viagens')}
-      >
-        <IconBack source={require("../../assets/images/back.png")} />
-      </TouchableOpacity>
-      
-      <LogoViagens
-        source={require("../../assets/images/LogoMinhasViagens.png")}
-      />
+      <Back navigation={navigation} screen={'Viagens'}/>
+
+      <MinhasViagens />
 
       <TitleViagensFuturas>
         Viagens Futuras{" "}
-        <Image source={require("../../assets/images/agenda.png")} />
+        <MaterialCommunityIcons
+          name="airplane-marker"
+          size={30}
+          color="black"
+        />
       </TitleViagensFuturas>
 
       <ScrollView style={{ width: "100%" }}>
@@ -36,11 +38,14 @@ export const ViagensFuturas = ({ navigation }) => {
             return (
               <PostIts
                 key={x}
-                onPress={() => navigation.navigate('ViagemAtual', {type: 'futuras'})}
+                onPress={() =>
+                  navigation.navigate("ViagemAtual", { type: "futuras" })
+                }
               >
-                <Image
-                  style={{ position: "absolute" }}
-                  source={require("../../assets/images/post-it.png")}
+                <PostItImage
+                  source={{
+                    uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/post-it-2.png?raw=true",
+                  }}
                 />
 
                 <TextDestino>Paris</TextDestino>

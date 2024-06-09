@@ -14,6 +14,8 @@ export const ContainerRota = styled.View`
 `;
 
 export const ContentRota = styled.View`
+  width: 50%;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -51,6 +53,8 @@ export const ContentCheck = styled.View`
 export const Check = styled.TouchableOpacity`
   width: 24px;
   height: 24px;
+  align-items: center;
+  justify-content: center;
   border: 3px solid;
   border-radius: 8px;
 `;
@@ -64,14 +68,14 @@ export const IconCheck = styled.Image`
 `;
 
 export const ButtonViagem = styled.TouchableOpacity.attrs({
-  underlayColor: 'red'
+  underlayColor: "red",
 })`
   align-items: center;
   justify-content: center;
   width: 340px;
   height: 44px;
   border: 2px solid;
-  background: #fff;
+  background: ${ props => props.bgColor ? `${props.bgColor}` : '#fff'};
 `;
 
 export const TextButtonViagem = styled.Text`

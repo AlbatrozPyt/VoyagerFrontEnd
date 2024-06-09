@@ -7,4 +7,5 @@ export const SearchBar = styled.TextInput`
     border-radius: 5px;
     padding: 0 20px;
     margin: 20px 0;
+    background: #fff;
 `

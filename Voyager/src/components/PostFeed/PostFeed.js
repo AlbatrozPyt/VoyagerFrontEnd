@@ -17,26 +17,33 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { useState } from "react";
 
-import PedroImage from "../../assets/images/PedroFeed.png"
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const PostFeed = ({ post, navigation, setModalComment }) => {
   const [like, setLike] = useState(false);
 
   return (
-    <ContainerBoxs onPress={() => navigation.replace('ViewPost', { post: post })}>
+    <ContainerBoxs
+      onPress={() => navigation.replace("ViewPost", { post: post })}
+    >
       <BoxOne>
         <BoxTwo>
           <BoxThree>
             {/* Imagem da postagem */}
             <ThumbnailFeed
-              source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/FotoViagemFeed.png?raw=true` }}
+              source={{
+                uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/FotoViagemFeed.png?raw=true`,
+              }}
             />
 
             {/* Botões de comentar e gostei */}
             <ContainerIcons>
               <TouchableOpacity onPress={() => setModalComment(true)}>
-                <CommentPost
-                  source={require("../../assets/images/comment.png")}
+                <MaterialCommunityIcons
+                  name="comment-text-outline"
+                  size={24}
+                  color="black"
                 />
               </TouchableOpacity>
 
@@ -45,13 +52,11 @@ export const PostFeed = ({ post, navigation, setModalComment }) => {
                   !like ? setLike(true) : setLike(false);
                 }}
               >
-                <LikePost
-                  source={
-                    !like
-                      ? require("../../assets/images/like-null.png")
-                      : require("../../assets/images/liked.png")
-                  }
-                />
+                {!like ? (
+                  <AntDesign name="hearto" size={24} color="#ff2224" />
+                ) : (
+                  <AntDesign name="heart" size={24} color="#ff2224" />
+                )}
               </TouchableOpacity>
             </ContainerIcons>
 
@@ -73,7 +78,9 @@ export const PostFeed = ({ post, navigation, setModalComment }) => {
                 style={{ borderRadius: 8 }}
               >
                 <ImageUserFeed
-                  source={{ uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroFeed.png?raw=true" }}
+                  source={{
+                    uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroFeed.png?raw=true",
+                  }}
                 />
               </Shadow>
             </PreviewFeed>

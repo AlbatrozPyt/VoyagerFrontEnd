@@ -1,4 +1,4 @@
-import { ScrollView, StatusBar, TouchableOpacity } from "react-native";
+import { ScrollView, StatusBar, TouchableOpacity, View } from "react-native";
 import { Container } from "../../components/container/style";
 import {
   About,
@@ -9,6 +9,7 @@ import {
   TitlePost,
 } from "./style";
 import { Shadow } from "react-native-shadow-2";
+import { Back } from "../../components/Button";
 
 export const ViewPost = ({ route, navigation }) => {
   console.log(route);
@@ -18,12 +19,10 @@ export const ViewPost = ({ route, navigation }) => {
       <StatusBar backgroundColor={"#8531C6"} />
 
       <Container>
-        <TouchableOpacity
-          style={{ width: "100%" }}
-          onPress={() => navigation.replace("main")}
-        >
-          <IconBack source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/back.png?raw=true` }} />
-        </TouchableOpacity>
+        <View style={{ width: "100%", height: 60 }}>
+          <Back navigation={navigation} screen={'main'}/>
+        </View>
+
         <TitlePost>{route.params.post.title}</TitlePost>
 
         <Shadow
@@ -73,7 +72,9 @@ export const ViewPost = ({ route, navigation }) => {
               >
                 <ImageGaleria
                   key={x}
-                  source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/FotoViagemFeed.png?raw=true` }}
+                  source={{
+                    uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/FotoViagemFeed.png?raw=true`,
+                  }}
                 />
               </Shadow>
             </Shadow>

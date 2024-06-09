@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ButtonGuia, ContainerGuia, TextGuia } from "./style";
 import { Shadow } from "react-native-shadow-2";
 import { Image } from "react-native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const Guia = ({ setGuia }) => {
   const [buttonClicked, setButtonClicked] = useState(true);
@@ -17,7 +17,16 @@ export const Guia = ({ setGuia }) => {
             setGuia("feed");
           }}
         >
-          <TextGuia style={buttonClicked && { color: `#fff`, fontFamily: `LouisGeorgeCafe-Bold` }}>Feed</TextGuia>
+          <TextGuia
+            style={
+              buttonClicked && {
+                color: `#fff`,
+                fontFamily: `LouisGeorgeCafe-Bold`,
+              }
+            }
+          >
+            Feed
+          </TextGuia>
         </ButtonGuia>
       </Shadow>
 
@@ -29,7 +38,14 @@ export const Guia = ({ setGuia }) => {
             setGuia("explorar");
           }}
         >
-          <TextGuia style={!buttonClicked && { color: `#fff`, fontFamily: `LouisGeorgeCafe-Bold` }}>
+          <TextGuia
+            style={
+              !buttonClicked && {
+                color: `#fff`,
+                fontFamily: `LouisGeorgeCafe-Bold`,
+              }
+            }
+          >
             Explorar
           </TextGuia>
         </ButtonGuia>
@@ -51,9 +67,9 @@ export const GuiaPerfil = ({ setGuia }) => {
           }}
         >
           {buttonClicked ? (
-            <Image source={require("../../assets/images/image-white.png")} />
+            <MaterialCommunityIcons name="image-area" size={30} color="#fff" />
           ) : (
-            <MaterialCommunityIcons name="image-area" size={30} color="black" />
+            <MaterialCommunityIcons name="image-area" size={30} color="#000" />
           )}
         </ButtonGuia>
       </Shadow>
@@ -67,9 +83,9 @@ export const GuiaPerfil = ({ setGuia }) => {
           }}
         >
           {buttonClicked ? (
-            <Image source={require("../../assets/images/heart-black.png")} />
+            <MaterialCommunityIcons name="heart" size={30} color="#000" />
           ) : (
-            <Image source={require("../../assets/images/heart-white.png")} />
+            <MaterialCommunityIcons name="heart" size={30} color="#fff" />
           )}
         </ButtonGuia>
       </Shadow>

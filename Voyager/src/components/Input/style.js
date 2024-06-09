@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: "#BA31C6",
 })`
-  width: 300px;
+  width: 100%;
   height: 50px;
   padding: 10px;
   margin-vertical: 10px;
@@ -18,8 +18,8 @@ export const Input = styled.TextInput.attrs({
 export const Sombra = styled.View`
   position: absolute;
   top: 15px;
-  left: 25px;
-  width: 87%;
+  left: 5px;
+  width: 100%;
   height: 50px;
   background-color: #000;
   border-radius: 0px;

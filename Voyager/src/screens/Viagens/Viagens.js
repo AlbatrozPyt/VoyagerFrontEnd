@@ -2,8 +2,9 @@ import { Image, StatusBar, Text } from "react-native";
 import { LogoViagens, NovaViagem } from "./style";
 import { AcompanharViagem, PostItDefault } from "../../components/ViewViagens";
 import { Shadow } from "react-native-shadow-2";
-import { Container } from '../../components/container/style'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Container } from "../../components/container/style";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MinhasViagens } from "../../components/Logo/Logo";
 
 const viagem = {
   dataInicial: "29/05",
@@ -14,11 +15,7 @@ const viagem = {
 export const Viagens = ({ navigation }) => {
   return (
     <Container>
-      <LogoViagens
-        style={{ marginTop: 80 }}
-        source={require("../../assets/images/LogoMinhasViagens.png")}
-      />
-
+      <MinhasViagens />
 
       {/* PostIt para acompanhar a sua viagem */}
       <AcompanharViagem viagem={viagem} navigation={navigation} />
@@ -30,7 +27,7 @@ export const Viagens = ({ navigation }) => {
         icon={"historico"}
         postItColor={"#F7E87B"}
         navigation={navigation}
-        screen={'HistoricoViagens'}
+        screen={"HistoricoViagens"}
       />
 
       {/* PostIt para as viagens que ainda vão acontecer */}
@@ -39,7 +36,7 @@ export const Viagens = ({ navigation }) => {
         description={"Veja suas viagens que ainda irão acontecer"}
         postItColor={"#B7FBFF"}
         navigation={navigation}
-        screen={'ViagensFuturas'}
+        screen={"ViagensFuturas"}
       />
 
       {/* Botão para criar uma nova viagem */}

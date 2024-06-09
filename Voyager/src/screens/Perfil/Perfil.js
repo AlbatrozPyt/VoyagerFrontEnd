@@ -19,7 +19,8 @@ import { useState } from "react";
 import { GuiaPerfil } from "../../components/MenuGuia/MenuGuia";
 import { PostFeed } from "../../components/PostFeed/PostFeed";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
-import { Feather } from '@expo/vector-icons';
+import { Feather } from "@expo/vector-icons";
+import { ShadowButton2, ShadowOpacity } from "../../components/Shadow";
 
 const mockFeed = [
   {
@@ -58,12 +59,12 @@ export const Perfil = ({ navigation }) => {
             style={{ borderRadius: 8 }}
           >
             <UserImage
-              source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroPerfil.png?raw=true` }}
+              source={{
+                uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroPerfil.png?raw=true`,
+              }}
             />
 
-            <ButtonEdit
-              onPress={() => navigation.navigate(`EditPerfil`)}
-            >
+            <ButtonEdit onPress={() => navigation.navigate(`EditPerfil`)}>
               <Feather name="edit-2" size={24} color="#000" />
             </ButtonEdit>
           </Shadow>
@@ -86,53 +87,37 @@ export const Perfil = ({ navigation }) => {
         <ContainerBio>
           <TitleDefault>Sobre mim:</TitleDefault>
 
-          <Shadow
-            startColor="rgba(0, 0, 0, .2)"
-            endColor="rgba(0, 0, 0, .2)"
-            distance={0}
-            offset={[4, 4]}
-            style={{ borderRadius: 10 }}
-          >
-            <ContentBio>
-              <TextBio>
-                Sou fascinado por viajar, já rodei os 4 cantos da terra em busca
-                de me conhencer melhor, vem com o papai kkk.
-              </TextBio>
-            </ContentBio>
-          </Shadow>
+          <ShadowOpacity
+            render={
+              <ContentBio>
+                <TextBio>
+                  Sou fascinado por viajar, já rodei os 4 cantos da terra em
+                  busca de me conhencer melhor, vem com o papai kkk.
+                </TextBio>
+              </ContentBio>
+            }
+          />
         </ContainerBio>
 
         <GuiaPerfil setGuia={setGuia} />
 
-        {
-          guia === `posts` &&
-          <Shadow
-            startColor="#8531C6"
-            endColor="#8531C6"
-            distance={0}
-            offset={[8, 8]}
-            containerStyle={{ marginBottom: 20 }}
-          >
-            <Shadow
-              startColor="#000"
-              endColor="#000"
-              distance={0}
-              offset={[2.5, 2.5]}
-            >
+        {guia === `posts` && (
+          <ShadowButton2
+            render={
               <ButtonViagem onPress={() => navigation.navigate(`CriarPost`)}>
                 <TextButtonViagem>compartilhe sua viagem</TextButtonViagem>
               </ButtonViagem>
-            </Shadow>
-          </Shadow>
-        }
+            }
+          />
+        )}
 
         {guia === "posts"
           ? mockFeed.map((x) => {
-            return <PostFeed key={x.id} post={x} navigation={navigation} />;
-          })
+              return <PostFeed key={x.id} post={x} navigation={navigation} />;
+            })
           : mockFeed.map((x) => {
-            return <PostFeed key={x.id} post={x} navigation={navigation} />;
-          })}
+              return <PostFeed key={x.id} post={x} navigation={navigation} />;
+            })}
       </Container>
     </ScrollView>
   );

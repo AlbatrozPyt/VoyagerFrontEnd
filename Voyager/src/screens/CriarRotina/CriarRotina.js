@@ -4,21 +4,15 @@ import { Container } from "../../components/container/style";
 import {
   AboutGemini,
   AboutGeminiDashed,
-  BackgroundModalRotina,
   ButtonAddAtividade,
-  ButtonModalRotina,
-  ContainerModalRotina,
-  InputRotina,
-  LabelModalRotina,
   TitleRotina,
 } from "./style";
-import { FlatList, Image, Modal, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, TouchableOpacity, View } from "react-native";
 import moment from "moment";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
-import { InputViagem } from "../../components/Comps";
 import { useState } from "react";
-import { TitleDefault } from "../../components/Text/style";
 import { ModalRotina } from "../../components/Modal";
+import { ShadowDefault } from "../../components/Shadow";
 
 const data = [
   {
@@ -47,38 +41,40 @@ const data = [
   },
 ];
 
-export const CriarRotina = ({navigation}) => {
-
-  const [visible, setVisible] = useState(false)
+export const CriarRotina = ({ navigation }) => {
+  const [visible, setVisible] = useState(false);
 
   return (
     <Container>
       <TitleRotina>crie sua rotina</TitleRotina>
 
-      <Atividade />
-      <Atividade />
-      <Atividade />
+      <View style={{ height: 300 }}>
+        <FlatList data={data} renderItem={() => <Atividade />} />
+      </View>
 
-      <TouchableOpacity onPress={() => setVisible(true)} style={{ width: "80%", alignItems: "flex-end" }}>
+      <TouchableOpacity
+        onPress={() => setVisible(true)}
+        style={{ width: "80%", alignItems: "flex-end" }}
+      >
         <ButtonAddAtividade>+ Adicionar tarefa</ButtonAddAtividade>
       </TouchableOpacity>
 
-      <Shadow
-        startColor="#000"
-        endColor="#000"
-        distance={0}
-        offset={[2.5, 2.5]}
-        containerStyle={{ marginTop: 40 }}
-      >
-        <ButtonViagem
-          onPress={() => navigation.navigate("ViagemAtual", {type: `acompanhar`})}
-          style={{ backgroundColor: "#8531C6" }}
-        >
-          <TextButtonViagem style={{ color: "#fff" }}>
-            Continuar
-          </TextButtonViagem>
-        </ButtonViagem>
-      </Shadow>
+      <View style={{ marginTop: 40 }}>
+        <ShadowDefault
+          render={
+            <ButtonViagem
+              onPress={() =>
+                navigation.navigate("ViagemAtual", { type: `acompanhar` })
+              }
+              bgColor={"#8531C6"}
+            >
+              <TextButtonViagem style={{ color: "#fff" }}>
+                Continuar
+              </TextButtonViagem>
+            </ButtonViagem>
+          }
+        />
+      </View>
 
       <AboutGemini>
         Experimete usar{" "}
@@ -86,11 +82,14 @@ export const CriarRotina = ({navigation}) => {
       </AboutGemini>
 
       <Image
-        source={require('../../assets/images/gemini-logo.png')}
+        width={106}
+        height={39}
+        source={{
+          uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/gemini-logo.png?raw=true`,
+        }}
       />
 
-      <ModalRotina visible={visible} setVisible={setVisible}/>
-
+      <ModalRotina visible={visible} setVisible={setVisible} />
     </Container>
   );
 };

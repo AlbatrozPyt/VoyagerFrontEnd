@@ -13,17 +13,21 @@ import {
   TitleViagens,
 } from "./style";
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Acompanhar viagem atual
 export const AcompanharViagem = ({ viagem, navigation }) => {
   return (
-    <ContainerBoxs onPress={() => navigation.navigate('ViagemAtual', { type: 'acompanhar' })}>
+    <ContainerBoxs
+      onPress={() => navigation.navigate("ViagemAtual", { type: "acompanhar" })}
+    >
       <BoxOneViagem color={"#DEFF97"}>
         <BoxTwoViagem color={"#DEFF97"}>
           <BoxThreeViagem color={"#DEFF97"}>
             <IconViagens
-              source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/binoculos.png?raw=true` }}
+              source={{
+                uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/binoculos.png?raw=true`,
+              }}
             />
 
             <ContentViagens>
@@ -33,7 +37,11 @@ export const AcompanharViagem = ({ viagem, navigation }) => {
                 <BoxInfo>
                   <TextInfo>
                     Data{"      "}
-                    <Image source={require("../../assets/images/data.png")} />
+                    <MaterialCommunityIcons
+                      name="calendar-month"
+                      size={24}
+                      color="black"
+                    />
                   </TextInfo>
                   <TextInfo>
                     {viagem.dataInicial} - {viagem.dataFinal}
@@ -43,8 +51,10 @@ export const AcompanharViagem = ({ viagem, navigation }) => {
                 <BoxInfo>
                   <TextInfo>
                     Destino{"       "}
-                    <Image
-                      source={{ uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/destino.png` }}
+                    <MaterialCommunityIcons
+                      name="map-outline"
+                      size={24}
+                      color="black"
                     />
                   </TextInfo>
                   <TextInfo>{viagem.destino.substr(0, 15)}...</TextInfo>
@@ -64,7 +74,7 @@ export const PostItDefault = ({
   icon,
   postItColor = "#fff",
   navigation,
-  screen
+  screen,
 }) => {
   return (
     <ContainerBoxs onPress={() => navigation.navigate(screen)}>
@@ -74,8 +84,12 @@ export const PostItDefault = ({
             <IconViagens
               source={
                 icon === "historico"
-                  ? { uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/historico.png?raw=true` }
-                  : { uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/agenda.png?raw=true` }
+                  ? {
+                      uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/historico.png?raw=true`,
+                    }
+                  : {
+                      uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/agenda.png?raw=true`,
+                    }
               }
             />
 
