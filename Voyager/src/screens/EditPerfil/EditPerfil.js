@@ -1,107 +1,151 @@
-import { Shadow } from 'react-native-shadow-2'
-import { Container } from '../../components/container/style'
-import { ContainerEditPhoto, ContainerInputsPerfil, ContentEdit, InputBio, InputPerfil, LabelPerfil, TakePicture, TopImageEdit, UserImage } from './style'
-import { MaterialIcons } from '@expo/vector-icons';
-import { ScrollView, View } from 'react-native';
-import { ButtonModalRotina } from '../CriarRotina/style';
-import { TitleDefault } from '../../components/Text/style';
+import { Shadow } from "react-native-shadow-2";
+import { Container } from "../../components/container/style";
+import {
+  ContainerEditPhoto,
+  ContainerInputsPerfil,
+  ContentEdit,
+  InputBio,
+  InputPerfil,
+  LabelPerfil,
+  TakePicture,
+  TopImageEdit,
+  UserImage,
+} from "./style";
+import { MaterialIcons } from "@expo/vector-icons";
+import { ScrollView, View } from "react-native";
+import { ButtonModalRotina } from "../CriarRotina/style";
+import { TitleDefault } from "../../components/Text/style";
+import {
+  ShadowButton2,
+  ShadowDefault,
+  ShadowPerfilImage,
+  ShadowTakePicture,
+} from "../../components/Shadow";
+import  api  from "../../service/Service";
+import { useContext, useState } from "react";
+import { UserContext } from "../../contexts/MyContext";
 
-export const EditPerfil = ({ navigation }) => {
-    return (
-        <ScrollView>
-            <Container>
-                <TopImageEdit
-                    source={require(`../../assets/images/ImageTopEdit.png`)}
-                />
+export const EditPerfil = ({ navigation, route }) => {
+  const { user } = useContext(UserContext);
 
-                <ContainerEditPhoto>
-                    <Shadow
-                        startColor="rgba(0, 0, 0)"
-                        endColor="rgba(0, 0, 0)"
-                        distance={0}
-                        offset={[4, 4]}
-                        style={{ borderRadius: 10 }}
-                    >
-                        <UserImage
-                            source={require(`../../assets/images/PedroBig.png`)}
-                        />
-                    </Shadow>
+  const [bio, setBio] = useState(null);
+  const [cep, setCep] = useState(null);
+  const [logradouro, setLogradouro] = useState(null);
+  const [estado, setEstado] = useState(null);
+  const [cidade, setCidade] = useState(null);
 
-                    <Shadow
-                        startColor="rgba(0, 0, 0)"
-                        endColor="rgba(0, 0, 0)"
-                        distance={0}
-                        offset={[4, 4]}
-                        containerStyle={{ position: 'absolute', left: 20, bottom: -20 }}
-                    >
-                        <TakePicture>
-                            <MaterialIcons name="add-a-photo" size={30} color="#fff" />
-                        </TakePicture>
-                    </Shadow>
-                </ContainerEditPhoto>
+  async function PutPerfil() {
+    await api
+      .put(`/Usuarios?idUsuario=${user.jti}`, {
+        bio: bio,
+        cep: cep,
+        logradouro: logradouro,
+        estado: estado,
+        cidade: cidade,
+      })
+      .then(() => {
+        navigation.navigate("Perfil");
+      })
+      .catch(() => console.log("Erro ao atualizar perfil"));
+  }
 
-                <ContainerInputsPerfil>
-                    <ContentEdit>
-                        <LabelPerfil>Nome</LabelPerfil>
+  return (
+    <ScrollView>
+      <Container>
+        <TopImageEdit
+          source={require(`../../assets/images/ImageTopEdit.png`)}
+        />
 
-                        <Shadow
-                            offset={[4, 2]}
-                            style={{ borderRadius: 10 }}
-                        >
-                            <InputPerfil value={`Heitor Perrota`} />
-                        </Shadow>
-                    </ContentEdit>
+        <ContainerEditPhoto>
+          <ShadowPerfilImage>
+            <UserImage source={require(`../../assets/images/PedroBig.png`)} />
+          </ShadowPerfilImage>
 
-                    <ContentEdit>
-                        <LabelPerfil>Idade</LabelPerfil>
+          <ShadowTakePicture>
+            <TakePicture>
+              <MaterialIcons name="add-a-photo" size={30} color="#fff" />
+            </TakePicture>
+          </ShadowTakePicture>
+        </ContainerEditPhoto>
 
-                        <Shadow
-                            offset={[4, 2]}
-                            style={{ borderRadius: 10 }}
-                        >
-                            <InputPerfil value={`18`} />
-                        </Shadow>
-                    </ContentEdit>
+        <ContainerInputsPerfil>
+          <ContentEdit>
+            <LabelPerfil>Bio</LabelPerfil>
 
-                    <ContentEdit>
-                        <LabelPerfil>Sobre mim</LabelPerfil>
+            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
+              <InputPerfil
+                multiline={true}
+                placeholder={"Bio"}
+                onChangeText={(txt) => setBio(txt)}
+              />
+            </Shadow>
+          </ContentEdit>
 
-                        <InputBio multiline={true} value={`Sou fascinado por viajar, já rodei os 4 cantos da terra em busca de me conhecer melhor, vem com o papai kkk.`} />
-                    </ContentEdit>
-                </ContainerInputsPerfil>
+          <ContentEdit>
+            <LabelPerfil>Cep</LabelPerfil>
 
-                <Shadow
-                    startColor="#8531C6"
-                    endColor="#8531C6"
-                    distance={0}
-                    offset={[6, 6]} 
-                    containerStyle={{ marginBottom: 20 }}
-                >
+            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
+              <InputPerfil
+                keyboardType={"numeric"}
+                placeholder={"Cep"}
+                onChangeText={(txt) => setCep(txt)}
+              />
+            </Shadow>
+          </ContentEdit>
 
-                    <Shadow
-                        startColor="#000"
-                        endColor="#000"
-                        distance={0}
-                        offset={[2, 2]}
-                    >
-                        <ButtonModalRotina>
-                            <TitleDefault style={{ color: `#8531C6` }}>salvar</TitleDefault>
-                        </ButtonModalRotina>
-                    </Shadow>
-                </Shadow>
+          <ContentEdit>
+            <LabelPerfil>Logradouro</LabelPerfil>
 
-                <Shadow
-                    startColor="#000"
-                    endColor="#000"
-                    distance={0}
-                    offset={[4, 4]}
-                    containerStyle={{ marginBottom: 20 }}
-                >
-                    <ButtonModalRotina onPress={() => navigation.navigate(`Perfil`)} style={{ backgroundColor: `#8531C6` }}>
-                        <TitleDefault style={{ color: `#fff` }}>voltar</TitleDefault>
-                    </ButtonModalRotina>
-                </Shadow>
-            </Container>
-        </ScrollView>
-    )
-}
+            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
+              <InputPerfil
+                placeholder={`Logradouro`}
+                onChangeText={(txt) => setLogradouro(txt)}
+              />
+            </Shadow>
+          </ContentEdit>
+
+          <ContentEdit>
+            <LabelPerfil>Estado</LabelPerfil>
+
+            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
+              <InputPerfil
+                placeholder={`Estado`}
+                onChangeText={(txt) => setEstado(txt)}
+              />
+            </Shadow>
+          </ContentEdit>
+
+          <ContentEdit>
+            <LabelPerfil>Cidade</LabelPerfil>
+
+            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
+              <InputPerfil
+                placeholder={`Cidade`}
+                onChangeText={(txt) => setBio(txt)}
+              />
+            </Shadow>
+          </ContentEdit>
+        </ContainerInputsPerfil>
+
+        <ShadowButton2
+          render={
+            <ButtonModalRotina onPress={() => PutPerfil()}>
+              <TitleDefault style={{ color: `#8531C6` }}>salvar</TitleDefault>
+            </ButtonModalRotina>
+          }
+        />
+
+        <ShadowDefault
+          render={
+            <ButtonModalRotina
+              onPress={() => navigation.navigate(`Perfil`)}
+              style={{ backgroundColor: `#8531C6` }}
+            >
+              <TitleDefault style={{ color: `#fff` }}>voltar</TitleDefault>
+            </ButtonModalRotina>
+          }
+        />
+      </Container>
+    </ScrollView>
+  );
+};

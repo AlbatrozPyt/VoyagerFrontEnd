@@ -50,6 +50,7 @@ export const ContentInfo = styled.View`
   background-color: #fff;
   border: 2px solid #ba31c6;
   padding: 5px;
+  align-items: center;
 `;
 export const TextInfo = styled.Text`
   font-family: "LouisGeorgeCafe-Bold";

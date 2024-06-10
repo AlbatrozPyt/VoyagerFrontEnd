@@ -88,7 +88,7 @@ export const VerificarCodigo = ({ }) => {
                             </InputBoxCode>
 
                             <ButtonBox>
-                                <Sombra style={{ left: 5 }} />
+                                <Sombra style={{ left: 5, width: '25%' }} />
                                 <Button  onPress={() => navigation.navigate("RedefinirSenha")}>
                                     <ButtonTitle>
                                         Entrar

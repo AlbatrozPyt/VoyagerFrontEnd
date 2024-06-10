@@ -101,3 +101,46 @@ export const ShadowOpacity = ({ render }) => {
     </Shadow>
   );
 };
+
+export const ShadowPerfilImage = ({ children }) => {
+  return (
+    <Shadow
+      startColor="#000"
+      endColor="#000"
+      distance={0}
+      offset={[4, 4]}
+      style={{ borderRadius: 8 }}
+    >
+      {children}
+    </Shadow>
+  );
+};
+
+export const ShadowBoxPerfil = ({ children }) => {
+  return (
+    <Shadow
+      startColor="rgba(0, 0, 0, .2)"
+      endColor="rgba(0, 0, 0, .2)"
+      distance={0}
+      offset={[4, 4]}
+      containerStyle={{ bottom: 50, right: 60 }}
+      style={{ borderRadius: 10 }}
+    >
+      {children}
+    </Shadow>
+  );
+};
+
+export const ShadowTakePicture = ({ children }) => {
+  return (
+    <Shadow
+      startColor="rgba(0, 0, 0)"
+      endColor="rgba(0, 0, 0)"
+      distance={0}
+      offset={[4, 4]}
+      containerStyle={{ position: "absolute", left: 20, bottom: -20 }}
+    >
+      {children}
+    </Shadow>
+  );
+};

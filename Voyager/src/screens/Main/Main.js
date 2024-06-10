@@ -11,10 +11,13 @@ import { CadastrarViagem } from "../CadastrarViagem/CadastrarViagem";
 import { CriarRotina } from "../CriarRotina/CriarRotina";
 import { CriarPost } from "../CriarPost/CriarPost";
 
-import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createContext, useEffect, useState, useContext } from "react";
+import { DecodeToken } from "../../utils/Auth";
+import { UserContext } from "../../contexts/MyContext";
 
-export const Main = () => {
+export const Main = ({ route }) => {
   const BottomTab = createBottomTabNavigator();
 
   return (
@@ -51,7 +54,11 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <MaterialCommunityIcons name="airplane-takeoff" size={30} color="#8531C6" />
+                <MaterialCommunityIcons
+                  name="airplane-takeoff"
+                  size={30}
+                  color="#8531C6"
+                />
               </BoxIcon>
             );
           }
