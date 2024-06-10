@@ -20,8 +20,8 @@ import { DecodeToken } from "../../utils/Auth";
 
 // Componente de tela de login
 export const Login = ({ navigation }) => {
-  const [email, setEmail] = useState(null);
-  const [senha, setSenha] = useState(null);
+  const [email, setEmail] = useState('matheusenrikeramalho@gmail.com');
+  const [senha, setSenha] = useState('matheus');
   const { user, setUser } = useContext(UserContext);
 
 

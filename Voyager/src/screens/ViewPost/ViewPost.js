@@ -19,11 +19,11 @@ export const ViewPost = ({ route, navigation }) => {
       <StatusBar backgroundColor={"#8531C6"} />
 
       <Container>
-        <View style={{ width: "100%", height: 60 }}>
+        <View style={{ width: "100%", height: 20 , marginBottom: 50}}>
           <Back navigation={navigation} screen={'main'}/>
         </View>
 
-        <TitlePost>{route.params.post.title}</TitlePost>
+        <TitlePost>{route.params.post.titulo}</TitlePost>
 
         <Shadow
           startColor="#8531C6"
@@ -42,7 +42,7 @@ export const ViewPost = ({ route, navigation }) => {
             <BoxDescription>
               <About>Sobre a minha viagem:</About>
 
-              <Description>{route.params.post.description}</Description>
+              <Description>{route.params.post.descricao}</Description>
             </BoxDescription>
           </Shadow>
         </Shadow>

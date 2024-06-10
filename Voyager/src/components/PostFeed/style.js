@@ -101,6 +101,7 @@ export const TitlePreviewFeed = styled.Text`
   font-family: "MoonGet";
   font-size: 16px;
   color: black;
+  line-height: 25px;
 `;
 
 // Descricao do post

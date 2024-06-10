@@ -113,7 +113,7 @@ export const UserComment = styled.Text`
 export const TextComment = styled.Text`
   font-family: 'LouisGeorgeCafe';
   font-size: 12px;
-  width: 70%;
+  width: 100%;
 `
 
 export const InputComment = styled.TextInput`

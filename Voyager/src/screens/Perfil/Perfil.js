@@ -84,7 +84,7 @@ export const Perfil = ({ navigation }) => {
 
           <ShadowBoxPerfil>
             <ContentInfo>
-              <TextInfo>{response.nome}</TextInfo>
+              {/* <TextInfo>{response.nome}</TextInfo>; */}
               {/* <TextInfo>23 anos</TextInfo> */}
             </ContentInfo>
           </ShadowBoxPerfil>

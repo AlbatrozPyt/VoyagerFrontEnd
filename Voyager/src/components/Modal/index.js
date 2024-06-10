@@ -28,6 +28,8 @@ import {
   ShadowDefault2,
   ShadowOpacity,
 } from "../Shadow";
+import api from "../../service/Service";
+import { useEffect, useState } from "react";
 
 export const ModalRotina = ({ visible, setVisible }) => {
   return (
@@ -72,7 +74,28 @@ export const ModalRotina = ({ visible, setVisible }) => {
   );
 };
 
-export const ModalComentario = ({ visible, setVisible }) => {
+
+export const ModalComentario = ({
+  visible,
+  setVisible,
+  comments,
+  post,
+  setIdPostSelecionado
+}) => {
+
+  const [comentario, setComentario] = useState(null)
+
+  async function PostComment() {
+    await api.post('/Comentarios', {
+      idPostagem: post.id,
+      idUsuario: post.viagem.idUsuario,
+      comentarioTexto: comentario
+    })
+      .then((e) => console.log(e.data))
+      .catch((e) => console.log(e))
+  }
+
+
   return (
     <Modal animationType="fade" visible={visible} transparent={true}>
       <BackgroundModalRotina>
@@ -81,25 +104,24 @@ export const ModalComentario = ({ visible, setVisible }) => {
 
           <ContainerListComment>
             <FlatList
-              data={[0, 1, 2]}
-              renderItem={() => (
+              data={comments}
+              renderItem={({ item }) => (
                 <ContentComment>
                   <ShadowOpacity
                     render={
                       <ImageComment
                         source={{
-                          uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/pedro-comment.png?raw=true",
+                          uri: item.usuario.foto,
                         }}
                       />
                     }
                   />
 
                   <ContainerText>
-                    <UserComment>Junior</UserComment>
+                    <UserComment>{item.usuario.nome}</UserComment>
 
                     <TextComment>
-                      Esse é o melhor Lorem Ipsum da minha vida, que experiência
-                      incrível, oh my god.
+                      {item.comentarioTexto}
                     </TextComment>
                   </ContainerText>
                 </ContentComment>
@@ -109,14 +131,21 @@ export const ModalComentario = ({ visible, setVisible }) => {
 
           <ShadowDefault
             render={
-              <InputComment placeholder={`Comentar...`} multiline={true} />
+              <InputComment
+                placeholder={`Comentar...`}
+                multiline={true}
+                onChangeText={(txt) => setComentario(txt)}
+              />
             }
           />
 
           <View style={{ marginTop: 20 }}>
             <ShadowDefault
               render={
-                <ButtonViagem bgColor={"#8531C6"}>
+                <ButtonViagem
+                  bgColor={"#8531C6"}
+                  onPress={() => PostComment()}
+                >
                   <TextButtonViagem style={{ color: `#fff` }}>
                     Adicionar Comentário
                   </TextButtonViagem>

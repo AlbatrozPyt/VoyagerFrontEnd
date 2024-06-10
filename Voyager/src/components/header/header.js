@@ -32,7 +32,7 @@ export const Header = ({ navigation, user }) => {
         <BoxShadowUser>
           <UserImage
             source={{
-              uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/pedro.png?raw=true`,
+              uri: user.foto,
             }}
           />
         </BoxShadowUser>

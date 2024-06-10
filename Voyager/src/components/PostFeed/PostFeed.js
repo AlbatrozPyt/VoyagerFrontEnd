@@ -19,9 +19,21 @@ import { useState } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import api from "../../service/Service";
 
-export const PostFeed = ({ post, navigation, setModalComment }) => {
+export const PostFeed = ({ post, navigation, setModalComment, setComments, setPost }) => {
   const [like, setLike] = useState(false);
+
+  async function GetComments(post) {
+    await api.get(`/Comentarios/${post.id}`)
+      .then((e) => {
+        setComments(e.data)
+        console.log(e.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }
 
   return (
     <ContainerBoxs
@@ -39,7 +51,11 @@ export const PostFeed = ({ post, navigation, setModalComment }) => {
 
             {/* Botões de comentar e gostei */}
             <ContainerIcons>
-              <TouchableOpacity onPress={() => setModalComment(true)}>
+              <TouchableOpacity onPress={() => {
+                GetComments(post)
+                setPost(post)
+                setModalComment(true)
+              }}>
                 <MaterialCommunityIcons
                   name="comment-text-outline"
                   size={24}
@@ -63,10 +79,10 @@ export const PostFeed = ({ post, navigation, setModalComment }) => {
             {/* Prévia do conteudo */}
             <PreviewFeed>
               <ContentPreviewFeed>
-                <TitlePreviewFeed>{post.title}</TitlePreviewFeed>
+                <TitlePreviewFeed>{post.titulo}</TitlePreviewFeed>
 
                 <TextPreviewFeed>
-                  {post.description.substr(0, 57)}...
+                  {post.descricao.substr(0, 57)}...
                 </TextPreviewFeed>
               </ContentPreviewFeed>
 
