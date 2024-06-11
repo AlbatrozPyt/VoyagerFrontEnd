@@ -10,7 +10,7 @@ import {
 import { FlatList, Image, TouchableOpacity, View } from "react-native";
 import moment from "moment";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalRotina } from "../../components/Modal";
 import { ShadowDefault } from "../../components/Shadow";
 
@@ -41,8 +41,12 @@ const data = [
   },
 ];
 
-export const CriarRotina = ({ navigation }) => {
+export const CriarRotina = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    console.log(route)
+  }, [route])
 
   return (
     <Container>

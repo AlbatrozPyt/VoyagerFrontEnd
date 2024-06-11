@@ -15,25 +15,44 @@ import {
   TitlePreviewFeed,
 } from "./style";
 import { Shadow } from "react-native-shadow-2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import api from "../../service/Service";
 
-export const PostFeed = ({ post, navigation, setModalComment, setComments, setPost }) => {
+export const PostFeed = ({
+  post,
+  user,
+  navigation,
+  setModalComment,
+  setPost,
+}) => {
   const [like, setLike] = useState(false);
 
-  async function GetComments(post) {
-    await api.get(`/Comentarios/${post.id}`)
-      .then((e) => {
-        setComments(e.data)
-        console.log(e.data)
+  async function PostCurtida(postId, userId) {
+    await api.put(`/VisualizarAvaliacoes/CurtirDescurtirPostagem?IdUsuario=${userId}&IdPostagem=${postId}`)
+      .then(() => {
+        GetCurtida(postId, userId)
       })
       .catch((e) => {
         console.log(e)
       })
   }
+
+  async function GetCurtida(postId, userId) {
+    await api.get(`/VisualizarAvaliacoes/VerificarAvaliacao?idUsuario=${userId}&idPostagem=${postId}`)
+      .then((e) => {
+        setLike(e.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }
+
+  useEffect(() => {
+    GetCurtida(post.id, user.jti)
+  }, [like])
 
   return (
     <ContainerBoxs
@@ -52,8 +71,8 @@ export const PostFeed = ({ post, navigation, setModalComment, setComments, setPo
             {/* Botões de comentar e gostei */}
             <ContainerIcons>
               <TouchableOpacity onPress={() => {
-                GetComments(post)
                 setPost(post)
+                console.log(post.id)
                 setModalComment(true)
               }}>
                 <MaterialCommunityIcons
@@ -65,7 +84,7 @@ export const PostFeed = ({ post, navigation, setModalComment, setComments, setPo
 
               <TouchableOpacity
                 onPress={() => {
-                  !like ? setLike(true) : setLike(false);
+                  PostCurtida(post.id, user.jti)
                 }}
               >
                 {!like ? (

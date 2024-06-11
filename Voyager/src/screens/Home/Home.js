@@ -40,14 +40,12 @@ const mockFeed = [
 export const Home = ({ navigation, route }) => {
   const [guia, setGuia] = useState("feed");
   const [modalComment, setModalComment] = useState(false);
-  const [comments, setComments] = useState(null)
 
   const { user } = useContext(UserContext);
 
   const [posts, setPosts] = useState(null);
   const [post, setPost] = useState(null);
 
-  const [idPostSelecionado, setIdPostSelecionado] = useState(null)
 
   async function GetAllPosts() {
     await api.get(`/PostagensViagens`)
@@ -62,11 +60,7 @@ export const Home = ({ navigation, route }) => {
 
   useEffect(() => {
     GetAllPosts()
-  }, [1000])
-
-  useFocusEffect(useCallback(() => {
-    GetAllPosts()
-  }, []))
+  }, [])
 
   return (
     <Container>
@@ -87,11 +81,11 @@ export const Home = ({ navigation, route }) => {
           data={posts}
           renderItem={({ item }) => (
             <PostFeed
-              setPost={setPost}
-              setModalComment={setModalComment}
-              setComments={setComments}
               post={item}
+              setPost={setPost}
+              user={user}
               navigation={navigation}
+              setModalComment={setModalComment}
             />
           )}
           showsVerticalScrollIndicator={false}
@@ -103,9 +97,10 @@ export const Home = ({ navigation, route }) => {
 
       <ModalComentario
         post={post}
-        comments={comments}
+        setPost={setPost}
         visible={modalComment}
         setVisible={setModalComment}
+        user={user}
       />
     </Container>
   );

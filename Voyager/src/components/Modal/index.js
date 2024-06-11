@@ -15,7 +15,6 @@ import {
   TitleComment,
   UserComment,
 } from "../../screens/CriarRotina/style";
-import { Shadow } from "react-native-shadow-2";
 import { TitleDefault } from "../Text/style";
 import {
   ButtonViagem,
@@ -30,6 +29,8 @@ import {
 } from "../Shadow";
 import api from "../../service/Service";
 import { useEffect, useState } from "react";
+import { ContainerCalendar } from "./style";
+import { CalendarMaximized } from "../Calendar/Calendar";
 
 export const ModalRotina = ({ visible, setVisible }) => {
   return (
@@ -78,22 +79,49 @@ export const ModalRotina = ({ visible, setVisible }) => {
 export const ModalComentario = ({
   visible,
   setVisible,
-  comments,
   post,
-  setIdPostSelecionado
+  setPost,
+  user
 }) => {
 
   const [comentario, setComentario] = useState(null)
+  const [comments, setComments] = useState(null)
 
-  async function PostComment() {
+
+  async function PostComment(postId, userId) {
     await api.post('/Comentarios', {
-      idPostagem: post.id,
-      idUsuario: post.viagem.idUsuario,
+      idPostagem: postId,
+      idUsuario: userId,
       comentarioTexto: comentario
     })
-      .then((e) => console.log(e.data))
+      .then((e) => {
+        console.log('Post comentado')
+        setComentario(null)
+      })
       .catch((e) => console.log(e))
   }
+
+  async function GetComments(post) {
+    await api.get(`/Comentarios/${post.id}`)
+      .then((e) => {
+        setComments(e.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }
+
+  useEffect(() => {
+    if (post !== null) {
+      GetComments(post)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (post !== null) {
+      GetComments(post)
+    }
+  }, [comentario, post])
 
 
   return (
@@ -135,6 +163,7 @@ export const ModalComentario = ({
                 placeholder={`Comentar...`}
                 multiline={true}
                 onChangeText={(txt) => setComentario(txt)}
+                value={comentario}
               />
             }
           />
@@ -144,7 +173,9 @@ export const ModalComentario = ({
               render={
                 <ButtonViagem
                   bgColor={"#8531C6"}
-                  onPress={() => PostComment()}
+                  onPress={() => {
+                    PostComment(post.id, user.jti)
+                  }}
                 >
                   <TextButtonViagem style={{ color: `#fff` }}>
                     Adicionar Comentário
@@ -157,7 +188,10 @@ export const ModalComentario = ({
               render={
                 <ButtonViagem
                   bgColor={"#8531C6"}
-                  onPress={() => setVisible(false)}
+                  onPress={() => {
+                    setPost(null)
+                    setVisible(false)
+                  }}
                 >
                   <TextButtonViagem style={{ color: `#fff` }}>
                     Voltar
@@ -171,3 +205,44 @@ export const ModalComentario = ({
     </Modal>
   );
 };
+
+export const ModalCalendar = ({ visible, setVisible, date, setDate }) => {
+
+
+  return (
+    <Modal animationType="fade" transparent={true} visible={visible}>
+      <BackgroundModalRotina>
+        <ContainerCalendar>
+          <CalendarMaximized data={date} setData={setDate} />
+
+          <ShadowDefault
+            render={
+              <ButtonViagem
+                bgColor={`#8531c6`}
+                style={{ width: 200 }}
+                onPress={() => { setVisible(false) }}
+              >
+                <TextButtonViagem style={{ color: '#fff' }}>Selecionar</TextButtonViagem>
+              </ButtonViagem>
+            }
+          />
+
+          <ShadowDefault
+            render={
+              <ButtonViagem
+                style={{ width: 200 }}
+                onPress={() => {
+                  setVisible(false)
+                  setDate(null)
+                }}
+              >
+                <TextButtonViagem>Cancelar</TextButtonViagem>
+              </ButtonViagem>
+            }
+          />
+
+        </ContainerCalendar>
+      </BackgroundModalRotina>
+    </Modal>
+  )
+}
