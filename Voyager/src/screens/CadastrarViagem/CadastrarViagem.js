@@ -33,6 +33,17 @@ export const CadastrarViagem = ({ navigation }) => {
   const [paisDestino, setPaisDestino] = useState(null)
   const [cidadeDestino, setCidadeDestino] = useState(null)
 
+  useEffect(() => {
+    setShow1(null)
+    setShow2(null)
+    setDate1(null)
+    setDate2(null)
+    setPaisOrigem(null)
+    setCidadeOrigem(null)
+    setPaisDestino(null)
+    setCidadeDestino(null)
+  }, [])
+
   return (
     <ScrollView>
       <Container>
@@ -50,6 +61,7 @@ export const CadastrarViagem = ({ navigation }) => {
             placeholder={`País`}
             onChangeText={(txt) => setPaisOrigem(txt)}
           />
+
           <InputViagem
             placeholder={`Cidade`}
             onChangeText={(txt) => setCidadeOrigem(txt)}
@@ -82,7 +94,7 @@ export const CadastrarViagem = ({ navigation }) => {
               value={
                 date1 !== null
                   ? moment(date1).format("DD/MM/YYYY")
-                  : moment(new Date).format("DD/MM/YYYY")
+                  : 'DD/MM/YYYY'
               }
             />
 
@@ -92,7 +104,7 @@ export const CadastrarViagem = ({ navigation }) => {
               value={
                 date2 !== null
                   ? moment(date2).format("DD/MM/YYYY")
-                  : moment(new Date).format("DD/MM/YYYY")
+                  : 'DD/MM/YYYY'
               }
             />
           </View>

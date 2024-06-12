@@ -14,12 +14,13 @@ import {
 } from "./style";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import moment from "moment";
 
 // Acompanhar viagem atual
-export const AcompanharViagem = ({ viagem, navigation }) => {
+export const AcompanharViagem = ({ viagem, navigation}) => {
   return (
     <ContainerBoxs
-      onPress={() => navigation.navigate("ViagemAtual", { type: "acompanhar" })}
+      onPress={() => navigation.navigate("ViagemAtual", { type: "acompanhar", idViagem: viagem.id })}
     >
       <BoxOneViagem color={"#DEFF97"}>
         <BoxTwoViagem color={"#DEFF97"}>
@@ -44,7 +45,7 @@ export const AcompanharViagem = ({ viagem, navigation }) => {
                     />
                   </TextInfo>
                   <TextInfo>
-                    {viagem.dataInicial} - {viagem.dataFinal}
+                    {moment(viagem.dataInicial).format("DD/MM")} - {moment(viagem.dataFinal).format("DD/MM")}
                   </TextInfo>
                 </BoxInfo>
 
@@ -57,7 +58,7 @@ export const AcompanharViagem = ({ viagem, navigation }) => {
                       color="black"
                     />
                   </TextInfo>
-                  <TextInfo>{viagem.destino.substr(0, 15)}...</TextInfo>
+                  <TextInfo>{viagem.endereco.cidadeDestino}</TextInfo>
                 </BoxInfo>
               </ContainerInfos>
             </ContentViagens>
@@ -77,7 +78,7 @@ export const PostItDefault = ({
   screen,
 }) => {
   return (
-    <ContainerBoxs onPress={() => navigation.navigate(screen)}>
+    <ContainerBoxs onPress={screen === "AcompanharViagem" ? null : () => navigation.navigate(screen)}>
       <BoxOneViagem color={postItColor}>
         <BoxTwoViagem color={postItColor}>
           <BoxThreeViagem color={postItColor}>
@@ -87,9 +88,12 @@ export const PostItDefault = ({
                   ? {
                       uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/historico.png?raw=true`,
                     }
-                  : {
+                  : ( icon === "futuras" ? {
                       uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/agenda.png?raw=true`,
                     }
+                  : {
+                    uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/binoculos.png?raw=true`
+                  })
               }
             />
 

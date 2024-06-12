@@ -5,20 +5,51 @@ import { Shadow } from "react-native-shadow-2";
 import { Container } from "../../components/container/style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MinhasViagens } from "../../components/Logo/Logo";
-
-const viagem = {
-  dataInicial: "29/05",
-  dataFinal: "02/06",
-  destino: "Ilhas Maldivas",
-};
+import { useCallback, useContext, useEffect, useState } from "react";
+import api from "../../service/Service";
+import { useFocusEffect } from "@react-navigation/native";
+import { UserContext } from "../../contexts/MyContext";
+import { CompartilharViagemModal } from "../../components/Modal";
 
 export const Viagens = ({ navigation }) => {
+  const [dadosViagemAtual, setDadosViagemAtual] = useState(null)
+  const { user } = useContext(UserContext)
+
+  const BuscarViagemAtual = async () => {
+    await api.get(`/Viagens/BuscarViagemAtual/${user.jti}`)
+      .then(response => {
+        setDadosViagemAtual(response.data)
+        console.log(dadosViagemAtual);
+      })
+      .catch(erro => {
+        setDadosViagemAtual(null)
+      })
+  }
+
+  useEffect(() => {
+    BuscarViagemAtual()
+  }, [user])
+
+  useFocusEffect(useCallback(() => {
+    BuscarViagemAtual()
+  }, []))
+
   return (
     <Container>
       <MinhasViagens />
 
       {/* PostIt para acompanhar a sua viagem */}
-      <AcompanharViagem viagem={viagem} navigation={navigation} />
+      {dadosViagemAtual != null ?
+        <AcompanharViagem viagem={dadosViagemAtual} navigation={navigation} />
+        :
+        <PostItDefault
+          title={"Acompanhar viagem"}
+          description={"Inicie uma viagem futura para acompanhá-la"}
+          postItColor={"#DEFF97"}
+          navigation={navigation}
+          screen={"AcompanharViagem"}
+        />
+      }
 
       {/* PostIt para ver o histórico de viagens*/}
       <PostItDefault
@@ -34,6 +65,7 @@ export const Viagens = ({ navigation }) => {
       <PostItDefault
         title={"Viagens futuras"}
         description={"Veja suas viagens que ainda irão acontecer"}
+        icon={"futuras"}
         postItColor={"#B7FBFF"}
         navigation={navigation}
         screen={"ViagensFuturas"}
@@ -51,6 +83,10 @@ export const Viagens = ({ navigation }) => {
           <MaterialCommunityIcons name="airplane-plus" size={30} color="#fff" />
         </NovaViagem>
       </Shadow>
+
+      {/* <CompartilharViagemModal
+        visible={true}
+      /> */}
     </Container>
   );
 };

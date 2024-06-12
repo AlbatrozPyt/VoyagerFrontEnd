@@ -1,4 +1,4 @@
-import { FlatList, Modal, View } from "react-native";
+import { FlatList, Modal, View, Text } from "react-native";
 import {
   BackgroundModalRotina,
   ButtonModalRotina,
@@ -31,27 +31,63 @@ import api from "../../service/Service";
 import { useEffect, useState } from "react";
 import { ContainerCalendar } from "./style";
 import { CalendarMaximized } from "../Calendar/Calendar";
+import { mask } from "remask";
+import moment from "moment";
 
-export const ModalRotina = ({ visible, setVisible }) => {
+export const ModalRotina = ({
+  visible,
+  setVisible,
+  descricao,
+  setDescricao,
+  dataHora,
+  setDataHora,
+  tarefas,
+}) => {
   return (
     <Modal animationType="fade" transparent={true} visible={visible}>
       <BackgroundModalRotina>
         <ContainerModalRotina>
           <View style={{ margin: 20 }}>
-            <LabelModalRotina>Adicionar tarefa</LabelModalRotina>
+            <LabelModalRotina>Descrição</LabelModalRotina>
 
-            <ShadowDefault render={<InputRotina placeholder={``} />} />
+            <ShadowDefault
+              render={
+                <InputRotina
+                  placeholder={``}
+                  multiline={true}
+                  onChangeText={(txt) => setDescricao(txt)}
+                />
+              }
+            />
           </View>
 
           <View style={{ margin: 20 }}>
             <LabelModalRotina>Data e hora</LabelModalRotina>
 
-            <ShadowDefault render={<InputRotina placeholder={``} />} />
+            <ShadowDefault
+              render={
+                <InputRotina
+                  placeholder={``}
+                  onChangeText={(txt) => setDataHora(mask(txt, '99/99/9999 99:99'))}
+                  value={dataHora}
+                />
+              }
+            />
           </View>
 
           <ShadowButton3
             render={
-              <ButtonModalRotina onPress={() => setVisible(false)}>
+              <ButtonModalRotina
+                onPress={() => {
+                  setVisible(false)
+                  tarefas.push({
+                    descricao: descricao,
+                    data: moment(dataHora, "DD/MM/YYYY HH:mm").format("YYYY-MM-DDTHH:mm:ss")
+                  })
+                  setDescricao(null)
+                  setDataHora(null)
+                }}
+              >
                 <TitleDefault style={{ color: `#8531C6` }}>
                   adicionar
                 </TitleDefault>
@@ -242,6 +278,20 @@ export const ModalCalendar = ({ visible, setVisible, date, setDate }) => {
           />
 
         </ContainerCalendar>
+      </BackgroundModalRotina>
+    </Modal>
+  )
+}
+
+export const CompartilharViagemModal = ({visible, setVisible = null}) => {
+  return(
+    <Modal animationType="fade" visible={visible} transparent={true}>
+      <BackgroundModalRotina>
+        <ContainerModalRotina>
+          <TitleComment>Comentários</TitleComment>
+
+          <Text>Teste</Text>
+        </ContainerModalRotina>
       </BackgroundModalRotina>
     </Modal>
   )

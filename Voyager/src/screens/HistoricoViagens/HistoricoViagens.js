@@ -14,8 +14,31 @@ import { Back } from "../../components/Button/index";
 import { MinhasViagens } from "../../components/Logo/Logo";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import api from "../../service/Service";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../contexts/MyContext";
+import moment from "moment";
 
 export const HistoricoViagens = ({ navigation }) => {
+  
+  const [viagensConcluidas, setViagensConcluidas] = useState(null)
+  const { user } = useContext(UserContext)
+
+  const BuscarHistoricoDeViagens = async () => {
+    await api.get(`/Viagens/ListarViagensPassadas/${user.jti}`)
+      .then(response => {
+        setViagensConcluidas(response.data);
+        // console.log(viagensConcluidas.dataFinal);
+      })
+      .catch(erro => {
+        alert(erro)
+      })
+  }
+
+  useEffect(() => {
+    BuscarHistoricoDeViagens()
+  }, [user])
+
   return (
     <Container>
       <Back navigation={navigation} screen={"Viagens"} />
@@ -28,27 +51,29 @@ export const HistoricoViagens = ({ navigation }) => {
       </TitleViagensFuturas>
 
       <ScrollView style={{ width: "100%" }}>
-        <ContainerPostIts>
-          {[0, 1, 2, 3, 4].map((x) => {
-            return (
-              <PostIts
-                key={x}
-                onPress={() =>
-                  navigation.navigate("ViagemAtual", { type: "historico" })
-                }
-              >
-                <PostItImage
-                  source={{
-                    uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/post-it-2.png?raw=true",
-                  }}
-                />
+        {viagensConcluidas !== null ?
+          <ContainerPostIts>
+            {viagensConcluidas.map((viagem) => 
+                <PostIts
+                  key={viagem.id}
+                  onPress={() =>
+                    navigation.navigate("ViagemAtual", { type: "historico", idViagem: viagem.id })
+                  }
+                >
+                  <PostItImage
+                    source={{
+                      uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/post-it-2.png?raw=true"
+                    }}
+                  />
 
-                <TextDestino>Paris</TextDestino>
-                <TextData>29/08 - 02/09</TextData>
-              </PostIts>
-            );
-          })}
-        </ContainerPostIts>
+                  <TextDestino>{viagem.endereco.cidadeDestino}</TextDestino>
+                  <TextData>{moment(viagem.dataInicial).format("DD/MM")} - {moment(viagem.dataFinal).format("DD/MM")}</TextData>
+                </PostIts>
+              
+            )}
+          </ContainerPostIts>
+          : null}
+
       </ScrollView>
     </Container>
   );
