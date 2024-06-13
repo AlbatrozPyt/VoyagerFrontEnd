@@ -101,7 +101,11 @@ export const PostFeed = ({
                 <TitlePreviewFeed>{post.titulo}</TitlePreviewFeed>
 
                 <TextPreviewFeed>
-                  {post.descricao.substr(0, 57)}...
+                  {
+                    post.descricao !== undefined
+                    && post.descricao !== null
+                    && post.descricao.substr(0, 50)
+                  }...
                 </TextPreviewFeed>
               </ContentPreviewFeed>
 

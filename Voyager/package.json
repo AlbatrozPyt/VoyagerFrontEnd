@@ -33,7 +33,9 @@
     "react-native-shadow-2": "^7.1.0",
     "react-native-svg": "^15.3.0",
     "remask": "^1.2.2",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "expo-media-library": "~16.0.3",
+    "expo-image-picker": "~15.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

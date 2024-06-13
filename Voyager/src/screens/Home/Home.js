@@ -62,6 +62,11 @@ export const Home = ({ navigation, route }) => {
     GetAllPosts()
   }, [])
 
+  useEffect(() => {
+    GetAllPosts()
+  }, [route])
+
+
   return (
     <Container>
       <StatusBar

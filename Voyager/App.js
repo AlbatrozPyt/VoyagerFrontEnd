@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Text, View } from "react-native";
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Main } from "./src/screens/Main/Main";
@@ -19,6 +19,9 @@ import { RedefinirSenha } from "./src/screens/RedefinirSenha/RedefinirSenha";
 import { Navegacao } from "./src/screens/Navegacao/Navegacao";
 import { MyProvider } from "./src/contexts/MyContext";
 
+import * as MediaLibrary from "expo-media-library"
+import * as ImagePicker from "expo-image-picker"
+
 export default function App() {
   const Stack = createStackNavigator();
 
@@ -28,10 +31,20 @@ export default function App() {
     "LouisGeorgeCafe-Light": require("./src/assets/fonts/LouisGeorgeCafe-Light.ttf"),
     MoonGet: require("./src/assets/fonts/moon_get-Heavy.ttf"),
   });
+  
 
   if (!fontsLoaded && !fontError) {
     return null;
   }
+
+  async function requestPermissions() {
+    await MediaLibrary.requestPermissionsAsync();
+    await ImagePicker.requestMediaLibraryPermissionsAsync();
+  }
+
+  // useEffect(() => {
+  //   requestPermissions()
+  // }, [])
 
   return (
     <MyProvider >

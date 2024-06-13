@@ -23,14 +23,14 @@ export const ContainerShadowViagens = ({ render }) => {
   );
 };
 
-export const ShadowDefault = ({ render }) => {
+export const ShadowDefault = ({ render, mb = 10 }) => {
   return (
     <Shadow
       startColor="#000"
       endColor="#000"
       distance={0}
       offset={[5, 5]}
-      containerStyle={{ marginBottom: 10 }}
+      containerStyle={{ marginBottom: mb }}
     >
       {render}
     </Shadow>

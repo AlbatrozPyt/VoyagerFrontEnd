@@ -76,7 +76,7 @@ export const ViagemAtual = ({ navigation, route }) => {
     await api.put(`/StatusViagens/FinalizarViagem?idViagem=${idViagem}`)
     .then(() => {
       alert("Viagem Finalizada")
-      navigation.replace("main")
+      navigation.navigate("CriarPost", {idViagem: idViagem})
     })
     .catch(erro => {
       alert(erro)
@@ -168,7 +168,7 @@ export const ViagemAtual = ({ navigation, route }) => {
           <ShadowDefault
             render={
               <ButtonViagem
-                onPress={() => navigation.navigate(`CriarPost`)}
+                onPress={() => navigation.navigate(`CriarPost`, {idViagem: dadosViagem.id})}
                 bgColor={"#8531C6"}
               >
                 <TextButtonViagem style={{ color: "#fff" }}>
@@ -182,7 +182,7 @@ export const ViagemAtual = ({ navigation, route }) => {
             render={
               <ButtonViagem bgColor={"#8531C6"} onPress={() => IniciarViagem(dadosViagem.id)}>
                 <TextButtonViagem style={{ color: "#fff" }}>
-                  Salvar viagem
+                  Iniciar viagem
                 </TextButtonViagem>
               </ButtonViagem>
             }
