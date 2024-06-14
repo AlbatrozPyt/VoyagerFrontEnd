@@ -5,6 +5,7 @@ import {
   ContainerBio,
   ContentBio,
   ContentInfo,
+  ImageLogout,
   ImageTop,
   PerfilInfo,
   TextBio,
@@ -12,7 +13,7 @@ import {
   UserImage,
 } from "./style";
 import { TitleDefault } from "../../components/Text/style";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { GuiaPerfil } from "../../components/MenuGuia/MenuGuia";
 import { PostFeed } from "../../components/PostFeed/PostFeed";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
@@ -24,59 +25,99 @@ import {
   ShadowPerfilImage,
 } from "../../components/Shadow";
 import { UserContext } from "../../contexts/MyContext";
+import { ModalComentario } from "../../components/Modal/index"
 
 import api from "../../service/Service";
+import { useFocusEffect } from "@react-navigation/native";
 
-const mockFeed = [
-  {
-    title: "Pedro - Roma",
-    description:
-      "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.",
-    id: 1,
-  },
-  {
-    title: "Renato - Paris",
-    description:
-      "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.",
-    id: 2,
-  },
-  {
-    title: "Murilo - Japão",
-    description:
-      "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.",
-    id: 3,
-  },
-];
 
 export const Perfil = ({ navigation }) => {
   const [guia, setGuia] = useState(`posts`);
   const { user } = useContext(UserContext);
   const [response, setResponse] = useState(null);
+  const [userData, setUserData] = useState(null)
+
+  const [postData, setPostData] = useState(null)
+
+  const [likedPostData, setLikedPostData] = useState(null)
+
+  const [post, setPost] = useState(null)
+  const [modalComment, setModalComment] = useState(false)
+
+
+  console.log(user)
 
   async function GetUser() {
-    const get = await api.get(`/Usuarios?idUsuario=${user.jti}`);
-    setResponse(get.data);
+    const get = await api.get(`/Usuarios/${user.jti}`
+    ).then(response => {
+      setUserData(response.data);
+
+    }).catch(error => {
+      console.log(error);
+    });
+
+  }
+
+  async function GetPosts() {
+    const get = await api.get(`/PostagensViagens/ListarPostagensProprias/${user.jti}`
+    ).then(response => {
+      setPostData(response.data);
+
+
+    }).catch(error => {
+      console.log(error);
+    });
+
+  }
+  async function GetLikedPosts() {
+    const get = await api.get(`/PostagensViagens/ListarPostagensCurtidas/${user.jti}`
+    ).then(response => {
+
+      console.log(response.data);
+      setLikedPostData(response.data);
+
+
+    }).catch(error => {
+      console.log(error);
+    });
+
   }
 
   useEffect(() => {
-    GetUser();
-    console.log(response);
-  }, [1000]);
+    if (guia == 'posts') {
+      GetPosts();
+    } else {
+      GetLikedPosts()
+    }
+  }, []);
 
-  return (
+  useEffect(() => {
+    GetUser();
+  }, []);
+
+  useFocusEffect(useCallback(() => {
+    GetUser()
+    GetLikedPosts()
+  }, []));
+
+
+  return userData !== null && (
     <ScrollView>
-      <ImageTop source={require("../../assets/images/ImageTop.png")} />
+      <ImageTop source={{ uri: 'https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/ImageTop.png' }} />
+
+      <ImageLogout source={{ uri: 'https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/Botao_Deslogar.png' }} />
+
       <Container>
         <PerfilInfo>
           <ShadowPerfilImage>
             <UserImage
               source={{
-                uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroPerfil.png?raw=true`,
+                uri: userData.foto
               }}
             />
 
             <ButtonEdit
-              onPress={() => navigation.navigate(`EditPerfil`, { ...response })}
+              onPress={() => navigation.navigate(`EditPerfil`, { nome: userData.nome, bio: userData.bio, foto: userData.foto })}
             >
               <Feather name="edit-2" size={24} color="#000" />
             </ButtonEdit>
@@ -84,7 +125,7 @@ export const Perfil = ({ navigation }) => {
 
           <ShadowBoxPerfil>
             <ContentInfo>
-              {/* <TextInfo>{response.nome}</TextInfo>; */}
+              <TextInfo>{userData.nome}</TextInfo>
               {/* <TextInfo>23 anos</TextInfo> */}
             </ContentInfo>
           </ShadowBoxPerfil>
@@ -97,8 +138,7 @@ export const Perfil = ({ navigation }) => {
             render={
               <ContentBio>
                 <TextBio>
-                  Sou fascinado por viajar, já rodei os 4 cantos da terra em
-                  busca de me conhencer melhor, vem com o papai kkk.
+                  {userData.bio}
                 </TextBio>
               </ContentBio>
             }
@@ -117,14 +157,40 @@ export const Perfil = ({ navigation }) => {
           />
         )}
 
-        {guia === "posts"
-          ? mockFeed.map((x) => {
-              return <PostFeed key={x.id} post={x} navigation={navigation} />;
+        {postData !== null && guia === 'posts' ?
+          postData.map((x) => {
+            return <PostFeed
+              key={x.id}
+              post={x}
+              navigation={navigation}
+              user={user}
+              setModalComment={setModalComment}
+              setPost={setPost}
+            />;
+          })
+          : (likedPostData != null ?
+            likedPostData.map((x) => {
+              return <PostFeed
+                key={x.id}
+                post={x}
+                navigation={navigation}
+                user={user}
+                setModalComment={setModalComment}
+                setPost={setPost}
+              />;
             })
-          : mockFeed.map((x) => {
-              return <PostFeed key={x.id} post={x} navigation={navigation} />;
-            })}
+            : null)
+
+        }
+
+        <ModalComentario
+          post={post}
+          setPost={setPost}
+          visible={modalComment}
+          setVisible={setModalComment}
+          user={user}
+        />
       </Container>
     </ScrollView>
-  );
+  )
 };

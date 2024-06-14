@@ -30,6 +30,7 @@ export const PostFeed = ({
 }) => {
   const [like, setLike] = useState(false);
 
+
   async function PostCurtida(postId, userId) {
     await api.put(`/VisualizarAvaliacoes/CurtirDescurtirPostagem?IdUsuario=${userId}&IdPostagem=${postId}`)
       .then(() => {
@@ -49,6 +50,7 @@ export const PostFeed = ({
         console.log(e)
       })
   }
+
 
   useEffect(() => {
     GetCurtida(post.id, user.jti)

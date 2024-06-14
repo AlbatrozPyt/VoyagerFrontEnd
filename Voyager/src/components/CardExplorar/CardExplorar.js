@@ -3,9 +3,9 @@ import { BoxOne, BoxThree, ContainerBoxs } from "../PostFeed/style"
 import { BoxOneExplorar, BoxThreeExplorar, BoxTwoExplorar } from "./style"
 import { TitleDefault } from "../Text/style"
 
-export const CardExplorar = ({ urlImage, title }) => {
+export const CardExplorar = ({ dadosLocal, navigation }) => {
     return (
-        <TouchableOpacity style={{ margin: 12 }}>
+        <TouchableOpacity style={{ margin: 12 }} onPress={() => navigation.navigate("InfoLocal")}>
             <BoxOneExplorar>
                 <BoxTwoExplorar>
                     <BoxThreeExplorar>
@@ -14,14 +14,14 @@ export const CardExplorar = ({ urlImage, title }) => {
                                 width: `100%`,
                                 height: `70%`,
                             }}
-                            source={{ uri: urlImage }}
+                            source={{ uri: dadosLocal.imagem }}
                         />
 
                         <TitleDefault style={{
                             bottom: 12,
                             fontFamily: `MoonGet`
                         }}
-                        >{title}</TitleDefault>
+                        >{`${dadosLocal.nome.substr(0, 17)} ${(dadosLocal.nome.lenght > 18) ? "..." : ""}`}</TitleDefault>
                     </BoxThreeExplorar>
                 </BoxTwoExplorar>
             </BoxOneExplorar>

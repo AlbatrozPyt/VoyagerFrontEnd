@@ -64,15 +64,23 @@ export const CriarPost = ({ navigation, route }) => {
     }
 
     async function PostImages(idPostagem, array) {
-        var form = new FormData()
-        form.append(`IdPostagem`, idPostagem)
-        form.append(`galeriaFotos`, array)
 
-        await api.post(`/GaleriaImagens/${idPostagem}`, form, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }).then(() => navigation.navigate(`main`)).catch((e) => console.log(e))
+        array.forEach( async (imagem, index) => {
+            const form = new FormData();
+
+            form.append("IdPostagem", idPostagem)
+            form.append("Arquivo", {
+                uri: imagem,
+                name: `image.${imagem.split(".").pop()}`,
+                type: `image/${imagem.split(".").pop()}`,
+            });
+
+            await api.post(`/GaleriaImagens`, form, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).catch((e) => console.log(e) && alert(e))
+        });
     }
 
     useEffect(() => {
@@ -168,6 +176,7 @@ export const CriarPost = ({ navigation, route }) => {
                             style={{ backgroundColor: `#8531C6` }}
                             onPress={() => {
                                 Postar(route.params.idViagem)
+                                navigation.navigate(`Home`)
                             }}
                         >
                             <TextButtonViagem style={{ color: `#fff` }}>Postar</TextButtonViagem>

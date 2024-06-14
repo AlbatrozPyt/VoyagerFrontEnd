@@ -17,25 +17,29 @@ import { Text } from "react-native";
 import api from "../../service/Service";
 import { UserContext } from "../../contexts/MyContext";
 import { DecodeToken } from "../../utils/Auth";
+import { FormBoxLogin } from "./style";
+
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
 // Componente de tela de login
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState('matheusenrikeramalho@gmail.com');
-  const [senha, setSenha] = useState('matheus');
+  const [senha, setSenha] = useState('dodo');
   const { user, setUser } = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState('');
 
 
   async function Login() {
     await api.post("/Login", {
-        email: email,
-        senha: senha,
-      })
+      email: email,
+      senha: senha,
+    })
       .then((e) => {
         setUser(DecodeToken(e.data.token))
         navigation.navigate("main");
       })
       .catch((e) => {
-        console.log('Erro ao fazer o login');
+        setErrorMessage("Usuário ou senha incorretos!");
       });
   }
 
@@ -50,7 +54,7 @@ export const Login = ({ navigation }) => {
           <LogoComponent />
 
           {/* Caixa de formulário para agrupar os elementos de entrada */}
-          <FormBox>
+          <FormBoxLogin>
             {/* Título principal da página */}
             <Title>EMBARQUE NA VOYAGER</Title>
 
@@ -73,6 +77,8 @@ export const Login = ({ navigation }) => {
                 secureTextEntry
                 onChangeText={(txt) => setSenha(txt)}
               />
+              {errorMessage && <ErrorMessage error={errorMessage} />}
+
             </InputBox>
 
             {/* Link para recuperação de senha */}
@@ -97,9 +103,10 @@ export const Login = ({ navigation }) => {
                 </LinkMedium>
               </SubTitle>
             </CreateAccountBox>
-          </FormBox>
+          </FormBoxLogin>
         </MainContent>
       </MainContentScroll>
     </Container>
   );
 };
+

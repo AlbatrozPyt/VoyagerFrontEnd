@@ -128,7 +128,7 @@ export const CriarRotina = ({ navigation, route }) => {
         />
       </View>
 
-      <AboutGemini>
+      <AboutGemini onPress={() => navigation.navigate("ChatBot", {destino: `${route.params.cidadeDestino}, ${route.params.paisDestino}`, origem : `${route.params.cidadeOrigem}, ${route.params.paisOrigem}`, dataInicio: route.params.dataInicial, dataFinal: route.params.dataFinal})}>
         Experimete usar{" "}
         <AboutGeminiDashed> Nossa IA parceira!</AboutGeminiDashed>
       </AboutGemini>

@@ -21,27 +21,34 @@ import {
   ShadowPerfilImage,
   ShadowTakePicture,
 } from "../../components/Shadow";
-import  api  from "../../service/Service";
-import { useContext, useState } from "react";
+import api from "../../service/Service";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/MyContext";
+import { tokenClean } from "../../utils/Auth";
+import { ModalCamera } from "../../components/ModalCamera/ModalCamera";
+
 
 export const EditPerfil = ({ navigation, route }) => {
   const { user } = useContext(UserContext);
 
   const [bio, setBio] = useState(null);
-  const [cep, setCep] = useState(null);
-  const [logradouro, setLogradouro] = useState(null);
-  const [estado, setEstado] = useState(null);
-  const [cidade, setCidade] = useState(null);
+  const [nome, setNome] = useState(null);
+  const [foto, setFoto] = useState(null);
+
+  const [showModalCamera, setShowModalCamera] = useState(false)
+  const [uriCameraCapture, setUriCameraCapture] = useState(null)
+
+
+  useEffect(() => {
+    setBio(route.params.bio)
+    setNome(route.params.nome)
+    setFoto(route.params.foto)
+  }, [route])
 
   async function PutPerfil() {
     await api
-      .put(`/Usuarios?idUsuario=${user.jti}`, {
-        bio: bio,
-        cep: cep,
-        logradouro: logradouro,
-        estado: estado,
-        cidade: cidade,
+      .put(`/Usuarios/${user.jti}`, {
+        bio: bio
       })
       .then(() => {
         navigation.navigate("Perfil");
@@ -49,26 +56,76 @@ export const EditPerfil = ({ navigation, route }) => {
       .catch(() => console.log("Erro ao atualizar perfil"));
   }
 
+  async function UpdateProfilePhoto() {
+
+    const formData = new FormData();
+    formData.append("ArquivoFoto", {
+      uri: uriCameraCapture,
+      name: `image.${uriCameraCapture.split(".")[1]}`,
+      type: `image/${uriCameraCapture.split(".")[1]}`
+    })
+
+    await api.put(`/Usuarios/AtualizarFotoPerfil/${user.jti}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    }).then(response => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  useEffect(() => {
+    if (uriCameraCapture != null) {
+      UpdateProfilePhoto()
+    }
+  }, [uriCameraCapture])
+
   return (
     <ScrollView>
       <Container>
         <TopImageEdit
-          source={require(`../../assets/images/ImageTopEdit.png`)}
+          source={{uri : 'https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/ImageTopEdit.png'}}
         />
 
         <ContainerEditPhoto>
           <ShadowPerfilImage>
-            <UserImage source={require(`../../assets/images/PedroBig.png`)} />
+            {uriCameraCapture == null ? (
+              <>
+                <UserImage source={{ uri: foto }} />
+              </>
+            ) : (
+              <>
+                <UserImage source={{ uri: uriCameraCapture }} />
+              </>
+            )}
+
           </ShadowPerfilImage>
 
           <ShadowTakePicture>
-            <TakePicture>
+            <TakePicture onPress={() => setShowModalCamera(true)}>
               <MaterialIcons name="add-a-photo" size={30} color="#fff" />
             </TakePicture>
           </ShadowTakePicture>
         </ContainerEditPhoto>
 
         <ContainerInputsPerfil>
+
+          {/* <ContentEdit>
+            <LabelPerfil>Nome</LabelPerfil>
+
+            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
+              <InputPerfil
+                keyboardType={"string"}
+                placeholder={"Nome"}
+                onChangeText={(txt) => setNome(txt)}
+                value={nome}
+                editable={false}
+              />
+            </Shadow>
+          </ContentEdit> */}
+
           <ContentEdit>
             <LabelPerfil>Bio</LabelPerfil>
 
@@ -77,59 +134,20 @@ export const EditPerfil = ({ navigation, route }) => {
                 multiline={true}
                 placeholder={"Bio"}
                 onChangeText={(txt) => setBio(txt)}
+                value={bio}
               />
             </Shadow>
           </ContentEdit>
 
-          <ContentEdit>
-            <LabelPerfil>Cep</LabelPerfil>
-
-            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
-              <InputPerfil
-                keyboardType={"numeric"}
-                placeholder={"Cep"}
-                onChangeText={(txt) => setCep(txt)}
-              />
-            </Shadow>
-          </ContentEdit>
-
-          <ContentEdit>
-            <LabelPerfil>Logradouro</LabelPerfil>
-
-            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
-              <InputPerfil
-                placeholder={`Logradouro`}
-                onChangeText={(txt) => setLogradouro(txt)}
-              />
-            </Shadow>
-          </ContentEdit>
-
-          <ContentEdit>
-            <LabelPerfil>Estado</LabelPerfil>
-
-            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
-              <InputPerfil
-                placeholder={`Estado`}
-                onChangeText={(txt) => setEstado(txt)}
-              />
-            </Shadow>
-          </ContentEdit>
-
-          <ContentEdit>
-            <LabelPerfil>Cidade</LabelPerfil>
-
-            <Shadow offset={[4, 2]} style={{ borderRadius: 10 }}>
-              <InputPerfil
-                placeholder={`Cidade`}
-                onChangeText={(txt) => setBio(txt)}
-              />
-            </Shadow>
-          </ContentEdit>
         </ContainerInputsPerfil>
 
         <ShadowButton2
           render={
-            <ButtonModalRotina onPress={() => PutPerfil()}>
+            <ButtonModalRotina onPress={
+              () => PutPerfil() &&
+                UpdateProfilePhoto() &&
+                navigation.navigate(`Perfil`)
+            }>
               <TitleDefault style={{ color: `#8531C6` }}>salvar</TitleDefault>
             </ButtonModalRotina>
           }
@@ -145,6 +163,14 @@ export const EditPerfil = ({ navigation, route }) => {
             </ButtonModalRotina>
           }
         />
+
+        <ModalCamera
+          visible={showModalCamera}
+          setCameraCapture={setUriCameraCapture}
+          setShowCameraModal={setShowModalCamera}
+          getMediaLibrary={true}
+        />
+
       </Container>
     </ScrollView>
   );

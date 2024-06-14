@@ -19,23 +19,6 @@ import { UserContext } from "../../contexts/MyContext";
 import api from "../../service/Service"
 import { useFocusEffect } from "@react-navigation/native";
 
-const mockFeed = [
-  {
-    title: "Pedro - Roma",
-    description:
-      "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.",
-  },
-  {
-    title: "Renato - Paris",
-    description:
-      "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.",
-  },
-  {
-    title: "Murilo - Japão",
-    description:
-      "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.",
-  },
-];
 
 export const Home = ({ navigation, route }) => {
   const [guia, setGuia] = useState("feed");
@@ -60,11 +43,9 @@ export const Home = ({ navigation, route }) => {
 
   useEffect(() => {
     GetAllPosts()
-  }, [])
-
-  useEffect(() => {
-    GetAllPosts()
   }, [route])
+
+  useFocusEffect(useCallback(() => {GetAllPosts()}, []))
 
 
   return (
@@ -97,7 +78,7 @@ export const Home = ({ navigation, route }) => {
           showsHorizontalScrollIndicator={false}
         />
       ) : (
-        <Explorar />
+        <Explorar navigation={navigation} />
       )}
 
       <ModalComentario

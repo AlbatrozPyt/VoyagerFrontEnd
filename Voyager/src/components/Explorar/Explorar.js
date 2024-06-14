@@ -1,47 +1,67 @@
-import { FlatList, ScrollView } from "react-native"
+import { ActivityIndicator, FlatList, ScrollView } from "react-native"
 import { CardExplorar } from "../CardExplorar/CardExplorar"
 import { SearchBar } from "../Search/style"
-import { ContainerExplorar, ContainerList } from "./style"
+import { ContainerExplorar, ContainerList, LoadingContent } from "./style"
 import { Grid } from "react-native-easy-grid"
+import api from "../../service/Service";
+import { TitleDefault } from "../Text/style"
+import { useEffect, useState } from "react"
 
-const mock = [
-    {
-        urlImage: `https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS0t1lRSt7T8t5S5RyaAzku91R8RgkBboglEoGIsO32kuQyeIagmKFF9HSf-Obg8wTm7ahRQNTgfvjgjwmvRsuJTRCItDc3Yaw5K5uMOw`,
-        title: `cuba`,
-        id: 1
-    },
-    {
-        urlImage: `https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS0t1lRSt7T8t5S5RyaAzku91R8RgkBboglEoGIsO32kuQyeIagmKFF9HSf-Obg8wTm7ahRQNTgfvjgjwmvRsuJTRCItDc3Yaw5K5uMOw`,
-        title: `cuba`,
-        id: 2
-    },
-    {
-        urlImage: `https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS0t1lRSt7T8t5S5RyaAzku91R8RgkBboglEoGIsO32kuQyeIagmKFF9HSf-Obg8wTm7ahRQNTgfvjgjwmvRsuJTRCItDc3Yaw5K5uMOw`,
-        title: `cuba`,
-        id: 3
-    },
-    {
-        urlImage: `https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS0t1lRSt7T8t5S5RyaAzku91R8RgkBboglEoGIsO32kuQyeIagmKFF9HSf-Obg8wTm7ahRQNTgfvjgjwmvRsuJTRCItDc3Yaw5K5uMOw`,
-        title: `cuba`,
-        id: 4
-    },
-]
 
-export const Explorar = () => {
+export const Explorar = ({navigation}) => {
+    const [searchText, setSearchText] = useState("")
+    const [showLoading, setShowLoading] = useState(false)
+    const [placesList, setPlacesList] = useState([])
+
+    const HandleSearch = async (place) => {
+        setShowLoading(true)
+        await api.post(`/PlaceSearch?local=${place}`).then(response => {
+            setPlacesList(response.data)
+        }).catch(erro => {
+            alert(erro)
+        })
+        setShowLoading(false)
+        
+    }
+
     return (
         <ContainerExplorar>
-            <SearchBar placeholder={`Explorar...`} />
-            <ContainerList>
-                <Grid style={{padding: 15}}>
-                    <FlatList
-                        horizontal={false}
-                        data={mock}
-                        renderItem={({ item }) => <CardExplorar urlImage={item.urlImage} title={item.title} />}
-                        numColumns={2}
-                        showsVerticalScrollIndicator={false}
-                    />
-                </Grid>
-            </ContainerList>
+            <SearchBar placeholder={`Explorar...`} value={searchText} onChangeText={text => setSearchText(text)} onEndEditing={() => {
+                setShowLoading(true)
+                HandleSearch(searchText)
+            }} />
+
+            {showLoading ?
+                <LoadingContent>
+                    <TitleDefault>
+                        Buscando!
+                    </TitleDefault>
+                    <ActivityIndicator  color={"#8531C6"} />
+                </LoadingContent>
+                :
+                null}
+
+            {placesList.length === 0 && !showLoading ?
+                <LoadingContent>
+                    <TitleDefault>
+                        Informe um local!
+                    </TitleDefault>
+                </LoadingContent>
+                : null}
+
+            {placesList.length > 0 && !showLoading ?
+                <ContainerList>
+                    <Grid style={{ padding: 15 }}>
+                        <FlatList
+                            horizontal={false}
+                            data={placesList}
+                            renderItem={({ item }) => <CardExplorar navigation={navigation} dadosLocal={item} />}
+                            numColumns={2}
+                            showsVerticalScrollIndicator={false}
+                        />
+                    </Grid>
+                </ContainerList>
+                : null}
         </ContainerExplorar>
     )
 }

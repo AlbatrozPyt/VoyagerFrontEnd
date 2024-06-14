@@ -10,6 +10,14 @@ export const ImageTop = styled.Image`
   height: 400px;
 `;
 
+export const ImageLogout = styled.Image`
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  z-index: 100;
+`;
+
+
 export const PerfilInfo = styled.View`
   width: 100%;
   height: 300px;

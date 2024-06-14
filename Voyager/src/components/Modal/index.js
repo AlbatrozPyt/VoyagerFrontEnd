@@ -128,7 +128,8 @@ export const ModalComentario = ({
     await api.post('/Comentarios', {
       idPostagem: postId,
       idUsuario: userId,
-      comentarioTexto: comentario
+      comentarioTexto: comentario,
+      dataComentario: moment().format('YYYY-MM-DDTHH:mm:ss')
     })
       .then((e) => {
         console.log('Post comentado')

@@ -49,57 +49,51 @@ export default function App() {
   return (
     <MyProvider >
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{
+          headerShown: false
+        }}>
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{ headerShown: false }}
           />
 
           <Stack.Screen
             name="main"
             component={Main}
-            options={{ headerShown: false }}
           />
 
           <Stack.Screen
             name="ViewPost"
             component={ViewPost}
-            options={{ headerShown: false }}
           />
 
           <Stack.Screen
             name="EditPerfil"
             component={EditPerfil}
-            options={{ headerShown: false }}
           />
 
           {/* Tela de Cadastro */}
           <Stack.Screen
             name="Cadastro"
             component={Cadastro}
-            options={{ headerShown: false }}
           />
 
           {/* Tela de Recuperar Senha */}
           <Stack.Screen
             name="RecuperarSenha"
             component={RecuperarSenha}
-            options={{ headerShown: false }}
           />
 
           {/* Tela de Verificar Codigo */}
           <Stack.Screen
             name="VerificarCodigo"
             component={VerificarCodigo}
-            options={{ headerShown: false }}
           />
 
           {/* Tela de Redefinir Senha */}
           <Stack.Screen
             name="RedefinirSenha"
             component={RedefinirSenha}
-            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

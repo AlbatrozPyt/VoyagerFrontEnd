@@ -13,6 +13,8 @@ import { TitleDefault } from "../../components/Text/style";
 
 import { UserContext } from "../../contexts/MyContext"
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 export const CadastrarViagem = ({ navigation }) => {
 
   const { user } = useContext(UserContext)
@@ -33,16 +35,16 @@ export const CadastrarViagem = ({ navigation }) => {
   const [paisDestino, setPaisDestino] = useState(null)
   const [cidadeDestino, setCidadeDestino] = useState(null)
 
-  useEffect(() => {
-    setShow1(null)
-    setShow2(null)
+  function clearForm() {
+    setShow1(false)
+    setShow2(false)
     setDate1(null)
     setDate2(null)
     setPaisOrigem(null)
     setCidadeOrigem(null)
     setPaisDestino(null)
     setCidadeDestino(null)
-  }, [])
+  }
 
   return (
     <ScrollView>
@@ -116,20 +118,44 @@ export const CadastrarViagem = ({ navigation }) => {
           <ShadowDefault
             render={
               <ButtonViagem
-                onPress={() => navigation.navigate("CriarRotina", {
-                  dataInicial: date1,
-                  dataFinal: date2,
-                  paisOrigem: paisOrigem,
-                  cidadeOrigem: cidadeOrigem,
-                  paisDestino: paisDestino,
-                  cidadeDestino: cidadeDestino,
-                  idTipoViagem: tipoViagem,
-                  idUsuario: user.jti
-                })}
+                onPress={() => {
+                  navigation.navigate("CriarRotina", {
+                    dataInicial: date1,
+                    dataFinal: date2,
+                    paisOrigem: paisOrigem,
+                    cidadeOrigem: cidadeOrigem,
+                    paisDestino: paisDestino,
+                    cidadeDestino: cidadeDestino,
+                    idTipoViagem: tipoViagem,
+                    idUsuario: user.jti
+                  })
+                  clearForm()
+                }}
                 style={{ backgroundColor: "#8531C6" }}
+
+                disabled={
+                  paisOrigem === null ||
+                    cidadeOrigem === null ||
+                    paisDestino === null ||
+                    cidadeDestino === null ||
+                    date1 === null ||
+                    date2 === null ||
+                    tipoViagem === null ? true : false
+                }
+
               >
                 <TextButtonViagem style={{ color: "#fff" }}>
-                  Continuar
+                  {
+                    paisOrigem === null ||
+                      cidadeOrigem === null ||
+                      paisDestino === null ||
+                      cidadeDestino === null ||
+                      date1 === null ||
+                      date2 === null ||
+                      tipoViagem === null
+                      ? <MaterialCommunityIcons name="block-helper" size={24} color="#fff" />
+                      : 'Continuar'
+                  }
                 </TextButtonViagem>
               </ButtonViagem>
             }
