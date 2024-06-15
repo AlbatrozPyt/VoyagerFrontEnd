@@ -3,10 +3,13 @@ import { Container } from "../../components/container/style";
 import {
   ButtonEdit,
   ContainerBio,
+  ContainerPerfil,
   ContentBio,
   ContentInfo,
   ImageLogout,
+  ImageLogoutBox,
   ImageTop,
+  ImageTopBox,
   PerfilInfo,
   TextBio,
   TextInfo,
@@ -44,14 +47,10 @@ export const Perfil = ({ navigation }) => {
   const [post, setPost] = useState(null)
   const [modalComment, setModalComment] = useState(false)
 
-
-  console.log(user)
-
   async function GetUser() {
     const get = await api.get(`/Usuarios/${user.jti}`
     ).then(response => {
       setUserData(response.data);
-
     }).catch(error => {
       console.log(error);
     });
@@ -73,7 +72,6 @@ export const Perfil = ({ navigation }) => {
     const get = await api.get(`/PostagensViagens/ListarPostagensCurtidas/${user.jti}`
     ).then(response => {
 
-      console.log(response.data);
       setLikedPostData(response.data);
 
 
@@ -84,31 +82,30 @@ export const Perfil = ({ navigation }) => {
   }
 
   useEffect(() => {
-    if (guia == 'posts') {
-      GetPosts();
-    } else {
-      GetLikedPosts()
-    }
-  }, []);
-
-  useEffect(() => {
     GetUser();
   }, []);
 
   useFocusEffect(useCallback(() => {
     GetUser()
     GetLikedPosts()
+    GetPosts();
   }, []));
 
 
   return userData !== null && (
-    <ScrollView>
-      <ImageTop source={{ uri: 'https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/ImageTop.png' }} />
+    <Container>
 
-      <ImageLogout source={{ uri: 'https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/Botao_Deslogar.png' }} />
+      <ImageTopBox>
+        <ImageTop source={{ uri: 'https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/ImageTop.png' }} />
+      </ImageTopBox>
 
-      <Container>
+
+
+      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
         <PerfilInfo>
+          <ImageLogoutBox onPress={() => navigation.replace("Login")}>
+            <ImageLogout source={{ uri: 'https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/Botao_Deslogar.png' }} />
+          </ImageLogoutBox>
           <ShadowPerfilImage>
             <UserImage
               source={{
@@ -117,7 +114,7 @@ export const Perfil = ({ navigation }) => {
             />
 
             <ButtonEdit
-              onPress={() => navigation.navigate(`EditPerfil`, { nome: userData.nome, bio: userData.bio, foto: userData.foto })}
+              onPress={() => navigation.navigate(`EditPerfil`, { nome: userData.nome, bio: userData.bio, foto: userData.foto, enderecoUsuario: userData.enderecoUsuario })}
             >
               <Feather name="edit-2" size={24} color="#000" />
             </ButtonEdit>
@@ -135,10 +132,11 @@ export const Perfil = ({ navigation }) => {
           <TitleDefault>Sobre mim:</TitleDefault>
 
           <ShadowOpacity
+            styleRender={{ width: "100%" }}
             render={
               <ContentBio>
                 <TextBio>
-                  {userData.bio}
+                  {userData.bio != "" ? userData.bio : "Adicione uma bio ao seu perfil em Editar Perfil"}
                 </TextBio>
               </ContentBio>
             }
@@ -149,9 +147,10 @@ export const Perfil = ({ navigation }) => {
 
         {guia === `posts` && (
           <ShadowButton2
+          
             render={
               <ButtonViagem onPress={() => navigation.navigate(`CriarPost`)}>
-                <TextButtonViagem>compartilhe sua viagem</TextButtonViagem>
+                <TextButtonViagem>compartilhe uma nova viagem</TextButtonViagem>
               </ButtonViagem>
             }
           />
@@ -166,6 +165,7 @@ export const Perfil = ({ navigation }) => {
               user={user}
               setModalComment={setModalComment}
               setPost={setPost}
+              screenBack={"Perfil"}
             />;
           })
           : (likedPostData != null ?
@@ -177,6 +177,8 @@ export const Perfil = ({ navigation }) => {
                 user={user}
                 setModalComment={setModalComment}
                 setPost={setPost}
+                screenBack={"Perfil"}
+
               />;
             })
             : null)
@@ -190,7 +192,8 @@ export const Perfil = ({ navigation }) => {
           setVisible={setModalComment}
           user={user}
         />
-      </Container>
-    </ScrollView>
+      </ScrollView>
+
+    </Container>
   )
 };

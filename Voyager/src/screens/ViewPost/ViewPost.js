@@ -37,7 +37,7 @@ export const ViewPost = ({ route, navigation }) => {
 
       <Container>
         <View style={{ width: "100%", height: 20, marginBottom: 50 }}>
-          <Back navigation={navigation} screen={'main'} />
+          <Back navigation={navigation} screen={route.params.screenBack} />
         </View>
 
         <TitlePost>{route.params.post.titulo}</TitlePost>

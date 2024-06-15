@@ -28,7 +28,7 @@ export const Header = ({ navigation, user }) => {
         <UserName>{user.name}</UserName>
       </ContentUser>
 
-      <TouchableOpacity onPress={() => navigation.replace("Login")}>
+      <TouchableOpacity>
         <BoxShadowUser>
           <UserImage
             source={{

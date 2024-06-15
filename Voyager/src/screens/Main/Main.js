@@ -22,10 +22,16 @@ import { ChatBot } from "../Chat/chatbot";
 export const Main = ({ route }) => {
   const BottomTab = createBottomTabNavigator();
 
+  const [telaRedirecionada, setTelaRedirecionada] = useState(route.params.screen)
+
+  useEffect(() => {
+    setTelaRedirecionada(route.params.screen)
+  })
+
   return (
     <BottomTab.Navigator
       screenOptions={({ route }) => ({
-        initialRouteName: "Home",
+        initialRouteName: telaRedirecionada,
         headerShown: false,
         tabBarStyle: { height: 60, borderTopWidth: 2, borderColor: "#000" },
         tabBarActiveBackgroundColor: "transparent",

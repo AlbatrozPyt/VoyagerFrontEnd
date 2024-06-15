@@ -23,7 +23,7 @@ export const ContainerShadowViagens = ({ render }) => {
   );
 };
 
-export const ShadowDefault = ({ render, mb = 10 }) => {
+export const ShadowDefault = ({ render, mb = 10, styleRender = {} }) => {
   return (
     <Shadow
       startColor="#000"
@@ -31,6 +31,7 @@ export const ShadowDefault = ({ render, mb = 10 }) => {
       distance={0}
       offset={[5, 5]}
       containerStyle={{ marginBottom: mb }}
+      childrenViewProps={styleRender}
     >
       {render}
     </Shadow>
@@ -51,7 +52,7 @@ export const ShadowDefault2 = ({ render }) => {
   );
 };
 
-export const ShadowButton2 = ({ render }) => {
+export const ShadowButton2 = ({ render, styleRender = {} }) => {
   return (
     <Shadow
       startColor="#8531C6"
@@ -59,12 +60,14 @@ export const ShadowButton2 = ({ render }) => {
       distance={0}
       offset={[8, 8]}
       containerStyle={{ marginBottom: 20 }}
+      childrenViewProps={styleRender}
     >
       <Shadow
         startColor="#000"
         endColor="#000"
         distance={0}
         offset={[2.5, 2.5]}
+        childrenViewProps={{width: "100%"}}
       >
         {render}
       </Shadow>
@@ -72,7 +75,7 @@ export const ShadowButton2 = ({ render }) => {
   );
 };
 
-export const ShadowButton3 = ({ render }) => {
+export const ShadowButton3 = ({ render, styleRender = {} }) => {
   return (
     <Shadow
       startColor="#8531C6"
@@ -80,6 +83,7 @@ export const ShadowButton3 = ({ render }) => {
       distance={0}
       offset={[6, 6]}
       containerStyle={{ margin: 10 }}
+      childrenViewProps={styleRender}
     >
       <Shadow startColor="#000" endColor="#000" distance={0} offset={[2, 2]}>
         {render}
@@ -88,7 +92,7 @@ export const ShadowButton3 = ({ render }) => {
   );
 };
 
-export const ShadowOpacity = ({ render }) => {
+export const ShadowOpacity = ({ render, styleRender = {} }) => {
   return (
     <Shadow
       startColor="rgba(0, 0, 0, .2)"
@@ -96,6 +100,7 @@ export const ShadowOpacity = ({ render }) => {
       distance={0}
       offset={[4, 4]}
       style={{ borderRadius: 10 }}
+      childrenViewProps={styleRender}
     >
       {render}
     </Shadow>
@@ -138,7 +143,7 @@ export const ShadowTakePicture = ({ children }) => {
       endColor="rgba(0, 0, 0)"
       distance={0}
       offset={[4, 4]}
-      containerStyle={{ position: "absolute", left: 20, bottom: -20 }}
+      containerStyle={{ position: "absolute", left: -30, bottom: -20, zIndex: 20 }}
     >
       {children}
     </Shadow>

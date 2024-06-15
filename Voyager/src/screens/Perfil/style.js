@@ -1,20 +1,31 @@
 import styled from "styled-components";
 import { TitleDefault } from '../../components/Text/style'
 import { ButtonGuia } from "../../components/MenuGuia/style";
+import { Container } from "../../components/container/style";
+
+export const ScrollViewPerfil = styled.ScrollView`
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+`
+
+export const ContainerPerfil = styled(Container)`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`
+
+export const ImageTopBox = styled.View`
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+`
 
 export const ImageTop = styled.Image`
-  position: absolute;
-  top: 0px;
-  right: -4px;
+  /* position: absolute; */
   width: 100%;
-  height: 400px;
-`;
-
-export const ImageLogout = styled.Image`
-  position: absolute;
-  left: 10%;
-  top: 20%;
-  z-index: 100;
+  height: 100%;
 `;
 
 
@@ -23,7 +34,22 @@ export const PerfilInfo = styled.View`
   height: 300px;
   align-items: center;
   justify-content: center;
+  position: relative;
   margin-top: 40px;
+`;
+
+export const ImageLogoutBox = styled.TouchableOpacity`
+  width: 40px;
+  height: 30px;
+  position: absolute;
+  z-index: 100;
+  top: 25%;
+  left: 10%;
+`
+
+export const ImageLogout = styled.Image`
+  width: 100%;
+  height: 100%;
 `;
 
 export const UserImage = styled.Image`
@@ -66,10 +92,13 @@ export const TextInfo = styled.Text`
 `;
 
 export const ContainerBio = styled.View`
-  width: 80%;
+  gap: 10px;
+  width: 90%;
 `
 export const ContentBio = styled(ContentInfo)`
   width: 100%;
+  padding: 10px 15px;
+  align-items: flex-start;
 `
 
 export const TextBio = styled.Text`

@@ -36,7 +36,7 @@ export const Login = ({ navigation }) => {
     })
       .then((e) => {
         setUser(DecodeToken(e.data.token))
-        navigation.navigate("main");
+        navigation.navigate("main", {screen: "Home"});
       })
       .catch((e) => {
         setErrorMessage("Usuário ou senha incorretos!");

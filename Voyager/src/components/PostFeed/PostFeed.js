@@ -27,6 +27,7 @@ export const PostFeed = ({
   navigation,
   setModalComment,
   setPost,
+  screenBack
 }) => {
   const [like, setLike] = useState(false);
 
@@ -58,7 +59,7 @@ export const PostFeed = ({
 
   return (
     <ContainerBoxs
-      onPress={() => navigation.replace("ViewPost", { post: post })}
+      onPress={() => navigation.replace("ViewPost", { post: post, screenBack: screenBack })}
     >
       <BoxOne>
         <BoxTwo>

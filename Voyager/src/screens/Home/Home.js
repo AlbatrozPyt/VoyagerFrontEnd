@@ -72,6 +72,7 @@ export const Home = ({ navigation, route }) => {
               user={user}
               navigation={navigation}
               setModalComment={setModalComment}
+              screenBack={"Home"}
             />
           )}
           showsVerticalScrollIndicator={false}
