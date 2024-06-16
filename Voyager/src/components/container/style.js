@@ -35,7 +35,7 @@ export const MainContent = styled.View`
 export const FormBox = styled.View`
   width: ${(props) => (props.fieldWidth ? props.fieldWidth : "90%")};
   height: max-content;
-  align-items: center;
+  align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
   gap: ${(props) => (props.gap ? props.gap : "20px")};
   margin: ${(props) => (props.margin ? props.margin : "0")};
 `;
@@ -72,7 +72,7 @@ export const CenteredContent = styled.View`
     display: flex;
     flex-direction: column;
     align-items: center; 
-    justify-content: center; 
+    /* justify-content: center;  */
 `;
 
 export const InputCodeContainer = styled.View`

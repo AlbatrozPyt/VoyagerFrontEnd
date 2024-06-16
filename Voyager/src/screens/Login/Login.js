@@ -20,13 +20,18 @@ import { DecodeToken } from "../../utils/Auth";
 import { FormBoxLogin } from "./style";
 
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import { MostrarModal } from "../../utils/MostrarModal";
+import { ModalInformativo } from "../../components/Modal";
 
 // Componente de tela de login
-export const Login = ({ navigation }) => {
+export const Login = ({ navigation, route }) => {
   const [email, setEmail] = useState('matheusenrikeramalho@gmail.com');
   const [senha, setSenha] = useState('dodo');
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [mensagemModal, setMensagemModal] = useState("")
+  const [showModalMensagem, setShowModalMensagem] = useState(false)
 
 
   async function Login() {
@@ -42,6 +47,14 @@ export const Login = ({ navigation }) => {
         setErrorMessage("Usuário ou senha incorretos!");
       });
   }
+
+  useEffect(() => {
+    if(route.params){
+      if(route.params.cadastrado){
+        MostrarModal("Parabéns! Você acaba de se cadastrar na Voyager, verifique seu email para visualizar a nossa mensagem de boas vindas personalizada e boa viagem!!!", setShowModalMensagem, setMensagemModal)
+      }
+    }
+  }, [route])
 
   return (
     //   {/* // Container principal da tela, que ocupa toda a área segura da tela */}
@@ -106,6 +119,12 @@ export const Login = ({ navigation }) => {
           </FormBoxLogin>
         </MainContent>
       </MainContentScroll>
+
+      <ModalInformativo
+        setShowModal={setShowModalMensagem}
+        showModal={showModalMensagem}
+        mensagem={mensagemModal}
+      />
     </Container>
   );
 };

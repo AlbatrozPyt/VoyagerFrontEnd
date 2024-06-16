@@ -136,7 +136,7 @@ export const Perfil = ({ navigation }) => {
             render={
               <ContentBio>
                 <TextBio>
-                  {userData.bio != "" ? userData.bio : "Adicione uma bio ao seu perfil em Editar Perfil"}
+                  {(userData.bio != null && userData.bio != "") ? userData.bio : "Adicione uma bio ao seu perfil em Editar Perfil"}
                 </TextBio>
               </ContentBio>
             }

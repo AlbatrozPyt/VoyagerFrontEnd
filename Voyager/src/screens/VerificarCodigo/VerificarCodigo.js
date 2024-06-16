@@ -90,11 +90,10 @@ export const VerificarCodigo = ({ navigation, route }) => {
                     emailRecuperacao: route.params.emailRecuperacao,
                 });
             } else {
-                Alert.alert("Erro", "Código inválido!"); // Exibe um alerta se o código for inválido
+                MostrarModal("Erro. O código digitado é inválido! Verifique seu email e tente novamente", setShowModalMensagem, setMensagemModal ); // Exibe um alerta se o código for inválido
             }
         } catch (error) {
-            console.error("Erro na validação do código:", error.response ? error.response.data : error.message);
-            Alert.alert("Erro", error.response?.data?.message || error.message || "Código inválido!"); // Exibe um alerta em caso de erro
+            MostrarModal("Erro. O código digitado é inválido! Verifique seu email e tente novamente", setShowModalMensagem, setMensagemModal ); // Exibe um alerta em caso de erro
         }
         setLoading(false); // Define o estado de carregamento como falso
     };
