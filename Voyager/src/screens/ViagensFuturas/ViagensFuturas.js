@@ -66,7 +66,7 @@ export const ViagensFuturas = ({ navigation }) => {
                 >
                   <PostItImage
                     source={{
-                      uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/post-it-2.png?raw=true"
+                      uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/post-it.png?raw=true"
                     }}
                   />
 

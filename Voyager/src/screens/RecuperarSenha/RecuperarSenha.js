@@ -69,7 +69,7 @@ export const RecuperarSenha = ({ navigation }) => {
                             {/* Sombra para o estilo da caixa de botão */}
                             <Sombra style={{ top: 95, width: '100%' }} />
                             <Button
-                                onPress={() => enviarEmail()}
+                                onPress={loading ? null : () => enviarEmail()}
                                 style={{ marginTop: 90, width: '100%' }}
                             >
                                 {/* Título do botão */}

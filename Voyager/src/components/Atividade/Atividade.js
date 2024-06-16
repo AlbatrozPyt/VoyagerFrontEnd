@@ -25,7 +25,7 @@ export const Atividade = ({ text, dataHora, onPress }) => {
           {moment(dataHora).format("DD/MM") + " às " + moment(dataHora).format("HH:mm")}
         </TitleDefault>
 
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onPress} style={{position: "absolute", right: 8, top: "25%"}}>
           <AntDesign name="close" size={24} color="black" />
         </TouchableOpacity>
       </ContainerAtividade>

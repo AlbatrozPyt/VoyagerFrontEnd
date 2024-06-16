@@ -149,7 +149,7 @@ export const VerificarCodigo = ({ navigation, route }) => {
 
                             <ButtonBox>
                                 <Sombra style={{ left: 5, width: '50%' }} />
-                                <Button style={{ width: 175 }} onPress={validarCodigo} disabled={loading}>
+                                <Button style={{ width: 175 }} onPress={loading ? null : () => validarCodigo()}>
                                     <ButtonTitle>
                                         <Text>{loading ? "Carregando..." : "Continuar"}</Text>
                                     </ButtonTitle>

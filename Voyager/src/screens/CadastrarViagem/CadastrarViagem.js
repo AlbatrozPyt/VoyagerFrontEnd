@@ -122,10 +122,10 @@ export const CadastrarViagem = ({ navigation }) => {
                   navigation.navigate("CriarRotina", {
                     dataInicial: date1,
                     dataFinal: date2,
-                    paisOrigem: paisOrigem,
-                    cidadeOrigem: cidadeOrigem,
-                    paisDestino: paisDestino,
-                    cidadeDestino: cidadeDestino,
+                    paisOrigem: paisOrigem.trim(),
+                    cidadeOrigem: cidadeOrigem.trim(),
+                    paisDestino: paisDestino.trim(),
+                    cidadeDestino: cidadeDestino.trim(),
                     idTipoViagem: tipoViagem,
                     idUsuario: user.jti
                   })

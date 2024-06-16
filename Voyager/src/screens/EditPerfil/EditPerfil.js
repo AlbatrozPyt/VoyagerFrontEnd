@@ -32,6 +32,8 @@ import { tokenClean } from "../../utils/Auth";
 import { ModalCamera } from "../../components/ModalCamera/ModalCamera";
 import { mask, unMask, unmask } from "remask";
 import { apiViaCep } from "../../service/viaCep";
+import { MostrarModal } from "../../utils/MostrarModal"
+import { ModalInformativo } from "../../components/Modal";
 
 export const EditPerfil = ({ navigation, route }) => {
   const { user } = useContext(UserContext);
@@ -42,6 +44,10 @@ export const EditPerfil = ({ navigation, route }) => {
 
   const [showModalCamera, setShowModalCamera] = useState(false)
   const [uriCameraCapture, setUriCameraCapture] = useState(null)
+
+  const [mensagemModal, setMensagemModal] = useState("")
+  const [showModalMensagem, setShowModalMensagem] = useState(false)
+  const [loading, setLoading] = useState(false)
 
 
   useEffect(() => {
@@ -57,6 +63,7 @@ export const EditPerfil = ({ navigation, route }) => {
 
   async function PutPerfil() {
     if (dadosEndereco === null) {
+      setLoading(true)
       await api
         .put(`/Usuarios/${user.jti}`, {
           bio: `${bio.split()}`
@@ -64,8 +71,9 @@ export const EditPerfil = ({ navigation, route }) => {
           UpdateProfilePhoto()
         })
         .catch(() => {
-          console.log("Erro ao atualizar perfil")
+          MostrarModal("Erro ao atualizar dados do perfil. Verifique se os dados foram digitados corretamente e tente novamente", setShowModalMensagem, setMensagemModal)
         });
+        setLoading(false)
     } else {
 
       if (dadosEndereco.cep.length !== 8 && dadosEndereco.cep > 0) {
@@ -73,6 +81,7 @@ export const EditPerfil = ({ navigation, route }) => {
         return
       }
 
+      setLoading(true)
       await api
         .put(`/Usuarios/${user.jti}`, {
           cep: unmask(dadosEndereco.cep),
@@ -84,9 +93,9 @@ export const EditPerfil = ({ navigation, route }) => {
           UpdateProfilePhoto()
         })
         .catch(() => {
-          console.log(dadosEndereco);
-          console.log("Erro ao atualizar perfil")
+          MostrarModal("Erro ao atualizar dados do perfil. Verifique se os dados foram digitados corretamente e tente novamente", setShowModalMensagem, setMensagemModal)
         });
+        setLoading(false)
     }
   }
 
@@ -105,7 +114,7 @@ export const EditPerfil = ({ navigation, route }) => {
           "Content-Type": "multipart/form-data"
         }
       }).catch(error => {
-        console.log("Erro ao atualizar a foto de perfil");
+        MostrarModal("Erro atualizar foto de perfil. Verifique se o arquivo enviado é válido e tente novamente.", setShowModalMensagem, setMensagemModal)
         imagemValida = false;
       })
     }
@@ -127,7 +136,7 @@ export const EditPerfil = ({ navigation, route }) => {
         })
       })
       .catch(erro => {
-        alert(erro)
+        MostrarModal("Erro ao buscar endereço. Verifique se o cep foi digitado corretamente e tente novamente.", setShowModalMensagem, setMensagemModal)
         console.log(erro);
       })
   }
@@ -260,7 +269,7 @@ export const EditPerfil = ({ navigation, route }) => {
           styleRender={{ width: 280 }}
           render={
             <ButtonAction onPress={() => PutPerfil()}>
-              <TitleDefault style={{ color: `#8531C6` }}>salvar</TitleDefault>
+              <TitleDefault style={{ color: `#8531C6` }}>{loading ? "salvando..." : "salvar"}</TitleDefault>
             </ButtonAction>
           }
         />
@@ -286,6 +295,12 @@ export const EditPerfil = ({ navigation, route }) => {
 
 
       </ScrollView>
+
+      <ModalInformativo
+        mensagem={mensagemModal}
+        showModal={showModalMensagem}
+        setShowModal={setShowModalMensagem}
+      />
     </ContainerEditPerfil>
   );
 };

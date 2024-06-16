@@ -105,7 +105,7 @@ export const Cadastro = ({ navigation }) => {
                                 {/* Sombra para o estilo da caixa de botão */}
                                 <Sombra x style={{ left: 5 }} />
                                 {/* Botão para navegar para a tela de login */}
-                                <Button onPress={() => CadastrarUsuario()}>
+                                <Button onPress={loading ? null : () => CadastrarUsuario()}>
                                     {/* Título do botão */}
                                     <ButtonTitle>
                                         {loading ? "Cadastrando..." : "Cadastrar"}

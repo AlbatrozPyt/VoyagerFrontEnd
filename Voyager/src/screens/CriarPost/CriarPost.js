@@ -13,6 +13,9 @@ import * as ImagePicker from "expo-image-picker"
 import { TitlePreviewFeed } from "../../components/PostFeed/style";
 import { TitleViagens } from "../../components/ViewViagens/style";
 import api from "../../service/Service";
+import moment from "moment";
+import { ModalInformativo } from "../../components/Modal";
+import { MostrarModal } from "../../utils/MostrarModal";
 
 
 export const CriarPost = ({ navigation, route }) => {
@@ -20,12 +23,17 @@ export const CriarPost = ({ navigation, route }) => {
     const [image, setImage] = useState(null)
     const [lastImage, setLastImage] = useState(null)
 
-    const [descricao, setDescricao] = useState(null)
-    const [titulo, setTitulo] = useState(null)
+    const [descricao, setDescricao] = useState("")
+    const [titulo, setTitulo] = useState("")
 
     const [arrayImages, setArrayImages] = useState([])
 
     const [dep, setDep] = useState(false)
+
+    const [mensagemModal, setMensagemModal] = useState("")
+    const [showModalMensagem, setShowModalMensagem] = useState(false)
+
+    const [loading, setLoading] = useState(false)
 
     async function pickerGalery() {
         const result = await ImagePicker.launchImageLibraryAsync({
@@ -50,17 +58,24 @@ export const CriarPost = ({ navigation, route }) => {
     }
 
     async function Postar(idViagem) {
+        if(titulo === "" || descricao == ""){
+            MostrarModal("Campos vazios. Um ou mais campos de senha foram digitados incorretamente, preencha todos os campos para continuar", setShowModalMensagem, setMensagemModal)
+        }
+
+        setLoading(true)
         await api.post(`/PostagensViagens/Postar`, {
             titulo: titulo,
             descricao: descricao,
-            idViagem: idViagem
+            idViagem: idViagem,
+            dataPostagem: moment().format("YYYY-MM-DDTHH:mm:ss")
         })
             .then((e) => {
                 PostImages(e.data, arrayImages)
             })
             .catch(() => {
-                console.log('Erro ao criar post')
+                MostrarModal("Erro ao postar viagem. Verifique se digitou corretamente nos campos indicados e tente novamente", setShowModalMensagem, setMensagemModal)
             })
+        setLoading(false)
     }
 
     async function PostImages(idPostagem, array) {
@@ -179,9 +194,15 @@ export const CriarPost = ({ navigation, route }) => {
                                 navigation.navigate(`Home`)
                             }}
                         >
-                            <TextButtonViagem style={{ color: `#fff` }}>Postar</TextButtonViagem>
+                            <TextButtonViagem style={{ color: `#fff` }}>{loading ? "Postando..." : "Postar"}</TextButtonViagem>
                         </ButtonViagem>
                     }
+                />
+
+                <ModalInformativo
+                    mensagem={mensagemModal}
+                    showModal={showModalMensagem}
+                    setShowModal={setShowModalMensagem}
                 />
             </Container>
         </ScrollView>

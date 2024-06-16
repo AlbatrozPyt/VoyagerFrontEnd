@@ -32,7 +32,7 @@ export const ViewPost = ({ route, navigation }) => {
   }, [])
 
   return (
-    <ScrollView style={{ width: "100%", flex: 1 }}>
+    <ScrollView style={{ width: "100%", flex: 1 }} contentContainerStyle={{height: "100%"}}>
       <StatusBar backgroundColor={"#8531C6"} />
 
       <Container>

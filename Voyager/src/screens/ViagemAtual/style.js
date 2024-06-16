@@ -3,7 +3,8 @@ import { BoxDescription } from "../ViewPost/style";
 
 export const ContainerRota = styled.View`
   width: 340px;
-  height: 73px;
+  height: auto;
+  padding: 10px 0;
   border: 2px solid;
   border-radius: 10px;
 
@@ -26,6 +27,9 @@ export const Rota = styled.Text`
 
 export const Lugar = styled(Rota)`
   font-family: "MoonGet";
+  text-align: center;
+  max-width: 80%;
+  line-height: 30px;
 `;
 
 export const Checklist = styled.View`

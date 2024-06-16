@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import api from "../../service/Service";
+import moment from "moment";
 
 export const PostFeed = ({
   post,
@@ -33,7 +34,7 @@ export const PostFeed = ({
 
 
   async function PostCurtida(postId, userId) {
-    await api.put(`/VisualizarAvaliacoes/CurtirDescurtirPostagem?IdUsuario=${userId}&IdPostagem=${postId}`)
+    await api.put(`/VisualizarAvaliacoes/CurtirDescurtirPostagem?IdUsuario=${userId}&IdPostagem=${postId}&dataAvaliacao=${moment().format("YYYY-MM-DDTHH:mm:ss")}`)
       .then(() => {
         GetCurtida(postId, userId)
       })
@@ -67,7 +68,7 @@ export const PostFeed = ({
             {/* Imagem da postagem */}
             <ThumbnailFeed
               source={{
-                uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/FotoViagemFeed.png?raw=true`,
+                uri: post.galeriaImagens.lenght === 0 ? `https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/BackgroundPost_Defualt.jpg` : post.galeriaImagens[0].media,
               }}
             />
 
@@ -121,7 +122,7 @@ export const PostFeed = ({
               >
                 <ImageUserFeed
                   source={{
-                    uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/PedroFeed.png?raw=true",
+                    uri: post.viagem.usuario.foto,
                   }}
                 />
               </Shadow>

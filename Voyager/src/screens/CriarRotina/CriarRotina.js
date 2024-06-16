@@ -31,8 +31,7 @@ export const CriarRotina = ({ navigation, route }) => {
   const { user } = useContext(UserContext)
 
 
-  async function PostChecklist(id)
-  {
+  async function PostChecklist(id) {
     await api.post(`/Atividades/${id}`, data)
       .then(() => {
         console.log(`Checklist adicionado`)
@@ -55,12 +54,12 @@ export const CriarRotina = ({ navigation, route }) => {
       idTipoViagem: route.params.idTipoViagem,
       idUsuario: user.jti
     })
-    .then((e) => {
+      .then((e) => {
         PostChecklist(e.data)
-    })
-    .catch(() => {
-      console.log(`Erro ao cadastrar`)
-    })
+      })
+      .catch(() => {
+        console.log(`Erro ao cadastrar`)
+      })
   }
 
   useEffect(() => {
@@ -128,7 +127,16 @@ export const CriarRotina = ({ navigation, route }) => {
         />
       </View>
 
-      <AboutGemini onPress={() => navigation.navigate("ChatBot", {destino: `${route.params.cidadeDestino}, ${route.params.paisDestino}`, origem : `${route.params.cidadeOrigem}, ${route.params.paisOrigem}`, dataInicio: route.params.dataInicial, dataFinal: route.params.dataFinal})}>
+      <AboutGemini onPress={() => navigation.navigate("ChatBot", {
+        dataInicial: route.params.dataInicial,
+        dataFinal: route.params.dataFinal,
+        paisOrigem: route.params.paisOrigem,
+        cidadeOrigem: route.params.cidadeOrigem,
+        paisDestino: route.params.paisDestino,
+        cidadeDestino: route.params.cidadeDestino,
+        idTipoViagem: route.params.idTipoViagem,
+        idUsuario: user.jti
+      })}>
         Experimete usar{" "}
         <AboutGeminiDashed> Nossa IA parceira!</AboutGeminiDashed>
       </AboutGemini>

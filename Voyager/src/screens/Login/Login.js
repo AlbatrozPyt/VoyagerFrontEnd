@@ -33,8 +33,11 @@ export const Login = ({ navigation, route }) => {
   const [mensagemModal, setMensagemModal] = useState("")
   const [showModalMensagem, setShowModalMensagem] = useState(false)
 
+  const [loading, setLoading] = useState(false)
+
 
   async function Login() {
+    setLoading(true)
     await api.post("/Login", {
       email: email,
       senha: senha,
@@ -46,6 +49,7 @@ export const Login = ({ navigation, route }) => {
       .catch((e) => {
         setErrorMessage("Usuário ou senha incorretos!");
       });
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -102,8 +106,8 @@ export const Login = ({ navigation, route }) => {
             {/* Caixa de botão para o botão de login */}
             <ButtonBox>
               <Sombra />
-              <Button onPress={() => Login()}>
-                <ButtonTitle>Entrar</ButtonTitle>
+              <Button onPress={loading ? null : () => Login()}>
+                <ButtonTitle>{loading ? "Entrando..." : "Entrar"}</ButtonTitle>
               </Button>
             </ButtonBox>
 

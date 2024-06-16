@@ -33,11 +33,19 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/MyContext";
 import { useFocusEffect } from "@react-navigation/native";
 import moment from "moment";
+import { CompartilharViagemModal, ModalInformativo, ViagemIniciadaModal } from "../../components/Modal";
+import {MostrarModal} from "../../utils/MostrarModal"
 
 export const ViagemAtual = ({ navigation, route }) => {
   const [dadosViagem, setDadosViagem] = useState(null)
   const [listaAtividades, setListaAtividades] = useState(null)
   const {user} = useContext(UserContext);
+
+  const [mensagemModal, setMensagemModal] = useState("")
+  const [showModalMensagem, setShowModalMensagem] = useState(false)
+
+  const [showModalPostagem, setShowModalPostagem] = useState(false)
+  const [showModalIniciada, setShowModalIniciada] = useState(false)
 
   const BuscarDadosViagem = async () => {
     await api.get(`/Viagens/${route.params.idViagem}`)
@@ -75,8 +83,7 @@ export const ViagemAtual = ({ navigation, route }) => {
   const FinalizarViagem = async (idViagem) => {
     await api.put(`/StatusViagens/FinalizarViagem?idViagem=${idViagem}`)
     .then(() => {
-      alert("Viagem Finalizada")
-      navigation.navigate("CriarPost", {idViagem: idViagem})
+      setShowModalPostagem(true)
     })
     .catch(erro => {
       alert(erro)
@@ -87,12 +94,12 @@ export const ViagemAtual = ({ navigation, route }) => {
   const IniciarViagem = async (idViagem) => {
     await api.put(`/StatusViagens/IniciarViagem?idViagem=${idViagem}&idUsuario=${user.jti}`)
     .then(() => {
-      alert("Viagem Iniciada")
-      navigation.replace("main")
+      setShowModalIniciada(true)
     })
     .catch(erro => {
-      alert(erro)
-      console.log(erro);
+      if(erro.response.status === 400){
+        MostrarModal("Espere um minuto! Não é possível iniciar duas viagens ao mesmo tempo. Conclua sua viagem em andamento para se gerenciar uma nova.", setShowModalMensagem, setMensagemModal)
+      }
     })
   } 
 
@@ -189,6 +196,23 @@ export const ViagemAtual = ({ navigation, route }) => {
           />
         )
       ) : null}
+      <ModalInformativo
+        mensagem={mensagemModal}
+        showModal={showModalMensagem}
+        setShowModal={setShowModalMensagem}
+      />
+
+      <CompartilharViagemModal
+        navigation={navigation}
+        visible={showModalPostagem}
+        setVisible={setShowModalPostagem}
+        idViagem={dadosViagem.id}
+      />
+
+      <ViagemIniciadaModal
+        navigation={navigation}
+        visible={showModalIniciada}
+      />
     </Container>
   ) : <></>;
 };

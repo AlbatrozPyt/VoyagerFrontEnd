@@ -93,7 +93,7 @@ export const RedefinirSenha = ({ navigation, route }) => {
                         {/* Caixa de botão para o botão */}
                         <ButtonBox>
                             <Sombra />
-                            <Button onPress={alterarSenha} disabled={loading}>
+                            <Button onPress={loading ? null : () => alterarSenha()}>
                                 <ButtonTitle>
                                     {loading ? "Carregando..." : "Confirmar"}
                                 </ButtonTitle>
