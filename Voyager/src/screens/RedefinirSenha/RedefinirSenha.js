@@ -8,6 +8,8 @@ import { ButtonBox, CenteredContent, Container, FormBox, InputBox, MainContentSc
 import { useState } from "react"
 
 import api from "../../service/Service";
+import { ModalInformativo } from "../../components/Modal"
+import { MostrarModal } from "../../utils/MostrarModal"
 
 export const RedefinirSenha = ({ navigation, route }) => {
 
@@ -17,10 +19,15 @@ export const RedefinirSenha = ({ navigation, route }) => {
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const [dialog, setDialog] = useState({});
+    const [dialog, setDialog] = useState("");
     const [showDialog, setShowDialog] = useState(false);
 
     const alterarSenha = async () => {
+        if(novaSenha === "" || confirmarSenha === ""){
+            MostrarModal("Campos vazios. Um ou mais campos de senha foram digitados incorretamente, preencha todos os campos para continuar", setShowDialog, setDialog)
+            return
+        }
+
         setLoading(true);
         try {
             // Verifica se as senhas coincidem
@@ -36,27 +43,14 @@ export const RedefinirSenha = ({ navigation, route }) => {
                     navigation.replace("Login");
                 } else {
                     console.log("Erro ao redefinir a senha:", response);
-                    setDialog({
-                        status: "erro",
-                        contentMessage: "Ocorreu um erro ao redefinir a senha. Por favor, tente novamente.",
-                    });
-                    setShowDialog(true);
+                    MostrarModal("Erro. Ocorreu um erro ao redefinir a senha. Por favor, tente novamente.", setShowDialog, setDialog)
                 }
             } else {
                 console.log("As senhas não coincidem.");
-                setDialog({
-                    status: "erro",
-                    contentMessage: "As senhas não coincidem. Por favor, verifique e tente novamente.",
-                });
-                setShowDialog(true);
+                MostrarModal("As senhas não coincidem. Por favor, verifique e tente novamente.", setShowDialog, setDialog)
             }
         } catch (error) {
-            console.error("Erro ao redefinir a senha:", error);
-            setDialog({
-                status: "erro",
-                contentMessage: "Ocorreu um erro ao redefinir a senha. Por favor, tente novamente.",
-            });
-            setShowDialog(true);
+            console.error("Erro ao redefinir a senha:", error, setShowDialog, setDialog);
         }
         setLoading(false);
     };
@@ -81,6 +75,7 @@ export const RedefinirSenha = ({ navigation, route }) => {
                                 placeholderTextColor="#D527B7"
                                 value={novaSenha}
                                 onChangeText={setNovaSenha}
+                                secureTextEntry
                             />
                         </InputBox>
 
@@ -91,6 +86,7 @@ export const RedefinirSenha = ({ navigation, route }) => {
                                 placeholderTextColor="#D527B7"
                                 value={confirmarSenha}
                                 onChangeText={setConfirmarSenha}
+                                secureTextEntry
                             />
                         </InputBox>
 
@@ -113,6 +109,12 @@ export const RedefinirSenha = ({ navigation, route }) => {
                     </FormBox>
                 </CenteredContent>
             </MainContentScroll>
+
+            <ModalInformativo
+                mensagem={dialog}
+                setShowModal={setShowDialog}
+                showModal={showDialog}
+            />
         </Container>
 
     )

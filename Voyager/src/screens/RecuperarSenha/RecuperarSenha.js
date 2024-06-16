@@ -9,41 +9,37 @@ import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 import api from "../../service/Service";
+import { ModalInformativo } from "../../components/Modal";
+import { MostrarModal } from "../../utils/MostrarModal";
 
 export const RecuperarSenha = ({ navigation }) => {
 
     const [email, setEmail] = useState("");
-    const [loginError, setLoginError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showModalError, setShowModalError] = useState(false)
+    const [mensagemErro, setMensagemErro] = useState("")
 
     const enviarEmail = async () => {
-        setLoading(true);
-        try {
-            if (!email) { // Verifica se o campo de email está preenchido
-                Alert.alert("Alerta", "Preencha o campo de e-mail!");
-                setLoading(false);
-                return;
-            }
-            // Faz a requisição
-            const response = await api.post(`/RecuperarSenha/EnviarEmail?email=${email}`);
-            if (response.data) {
-                // Após o envio do email navegar para a próxima tela
-                navigation.navigate("VerificarCodigo", { emailRecuperacao: email });
-
-            }
-        } catch (error) {
-            console.log(error)
+        if (email === "") { // Verifica se o campo de email está preenchido
+            MostrarModal("Campo de email vazio. Digite um email cadastrado em nossa plataforma para que seja enviado o código de recuperação.", setShowModalError, setMensagemErro)
+            setLoading(false);
+            return;
         }
+
+        setLoading(true);
+       await api.post(`/RecuperarSenha/EnviarEmail?email=${email}`).then(() => {
+            // Após o envio do email navegar para a próxima tela
+            navigation.navigate("VerificarCodigo", { emailRecuperacao: email });
+       }).catch(erro => {
+        if(erro.response.status === 404){
+            MostrarModal("O email digitado não está cadastrado em nossa plataforma. Verifique se o digitou corretamente e tente novamente.", setShowModalError, setMensagemErro)
+        }else{
+            MostrarModal("Falha ao enviar o email. Verifique Sua conexão com a internet e tente novamente após alguns minutos.", setShowModalError, setMensagemErro)
+        }
+        console.log(erro)
+       });
         setLoading(false);
     };
-    // Função para verificar erros no campo de email
-    const handleErrors = () => {
-        setLoginError(!email.includes("@") && email);
-    };
-    // Hook para atualizar o erro de login sempre que o email mudar
-    useEffect(() => {
-        setLoginError(!email.includes("@") && email);
-    }, [email]);
 
     return (
         <Container>
@@ -64,7 +60,6 @@ export const RecuperarSenha = ({ navigation }) => {
                                 placeholderTextColor="#D527B7"
                                 onChangeText={(txt) => {
                                     setEmail(txt);
-                                    handleErrors();
                                 }}
                             />
                         </InputBox>
@@ -74,7 +69,7 @@ export const RecuperarSenha = ({ navigation }) => {
                             {/* Sombra para o estilo da caixa de botão */}
                             <Sombra style={{ top: 95, width: '100%' }} />
                             <Button
-                                onPress={!loginError && email ? enviarEmail : null}
+                                onPress={() => enviarEmail()}
                                 style={{ marginTop: 90, width: '100%' }}
                             >
                                 {/* Título do botão */}
@@ -93,6 +88,12 @@ export const RecuperarSenha = ({ navigation }) => {
                     </FormBox>
                 </CenteredContent>
             </MainContentScroll>
+
+            <ModalInformativo
+                showModal={showModalError}
+                setShowModal={setShowModalError}
+                mensagem={mensagemErro}
+            />
         </Container>
 
     );

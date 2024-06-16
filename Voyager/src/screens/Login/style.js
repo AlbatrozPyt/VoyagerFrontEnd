@@ -19,7 +19,7 @@ export const InputLogin = styled.TextInput.attrs({
     width: 100%;
     height: 50px;
     padding: 10px;
-    margin-vertical: 10px;
+    margin: 10px 0;
     border-width: 2px;
     border-color: #000;
     border-radius: 0px;

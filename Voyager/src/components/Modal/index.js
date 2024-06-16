@@ -29,7 +29,7 @@ import {
 } from "../Shadow";
 import api from "../../service/Service";
 import { useEffect, useState } from "react";
-import { ContainerCalendar } from "./style";
+import { ButtonModal, ButtonModalBox, ContainerCalendar, ContainerModalCompartilhar, TextModal, TitleCompartilhar } from "./style";
 import { CalendarMaximized } from "../Calendar/Calendar";
 import { mask } from "remask";
 import moment from "moment";
@@ -244,8 +244,6 @@ export const ModalComentario = ({
 };
 
 export const ModalCalendar = ({ visible, setVisible, date, setDate }) => {
-
-
   return (
     <Modal animationType="fade" transparent={true} visible={visible}>
       <BackgroundModalRotina>
@@ -284,15 +282,109 @@ export const ModalCalendar = ({ visible, setVisible, date, setDate }) => {
   )
 }
 
-export const CompartilharViagemModal = ({visible, setVisible = null}) => {
-  return(
+export const CompartilharViagemModal = ({ navigation, visible, setVisible = null }) => {
+  return (
     <Modal animationType="fade" visible={visible} transparent={true}>
       <BackgroundModalRotina>
-        <ContainerModalRotina>
-          <TitleComment>Comentários</TitleComment>
+        <ContainerModalCompartilhar>
+          <TitleCompartilhar>Compartilhe sua viagem!</TitleCompartilhar>
 
-          <Text>Teste</Text>
-        </ContainerModalRotina>
+          <TextModal>Seu post é muito importante para nós, compartilhe a foto com seus amigos e todos passageiros da voyager.</TextModal>
+
+          <ButtonModalBox>
+            <ShadowButton3
+              render={
+                <ButtonModal onPress={() => setVisible(false)}>
+                  <TitleDefault style={{ color: `#8531C6` }}>
+                    compartilhar
+                  </TitleDefault>
+                </ButtonModal>
+              }
+            />
+
+            <Shadow
+              startColor="#000"
+              endColor="#000"
+              distance={0}
+              offset={[4, 4]}
+              containerStyle={{ margin: 10, width: 250 }}
+            >
+              <ButtonModal
+                  onPress={() => navigation.replace("Viagens")}
+                  style={{ backgroundColor: `#8531C6`, display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
+                  <TitleDefault style={{ color: `#fff` }}>voltar</TitleDefault>
+                </ButtonModal>
+            </Shadow>
+          </ButtonModalBox>
+        </ContainerModalCompartilhar>
+      </BackgroundModalRotina>
+    </Modal>
+  )
+}
+
+export const ViagemIniciadaModal = ({ navigation, visible, idViagem }) => {
+  return (
+    <Modal animationType="fade" visible={visible} transparent={true}>
+      <BackgroundModalRotina>
+        <ContainerModalCompartilhar>
+          <TitleCompartilhar>Viagem Iniciada!</TitleCompartilhar>
+
+          <TextModal>Acompanhe sua jornada pelo aplicativo e tenha acesso a todas as informações e recursos para tornar sua experiência ainda mais completa. Aproveite sua viagem com a Voyager!</TextModal>
+
+          <ButtonModalBox>
+            <ShadowButton3
+              render={
+                <ButtonModal onPress={() => navigation.navigate("ViagemAtual", { type: "acompanhar", idViagem: idViagem })}>
+                  <TitleDefault style={{ color: `#8531C6` }}>
+                    Acompanhar viagem
+                  </TitleDefault>
+                </ButtonModal>
+              }
+            />
+
+            <Shadow
+              startColor="#000"
+              endColor="#000"
+              distance={0}
+              offset={[4, 4]}
+              containerStyle={{ margin: 10, width: 250 }}
+            >
+              <ButtonModal
+                  onPress={() => navigation.replace("Viagens")}
+                  style={{ backgroundColor: `#8531C6`, display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
+                  <TitleDefault style={{ color: `#fff` }}>voltar</TitleDefault>
+                </ButtonModal>
+            </Shadow>
+          </ButtonModalBox>
+        </ContainerModalCompartilhar>
+      </BackgroundModalRotina>
+    </Modal>
+  )
+}
+
+export const ModalInformativo = ({showModal, setShowModal, mensagem}) => {
+  return(
+    <Modal animationType="fade" visible={showModal} transparent={true}>
+      <BackgroundModalRotina>
+        <ContainerModalCompartilhar>
+          <TitleCompartilhar>Aviso!!!</TitleCompartilhar>
+
+          <TextModal>{mensagem}</TextModal>
+
+          <ButtonModalBox>
+            <ShadowButton3
+              render={
+                <ButtonModal onPress={() => setShowModal(false)}>
+                  <TitleDefault style={{ color: `#8531C6` }}>
+                    Prosseguir
+                  </TitleDefault>
+                </ButtonModal>
+              }
+            />
+          </ButtonModalBox>
+        </ContainerModalCompartilhar>
       </BackgroundModalRotina>
     </Modal>
   )

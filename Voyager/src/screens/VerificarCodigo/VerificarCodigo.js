@@ -36,12 +36,16 @@ import { useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native';
 
 import api from "../../service/Service";
+import { MostrarModal } from '../../utils/MostrarModal';
+import { ModalInformativo } from '../../components/Modal';
 
 export const VerificarCodigo = ({ navigation, route }) => {
     const [codes, setCodes] = useState(["", "", "", ""]);
     const inputRefs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef()]);
     const [loading, setLoading] = useState(false);
     const [resending, setResending] = useState(false);
+    const [mensagemModal, setMensagemModal] = useState("")
+    const [showModalMensagem, setShowModalMensagem] = useState(false)
 
     const handleInputChange = (value, index) => {
         if (/^[0-9]?$/.test(value)) { // Verifica se o valor é um número de 0 a 9
@@ -106,13 +110,13 @@ export const VerificarCodigo = ({ navigation, route }) => {
             console.log("Resposta da API para reenviar código:", response.data);
 
             if (response.data) {
-                Alert.alert("Sucesso", "Código reenviado com sucesso!"); // Exibe um alerta em caso de sucesso
+                MostrarModal("Sucesso. código reenviado com sucesso!", setShowModalMensagem, setMensagemModal) // Exibe um alerta em caso de sucesso
             } else {
-                Alert.alert("Erro", "Falha ao reenviar o código. Por favor, tente novamente."); // Exibe um alerta em caso de falha
+                MostrarModal("Erro, falha ao reenviar o código. Por favor, tente novamente.", setShowModalMensagem, setMensagemModal); // Exibe um alerta em caso de falha
             }
         } catch (error) {
             console.error("Erro ao reenviar o código:", error.response ? error.response.data : error.message);
-            Alert.alert("Erro", error.response?.data?.message || error.message || "Erro ao reenviar o código!"); // Exibe um alerta em caso de erro
+            MostrarModal("Erro ao reenviar o código!", setShowModalMensagem, setMensagemModal); // Exibe um alerta em caso de erro
         }
         setResending(false); // Define o estado de reenvio como falso
     };
@@ -148,7 +152,7 @@ export const VerificarCodigo = ({ navigation, route }) => {
                                 <Sombra style={{ left: 5, width: '50%' }} />
                                 <Button style={{ width: 175 }} onPress={validarCodigo} disabled={loading}>
                                     <ButtonTitle>
-                                        <Text>{loading ? "Carregando..." : "Entrar"}</Text>
+                                        <Text>{loading ? "Carregando..." : "Continuar"}</Text>
                                     </ButtonTitle>
                                 </Button>
                             </ButtonBox>
@@ -160,10 +164,23 @@ export const VerificarCodigo = ({ navigation, route }) => {
                                 <Text>{resending ? "Reenviando..." : "Reenviar Código"}</Text>
                             </LinkMedium>
 
+                            <LinkMedium
+                                onPress={() => navigation.goBack()}
+                                style={{ marginTop: -10, left: -150, color: '#8531C6' }}
+                            >
+                                <Text>cancelar</Text>
+                            </LinkMedium>
+
                         </FormBox>
                     </CenteredContent>
                 </MainContent>
             </MainContentScroll>
+
+            <ModalInformativo
+                mensagem={mensagemModal}
+                setShowModal={setShowModalMensagem}
+                showModal={showModalMensagem}
+            />
         </Container>
     );
 };
