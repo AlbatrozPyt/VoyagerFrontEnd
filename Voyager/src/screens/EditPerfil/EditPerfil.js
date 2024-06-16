@@ -30,7 +30,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/MyContext";
 import { tokenClean } from "../../utils/Auth";
 import { ModalCamera } from "../../components/ModalCamera/ModalCamera";
-import { mask, unMask } from "remask";
+import { mask, unMask, unmask } from "remask";
 import { apiViaCep } from "../../service/viaCep";
 
 export const EditPerfil = ({ navigation, route }) => {
@@ -38,12 +38,7 @@ export const EditPerfil = ({ navigation, route }) => {
 
   const [bio, setBio] = useState(null);
   const [foto, setFoto] = useState(null);
-  const [dadosEndereco, setDadosEndereco] = useState({
-    cep: "",
-    estado: "",
-    cidade: "",
-    logradouro: ""
-  })
+  const [dadosEndereco, setDadosEndereco] = useState(null)
 
   const [showModalCamera, setShowModalCamera] = useState(false)
   const [uriCameraCapture, setUriCameraCapture] = useState(null)
@@ -52,31 +47,47 @@ export const EditPerfil = ({ navigation, route }) => {
   useEffect(() => {
     setBio(route.params.bio)
     setFoto(route.params.foto)
-    if(route.params.enderecoUsuario){
+    if (route.params.enderecoUsuario) {
       setDadosEndereco(route.params.enderecoUsuario)
       console.log(route.params.enderecoUsuario);
+      console.log(dadosEndereco);
     }
-    
+
   }, [route])
 
   async function PutPerfil() {
-    if(dadosEndereco.cep.length !== 9 && dadosEndereco.cep > 0 ){
-      alert("Preencha o CEP corretamente!")
-      return
-    }
+    if (dadosEndereco === null) {
+      await api
+        .put(`/Usuarios/${user.jti}`, {
+          bio: `${bio.split()}`
+        }).then(() => {
+          UpdateProfilePhoto()
+        })
+        .catch(() => {
+          console.log("Erro ao atualizar perfil")
+        });
+    } else {
 
-    await api
-      .put(`/Usuarios/${user.jti}`, {
-        bio: `${bio.split()}`,
-        cep: dadosEndereco.cep.length === 0 ? null : unMask(dadosEndereco.cep),
-        logradouro: dadosEndereco.cep.length === 0 ? null : dadosEndereco.logradouro,
-        cidade: dadosEndereco.cep.length === 0 ? null : dadosEndereco.cidade,
-        estado: dadosEndereco.cep.length === 0 ? null : dadosEndereco.estado
-      })
-      .then(() => {
-        UpdateProfilePhoto()
-      })
-      .catch(() => console.log("Erro ao atualizar perfil"));
+      if (dadosEndereco.cep.length !== 8 && dadosEndereco.cep > 0) {
+        alert("Preencha o CEP corretamente!")
+        return
+      }
+
+      await api
+        .put(`/Usuarios/${user.jti}`, {
+          cep: unmask(dadosEndereco.cep),
+          estado: dadosEndereco.estado,
+          cidade: dadosEndereco.cidade,
+          logradouro: dadosEndereco.logradouro,
+          bio: `${bio.split()}`
+        }).then(() => {
+          UpdateProfilePhoto()
+        })
+        .catch(() => {
+          console.log(dadosEndereco);
+          console.log("Erro ao atualizar perfil")
+        });
+    }
   }
 
   async function UpdateProfilePhoto() {
@@ -99,7 +110,7 @@ export const EditPerfil = ({ navigation, route }) => {
       })
     }
 
-    if(imagemValida){
+    if (imagemValida) {
       navigation.navigate("Perfil");
     }
 
@@ -107,38 +118,34 @@ export const EditPerfil = ({ navigation, route }) => {
 
   const BuscarEnderecoViaCep = async (cep) => {
     await apiViaCep.get(`/${cep}/json/`)
-    .then(response => {
-      setDadosEndereco({...dadosEndereco,
-        logradouro: response.data.logradouro,
-        cidade: response.data.localidade,
-        estado: response.data.uf
+      .then(response => {
+        setDadosEndereco({
+          ...dadosEndereco,
+          logradouro: response.data.logradouro,
+          cidade: response.data.localidade,
+          estado: response.data.uf
+        })
       })
-    })
-    .catch(erro => {
-      alert(erro)
-      console.log(erro);
-    })
+      .catch(erro => {
+        alert(erro)
+        console.log(erro);
+      })
   }
 
   useEffect(() => {
-    if(dadosEndereco.cep.length === 9 ){
+    if (dadosEndereco != null && dadosEndereco.cep.length === 9) {
       BuscarEnderecoViaCep(unMask(dadosEndereco.cep))
     }
 
-    if(dadosEndereco.cep.length === 0){
-      setDadosEndereco({
-        ...dadosEndereco,
-        cidade: "",
-        logradouro: "",
-        estado: ""
-      })
+    if(dadosEndereco != null && dadosEndereco.cep.length === 0){
+      setDadosEndereco(null)
     }
-  }, [dadosEndereco.cep])
+  }, [dadosEndereco])
 
 
   return (
     <ContainerEditPerfil>
-       <TopImageEdit
+      <TopImageEdit
         source={{ uri: 'https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/ImageTopEdit.png' }}
       />
 
@@ -188,63 +195,63 @@ export const EditPerfil = ({ navigation, route }) => {
 
           <ContentEdit>
             <LabelPerfil>Editar Endereço:</LabelPerfil>
-            
+
             <ContentEditRow>
-            <ShadowOpacity
-              styleRender={{ width: 110 }}
-              render={
-                <InputPerfil
-                  width={"100%"}
-                  placeholder={"CEP:"}
-                  onChangeText={(txt) => setDadosEndereco({...dadosEndereco, cep: txt})}
-                  value={mask(dadosEndereco.cep, "99999-999")}
-                  keyboardType={"numeric"}
-                  maxLength={9}
-                />
-              }
-            />
-            <ShadowOpacity
-              styleRender={{ width: 215 }}
-              render={
-                <InputPerfil
-                  width={"100%"}
-                  placeholder={"Cidade"}
-                  onChangeText={(txt) => setDadosEndereco({...dadosEndereco, cidade: txt})}
-                  value={dadosEndereco.cidade}
-                  editable={false}
-                />
-              }
-            />
+              <ShadowOpacity
+                styleRender={{ width: 110 }}
+                render={
+                  <InputPerfil
+                    width={"100%"}
+                    placeholder={"CEP:"}
+                    onChangeText={(txt) => setDadosEndereco({ ...dadosEndereco, cep: txt })}
+                    value={dadosEndereco != null ? mask(dadosEndereco.cep, "99999-999") : ""}
+                    keyboardType={"numeric"}
+                    maxLength={9}
+                  />
+                }
+              />
+              <ShadowOpacity
+                styleRender={{ width: 215 }}
+                render={
+                  <InputPerfil
+                    width={"100%"}
+                    placeholder={"Cidade"}
+                    onChangeText={(txt) => setDadosEndereco({ ...dadosEndereco, cidade: txt })}
+                    value={dadosEndereco != null ? dadosEndereco.cidade : ""}
+                    editable={false}
+                  />
+                }
+              />
             </ContentEditRow>
 
             <ContentEditRow>
-            <ShadowOpacity
-              styleRender={{ width: 250 }}
-              render={
-                <InputPerfil
-                  width={"100%"}
-                  placeholder={"Logradouro"}
-                  onChangeText={(txt) => setDadosEndereco({...dadosEndereco, logradouro: txt})}
-                  value={dadosEndereco.logradouro}
-                  editable={false}
-                />
-              }
-            />
-            <ShadowOpacity
-              styleRender={{ width: 75 }}
-              render={
-                <InputPerfil
-                  width={"100%"}
-                  placeholder={"UF"}
-                  onChangeText={(txt) => setDadosEndereco({...dadosEndereco, estado: txt})}
-                  value={dadosEndereco.estado}
-                  editable={false}
-                  maxLength={2}
-                />
-              }
-            />
+              <ShadowOpacity
+                styleRender={{ width: 250 }}
+                render={
+                  <InputPerfil
+                    width={"100%"}
+                    placeholder={"Logradouro"}
+                    onChangeText={(txt) => setDadosEndereco({ ...dadosEndereco, logradouro: txt })}
+                    value={dadosEndereco != null ? dadosEndereco.logradouro : null}
+                    editable={false}
+                  />
+                }
+              />
+              <ShadowOpacity
+                styleRender={{ width: 75 }}
+                render={
+                  <InputPerfil
+                    width={"100%"}
+                    placeholder={"UF"}
+                    onChangeText={(txt) => setDadosEndereco({ ...dadosEndereco, estado: txt })}
+                    value={dadosEndereco != null ? dadosEndereco.estado : null}
+                    editable={false}
+                    maxLength={2}
+                  />
+                }
+              />
             </ContentEditRow>
-            
+
           </ContentEdit>
 
         </ContainerInputsPerfil>

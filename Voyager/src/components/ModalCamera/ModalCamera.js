@@ -1,5 +1,5 @@
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import {CameraView, Camera} from "expo-camera";
+import { CameraView, Camera } from "expo-camera";
 import * as MediaLibrary from 'expo-media-library'
 import { useEffect, useState, useRef } from 'react';
 import { FontAwesome, Feather } from '@expo/vector-icons'
@@ -9,6 +9,9 @@ import { LastPhoto } from './style';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons';
+import { ShadowButton2, ShadowDefault } from '../Shadow';
+import { ButtonAction } from '../../screens/EditPerfil/style';
+import { TitleDefault } from '../Text/style';
 // import { Title } from '../Title/style';
 
 
@@ -120,7 +123,7 @@ export const ModalCamera = ({
         style={styles.camera}
       >
         <View style={
-          { flexDirection: 'row', width: '100%',  justifyContent: 'space-between', alignItems:'center'}
+          { flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }
         }>
           <TouchableOpacity onPress={() => setFlash(flash == 'off' ? 'on' : 'off')} style={styles.btnFlash}>
             <Feather name={flash === 'on' ? "zap" : "zap-off"} size={24} color="#fff" />
@@ -141,9 +144,9 @@ export const ModalCamera = ({
               {
                 lastPhoto != null ? (
                   <>
-                  <LastPhoto
-                    source={{ uri: lastPhoto }}
-                  />
+                    <LastPhoto
+                      source={{ uri: lastPhoto }}
+                    />
                   </>
                 ) : (
                   <></>
@@ -175,7 +178,7 @@ export const ModalCamera = ({
 
       <Modal animationType='slide' transparent={false} visible={openModal}>
 
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 20 }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 20, gap: 30 }}>
           <Image
             style={{ width: '100%', height: 500, borderRadius: 15, marginTop: 50 }}
             source={{ uri: photo }}
@@ -184,15 +187,26 @@ export const ModalCamera = ({
 
             {/* Botão */}
             <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', }}>
-              <ButtonModalAppointment onPress={
-                () => obterImagem() && 
-                ClearPhoto()}>
-                <ButtonTitleCamera>Confirmar</ButtonTitleCamera>
-              </ButtonModalAppointment>
+              <ShadowButton2
+                styleRender={{ width: 280 }}
+                render={
+                  <ButtonAction onPress={() => obterImagem() && ClearPhoto()}>
+                    <TitleDefault style={{ color: `#8531C6` }}>Confirmar</TitleDefault>
+                  </ButtonAction>
+                }
+              />
 
-              <ButtonAppointmentSecondary onPress={() => ClearPhoto() && setShowCameraModal(true)}>
-                <ButtonSecondaryText>Retornar</ButtonSecondaryText>
-              </ButtonAppointmentSecondary>
+              <ShadowDefault
+                styleRender={{ width: 280 }}
+                render={
+                  <ButtonAction
+                    onPress={() => ClearPhoto() && setShowCameraModal(true)}
+                    style={{ backgroundColor: `#8531C6` }}
+                  >
+                    <TitleDefault style={{ color: `#fff` }}>Cancelar</TitleDefault>
+                  </ButtonAction>
+                }
+              />
             </View>
 
           </View>
