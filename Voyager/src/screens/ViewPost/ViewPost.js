@@ -32,7 +32,7 @@ export const ViewPost = ({ route, navigation }) => {
   }, [])
 
   return (
-    <ScrollView style={{ width: "100%", flex: 1 }} contentContainerStyle={{height: "100%"}}>
+    <ScrollView style={{ width: "100%", flex: 1 }} contentContainerStyle={{ height: "100%" }}>
       <StatusBar backgroundColor={"#8531C6"} />
 
       <Container>
@@ -67,35 +67,42 @@ export const ViewPost = ({ route, navigation }) => {
         <TitlePost>Fotos</TitlePost>
 
         {/* Fotos tiradas */}
-        {images.map((x) => {
-          return (
-            <Shadow
-              key={x.id}
-              startColor="#8531C6"
-              endColor="#8531C6"
-              distance={0}
-              offset={[8, 8]}
-            >
-              <Shadow
-                startColor="#000"
-                endColor="#000"
-                distance={0}
-                offset={[2.5, 2.5]}
-                style={{
-                  borderRadius: 10,
-                  height: 195,
-                  marginBottom: 20,
-                }}
-              >
-                <ImageGaleria
-                  source={{
-                    uri: x.media,
-                  }}
-                />
-              </Shadow>
-            </Shadow>
-          );
-        })}
+        <ScrollView
+          style={{ width: `100%` }}
+          contentContainerStyle={{ alignItems: `center` }}
+        >
+          {
+            images.length > 0 ? images.map((x) => {
+              return (
+                <Shadow
+                  key={x.id}
+                  startColor="#8531C6"
+                  endColor="#8531C6"
+                  distance={0}
+                  offset={[8, 8]}
+                >
+                  <Shadow
+                    startColor="#000"
+                    endColor="#000"
+                    distance={0}
+                    offset={[2.5, 2.5]}
+                    style={{
+                      borderRadius: 10,
+                      height: 195,
+                      marginBottom: 20,
+                    }}
+                  >
+                    <ImageGaleria
+                      source={{
+                        uri: x.media,
+                      }}
+                    />
+                  </Shadow>
+                </Shadow>
+              );
+            }) : <About>Nenhuma imagem da viagem</About>
+          }
+        </ScrollView>
       </Container>
     </ScrollView>
   );

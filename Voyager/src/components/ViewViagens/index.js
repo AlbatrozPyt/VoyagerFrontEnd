@@ -76,9 +76,10 @@ export const PostItDefault = ({
   postItColor = "#fff",
   navigation,
   screen,
+  onPress
 }) => {
   return (
-    <ContainerBoxs onPress={screen === "AcompanharViagem" ? null : () => navigation.navigate(screen)}>
+    <ContainerBoxs onPress={screen === "AcompanharViagem" ? onPress : () => navigation.navigate(screen)}>
       <BoxOneViagem color={postItColor}>
         <BoxTwoViagem color={postItColor}>
           <BoxThreeViagem color={postItColor}>

@@ -53,6 +53,7 @@ export const Explorar = ({navigation}) => {
                 <ContainerList>
                     <Grid style={{ padding: 15 }}>
                         <FlatList
+                            style={{marginBottom: 50}}
                             horizontal={false}
                             data={placesList}
                             renderItem={({ item }) => <CardExplorar navigation={navigation} dadosLocal={item} />}

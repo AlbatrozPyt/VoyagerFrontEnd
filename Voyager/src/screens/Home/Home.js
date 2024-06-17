@@ -44,7 +44,7 @@ export const Home = ({ navigation, route }) => {
     GetAllPosts()
   }, [route])
 
-  useFocusEffect(useCallback(() => {GetAllPosts()}, []))
+  useFocusEffect(useCallback(() => { GetAllPosts() }, []))
 
 
   return (
@@ -78,7 +78,10 @@ export const Home = ({ navigation, route }) => {
           showsHorizontalScrollIndicator={false}
         />
       ) : (
-        <Explorar navigation={navigation} />
+        <>
+          <Explorar navigation={navigation} />
+          <View style={{marginBottom: 30}} />
+        </>
       )}
 
       <ModalComentario

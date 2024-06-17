@@ -68,7 +68,7 @@ export const CriarRotina = ({ navigation, route }) => {
 
   return (
     <Container>
-      <TitleRotina>crie sua rotina</TitleRotina>
+      <TitleRotina>crie a rotina da sua viagem</TitleRotina>
 
       <View style={{ height: 300 }}>
         <FlatList

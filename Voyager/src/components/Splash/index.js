@@ -19,10 +19,10 @@ export default function Splash({ navigation }) {
         <BackgroundScreen>
             <Image
                 style={{
-                    width: 89,
-                    height: 74
+                    width: 200,
+                    height: 167
                 }}
-                source={require(`../../assets/images/LogoGiga.png`)}
+                source={{uri: `https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/LogoGiga.png?raw=true`}}
             />
             <SplashAnimation />
         </BackgroundScreen>

@@ -203,21 +203,9 @@ export const ChatBot = ({ navigation, route }) => {
   };
 
   return (
-    //Componente para adaptar a tela à altura do teclado
-    <KeyboardAwareScrollView
-      contentContainerStyle={{ flexGrow: 1 }} // Ajuste para o conteúdo preencher a tela
-      extraScrollHeight={100} // Adiciona um espaço extra para evitar que o teclado corte o conteúdo
-    >
-      <ContainerScreenChat>
-        <StatusBar
-          barStyle={"dark-content"}
-          translucent={true}
-          backgroundColor={"#8531C6"}
-        />
-
-        <ContainerChat>
-          {/* Header com as logos */}
-          <HeaderChat>
+    <>
+    {/* Header com as logos */}
+    <HeaderChat>
             {/* Botão voltar */}
             <BotaoVoltar onPress={() => CloseChatBot()} />
             <LogoVoyager
@@ -232,6 +220,19 @@ export const ChatBot = ({ navigation, route }) => {
               }}
             />
           </HeaderChat>
+    {/* //Componente para adaptar a tela à altura do teclado */}
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }} // Ajuste para o conteúdo preencher a tela
+      extraScrollHeight={100} // Adiciona um espaço extra para evitar que o teclado corte o conteúdo
+    >
+      <ContainerScreenChat>
+        <StatusBar
+          barStyle={"dark-content"}
+          translucent={true}
+          backgroundColor={"#8531C6"}
+        />
+
+        <ContainerChat>
 
           {/* Seção de envio e resposta do chat */}
           <ChatSectionBox>
@@ -265,5 +266,6 @@ export const ChatBot = ({ navigation, route }) => {
         </ContainerChat>
       </ContainerScreenChat>
     </KeyboardAwareScrollView>
+    </>
   );
 };

@@ -22,10 +22,17 @@ export const BotaoVoltarStyle = styled.TouchableOpacity`
 export const HeaderChat = styled.View`
     flex-direction: row;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 20px;
     align-items: center;
-    height: 80px;
+    height: 100px;
+    position: absolute;
+    top: 0px;
+    margin: 30px 0 0;
+    padding: 15px 0;
+    padding-right: 40px; 
+    z-index: 1000;
+    background-color: white;
 `
 
 export const PontoHeader = styled.Text`
@@ -48,7 +55,7 @@ export const LogoGemini = styled.Image`
 export const ChatSectionBox = styled.ScrollView`
     width: 100%;
     display: flex;
-    margin-bottom: 70px;
+    margin: 100px 0 70px;
     overflow-y: hidden;
     /* justify-content: center;
     align-items: center; */

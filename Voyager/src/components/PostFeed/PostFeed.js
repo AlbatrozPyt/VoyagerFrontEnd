@@ -28,16 +28,19 @@ export const PostFeed = ({
   navigation,
   setModalComment,
   setPost,
-  screenBack
+  screenBack,
+  setDep,
+  dep
 }) => {
   const [like, setLike] = useState(false);
-  const [galeria, setGaleria] = useState([])
+  const [imagemCapa, setImagemCapa] = useState("")
 
 
   async function PostCurtida(postId, userId) {
     await api.put(`/VisualizarAvaliacoes/CurtirDescurtirPostagem?IdUsuario=${userId}&IdPostagem=${postId}&dataAvaliacao=${moment().format("YYYY-MM-DDTHH:mm:ss")}`)
       .then(() => {
         GetCurtida(postId, userId)
+        dep ? setDep(false) : setDep(true)
       })
       .catch((e) => {
         console.log(e)
@@ -57,7 +60,9 @@ export const PostFeed = ({
 
   useEffect(() => {
     GetCurtida(post.id, user.jti)
-    console.log(post.galeriaImagens);
+    if(post.galeriaImagens.length !== 0){
+      setImagemCapa(post.galeriaImagens[0].media)
+    }
   }, [like])
 
   return (
@@ -70,7 +75,7 @@ export const PostFeed = ({
             {/* Imagem da postagem */}
             <ThumbnailFeed
               source={{
-                uri: `https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/BackgroundPost_Defualt.jpg`
+                uri: (imagemCapa === "") ? `https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/BackgroundPost_Defualt.jpg` : imagemCapa
               }}
             />
 

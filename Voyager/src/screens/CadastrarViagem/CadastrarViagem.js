@@ -8,7 +8,7 @@ import { SelectTipoViagem } from "../../components/SelectTipoAtividade";
 import { ShadowDefault } from "../../components/Shadow";
 
 import { MinhasViagens } from "../../components/Logo/Logo";
-import { ModalCalendar } from "../../components/Modal";
+import { ModalCalendar, ModalInformativo } from "../../components/Modal";
 import { TitleDefault } from "../../components/Text/style";
 
 import { UserContext } from "../../contexts/MyContext"
@@ -18,9 +18,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 export const CadastrarViagem = ({ navigation }) => {
 
   const { user } = useContext(UserContext)
-
-  const [datePartida, setDatePartida] = useState(new Date());
-  const [dateRetorno, setDateRetorno] = useState(new Date());
+  
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
 
@@ -174,6 +172,7 @@ export const CadastrarViagem = ({ navigation }) => {
           setVisible={setShow2}
           date={date2}
           setDate={setDate2}
+          validDate={date1}
         />
       </Container>
     </ScrollView>

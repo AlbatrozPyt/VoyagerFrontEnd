@@ -60,6 +60,7 @@ export const CriarPost = ({ navigation, route }) => {
     async function Postar(idViagem) {
         if(titulo === "" || descricao == ""){
             MostrarModal("Campos vazios. Um ou mais campos de senha foram digitados incorretamente, preencha todos os campos para continuar", setShowModalMensagem, setMensagemModal)
+            return
         }
 
         setLoading(true)
@@ -67,7 +68,7 @@ export const CriarPost = ({ navigation, route }) => {
             titulo: titulo,
             descricao: descricao,
             idViagem: idViagem,
-            dataPostagem: moment().format("YYYY-MM-DDTHH:mm:ss")
+            dataPostagem: moment().format('YYYY-MM-DDTHH:mm:ss')
         })
             .then((e) => {
                 PostImages(e.data, arrayImages)

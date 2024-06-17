@@ -141,7 +141,7 @@ export const ViagemAtual = ({ navigation, route }) => {
                 data={listaAtividades}
                 renderItem={({ item }) => (
                   <ContentCheck>
-                    <Check onPress={() => MarcarStatusAtividade(item.id)}>
+                    <Check onPress={(dadosViagem.statusViagem.status === "Pendente") ? null : () => MarcarStatusAtividade(item.id)}>
                       {item.concluida === false ? null : (
                         <MaterialCommunityIcons
                           name="check-bold"

@@ -67,9 +67,9 @@ export const GuiaPerfil = ({ setGuia }) => {
           }}
         >
           {buttonClicked ? (
-            <MaterialCommunityIcons name="image-area" size={30} color="#fff" />
+            <MaterialCommunityIcons name="image-plus" size={30} color="#fff" />
           ) : (
-            <MaterialCommunityIcons name="image-area" size={30} color="#000" />
+            <MaterialCommunityIcons name="image-plus" size={30} color="#000" />
           )}
         </ButtonGuia>
       </Shadow>

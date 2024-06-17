@@ -11,7 +11,7 @@ export const InfoLocal = ({ navigation, route }) => {
         <TitleDefault>Componente de Mapa da Expo</TitleDefault>
       </LocalMapBox>
 
-      <TitleInfoLocal>Nome do Local</TitleInfoLocal>
+      <TitleInfoLocal>{route.params.nomeLocal}</TitleInfoLocal>
     </ContainerInfoLocal>
   );
 };

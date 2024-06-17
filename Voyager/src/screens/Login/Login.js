@@ -25,18 +25,22 @@ import { ModalInformativo } from "../../components/Modal";
 
 // Componente de tela de login
 export const Login = ({ navigation, route }) => {
-  const [email, setEmail] = useState('matheusenrikeramalho@gmail.com');
-  const [senha, setSenha] = useState('dodo');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
   const { user, setUser } = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const [mensagemModal, setMensagemModal] = useState("")
   const [showModalMensagem, setShowModalMensagem] = useState(false)
 
   const [loading, setLoading] = useState(false)
 
-
   async function Login() {
+
+    if (email == '' || senha == '') {
+      MostrarModal("Campos vazios. Um ou mais campos de senha foram digitados incorretamente, preencha todos os campos para continuar", setShowModalMensagem, setMensagemModal)
+      return;
+    }
+
     setLoading(true)
     await api.post("/Login", {
       email: email,
@@ -44,17 +48,17 @@ export const Login = ({ navigation, route }) => {
     })
       .then((e) => {
         setUser(DecodeToken(e.data.token))
-        navigation.navigate("main", {screen: "Home"});
+        navigation.navigate("main", { screen: "Home" });
       })
       .catch((e) => {
-        setErrorMessage("Usuário ou senha incorretos!");
+        MostrarModal("Email ou senha inválidos", setShowModalMensagem, setMensagemModal)
       });
     setLoading(false)
   }
 
   useEffect(() => {
-    if(route.params){
-      if(route.params.cadastrado){
+    if (route.params) {
+      if (route.params.cadastrado) {
         MostrarModal("Parabéns! Você acaba de se cadastrar na Voyager, verifique seu email para visualizar a nossa mensagem de boas vindas personalizada e boa viagem!!!", setShowModalMensagem, setMensagemModal)
       }
     }
@@ -94,7 +98,7 @@ export const Login = ({ navigation, route }) => {
                 secureTextEntry
                 onChangeText={(txt) => setSenha(txt)}
               />
-              {errorMessage && <ErrorMessage error={errorMessage} />}
+              {/* {errorMessage && <ErrorMessage error={errorMessage} />} */}
 
             </InputBox>
 
@@ -106,7 +110,8 @@ export const Login = ({ navigation, route }) => {
             {/* Caixa de botão para o botão de login */}
             <ButtonBox>
               <Sombra />
-              <Button onPress={loading ? null : () => Login()}>
+              <Button onPress={loading ? null : () => Login()}
+              >
                 <ButtonTitle>{loading ? "Entrando..." : "Entrar"}</ButtonTitle>
               </Button>
             </ButtonBox>

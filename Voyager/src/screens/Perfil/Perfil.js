@@ -47,6 +47,8 @@ export const Perfil = ({ navigation }) => {
   const [post, setPost] = useState(null)
   const [modalComment, setModalComment] = useState(false)
 
+  const [dep, setDep] = useState(false)
+
   async function GetUser() {
     const get = await api.get(`/Usuarios/${user.jti}`
     ).then(response => {
@@ -90,6 +92,14 @@ export const Perfil = ({ navigation }) => {
     GetLikedPosts()
     GetPosts();
   }, []));
+
+  useEffect(() => {
+    GetUser()
+    GetLikedPosts()
+    GetPosts();
+    console.log(dep)
+  }, [dep])
+
 
 
   return userData !== null && (
@@ -147,9 +157,9 @@ export const Perfil = ({ navigation }) => {
 
         {guia === `posts` && (
           <ShadowButton2
-          
+
             render={
-              <ButtonViagem onPress={() => navigation.navigate(`CriarPost`)}>
+              <ButtonViagem onPress={() => navigation.navigate(`HistoricoViagens`)}>
                 <TextButtonViagem>compartilhe uma nova viagem</TextButtonViagem>
               </ButtonViagem>
             }
@@ -166,6 +176,8 @@ export const Perfil = ({ navigation }) => {
               setModalComment={setModalComment}
               setPost={setPost}
               screenBack={"Perfil"}
+              setDep={setDep}
+              dep={dep}
             />;
           })
           : (likedPostData != null ?
@@ -178,7 +190,8 @@ export const Perfil = ({ navigation }) => {
                 setModalComment={setModalComment}
                 setPost={setPost}
                 screenBack={"Perfil"}
-
+                setDep={setDep}
+                dep={dep}
               />;
             })
             : null)

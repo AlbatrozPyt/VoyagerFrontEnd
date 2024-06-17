@@ -9,11 +9,15 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import api from "../../service/Service";
 import { useFocusEffect } from "@react-navigation/native";
 import { UserContext } from "../../contexts/MyContext";
-import { CompartilharViagemModal } from "../../components/Modal";
+import { CompartilharViagemModal, ModalInformativo } from "../../components/Modal";
+import { MostrarModal } from "../../utils/MostrarModal";
 
 export const Viagens = ({ navigation }) => {
   const [dadosViagemAtual, setDadosViagemAtual] = useState(null)
   const { user } = useContext(UserContext)
+
+  const [mensagemModal, setMensagemModal] = useState("")
+  const [showModalMensagem, setShowModalMensagem] = useState(false)
 
   const BuscarViagemAtual = async () => {
     await api.get(`/Viagens/BuscarViagemAtual/${user.jti}`)
@@ -48,6 +52,9 @@ export const Viagens = ({ navigation }) => {
           postItColor={"#DEFF97"}
           navigation={navigation}
           screen={"AcompanharViagem"}
+          onPress={() => {
+            MostrarModal("Não existe nenhuma viagem em andamento, inicie uma antes!!!", setShowModalMensagem, setMensagemModal)
+          }}
         />
       }
 
@@ -84,9 +91,11 @@ export const Viagens = ({ navigation }) => {
         </NovaViagem>
       </Shadow>
 
-      {/* <CompartilharViagemModal
-        visible={true}
-      /> */}
+      <ModalInformativo
+        setShowModal={setShowModalMensagem}
+        showModal={showModalMensagem}
+        mensagem={mensagemModal}
+      />
     </Container>
   );
 };

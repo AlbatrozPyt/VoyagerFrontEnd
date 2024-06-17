@@ -34,6 +34,7 @@ import { CalendarMaximized } from "../Calendar/Calendar";
 import { mask } from "remask";
 import moment from "moment";
 import { Shadow } from "react-native-shadow-2";
+import { MostrarModal } from "../../utils/MostrarModal";
 
 export const ModalRotina = ({
   visible,
@@ -68,8 +69,9 @@ export const ModalRotina = ({
             <ShadowDefault
               render={
                 <InputRotina
-                  placeholder={``}
+                  placeholder={`DD/MM/AAAA HH:mm`}
                   onChangeText={(txt) => setDataHora(mask(txt, '99/99/9999 99:99'))}
+                  keyboardType={"numeric"}
                   value={dataHora}
                 />
               }
@@ -244,7 +246,7 @@ export const ModalComentario = ({
   );
 };
 
-export const ModalCalendar = ({ visible, setVisible, date, setDate }) => {
+export const ModalCalendar = ({ visible, setVisible, date, setDate}) => {
   return (
     <Modal animationType="fade" transparent={true} visible={visible}>
       <BackgroundModalRotina>
@@ -286,7 +288,7 @@ export const ModalCalendar = ({ visible, setVisible, date, setDate }) => {
 export const CompartilharViagemModal = ({ navigation, visible, setVisible = null, idViagem }) => {
   const HandleCompartilhar = () => {
     setVisible(false)
-    navigation.navigate("CriarPost", {idViagem: idViagem}) 
+    navigation.navigate("CriarPost", { idViagem: idViagem })
   }
 
   return (
@@ -316,11 +318,11 @@ export const CompartilharViagemModal = ({ navigation, visible, setVisible = null
               containerStyle={{ margin: 10, width: 250 }}
             >
               <ButtonModal
-                  onPress={() => navigation.replace("main", {screen: "Viagens"})}
-                  style={{ backgroundColor: `#8531C6`, display: "flex", justifyContent: "center", alignItems: "center" }}
-                >
-                  <TitleDefault style={{ color: `#fff` }}>voltar</TitleDefault>
-                </ButtonModal>
+                onPress={() => navigation.replace("main", { screen: "Viagens" })}
+                style={{ backgroundColor: `#8531C6`, display: "flex", justifyContent: "center", alignItems: "center" }}
+              >
+                <TitleDefault style={{ color: `#fff` }}>voltar</TitleDefault>
+              </ButtonModal>
             </Shadow>
           </ButtonModalBox>
         </ContainerModalCompartilhar>
@@ -341,7 +343,7 @@ export const ViagemIniciadaModal = ({ navigation, visible }) => {
           <ButtonModalBox>
             <ShadowButton3
               render={
-                <ButtonModal onPress={() => navigation.replace("main", {screen: "Viagens"})}>
+                <ButtonModal onPress={() => navigation.replace("main", { screen: "Viagens" })}>
                   <TitleDefault style={{ color: `#8531C6` }}>
                     Confirmar
                   </TitleDefault>
@@ -355,8 +357,8 @@ export const ViagemIniciadaModal = ({ navigation, visible }) => {
   )
 }
 
-export const ModalInformativo = ({showModal, setShowModal, mensagem}) => {
-  return(
+export const ModalInformativo = ({ showModal, setShowModal, mensagem }) => {
+  return (
     <Modal animationType="fade" visible={showModal} transparent={true}>
       <BackgroundModalRotina>
         <ContainerModalCompartilhar>
