@@ -34,7 +34,6 @@ export const Home = ({ navigation, route }) => {
     await api.get(`/PostagensViagens`)
       .then((r) => {
         setPosts(r.data)
-        console.log(posts)
       })
       .catch((r) => {
         console.log(r)

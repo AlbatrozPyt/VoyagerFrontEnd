@@ -21,6 +21,7 @@ import { MyProvider } from "./src/contexts/MyContext";
 
 import * as MediaLibrary from "expo-media-library"
 import * as ImagePicker from "expo-image-picker"
+import Splash from "./src/components/Splash";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -31,7 +32,7 @@ export default function App() {
     "LouisGeorgeCafe-Light": require("./src/assets/fonts/LouisGeorgeCafe-Light.ttf"),
     MoonGet: require("./src/assets/fonts/moon_get-Heavy.ttf"),
   });
-  
+
 
   if (!fontsLoaded && !fontError) {
     return null;
@@ -52,6 +53,11 @@ export default function App() {
         <Stack.Navigator screenOptions={{
           headerShown: false
         }}>
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+          />
+
           <Stack.Screen
             name="Login"
             component={Login}

@@ -31,6 +31,7 @@ export const PostFeed = ({
   screenBack
 }) => {
   const [like, setLike] = useState(false);
+  const [galeria, setGaleria] = useState([])
 
 
   async function PostCurtida(postId, userId) {
@@ -56,6 +57,7 @@ export const PostFeed = ({
 
   useEffect(() => {
     GetCurtida(post.id, user.jti)
+    console.log(post.galeriaImagens);
   }, [like])
 
   return (
@@ -68,7 +70,7 @@ export const PostFeed = ({
             {/* Imagem da postagem */}
             <ThumbnailFeed
               source={{
-                uri: post.galeriaImagens.lenght === 0 ? `https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/BackgroundPost_Defualt.jpg` : post.galeriaImagens[0].media,
+                uri: `https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/BackgroundPost_Defualt.jpg`
               }}
             />
 
