@@ -52,6 +52,7 @@ export const Login = ({ navigation, route }) => {
       })
       .catch((e) => {
         MostrarModal("Email ou senha inválidos", setShowModalMensagem, setMensagemModal)
+        console.log(e)
       });
     setLoading(false)
   }

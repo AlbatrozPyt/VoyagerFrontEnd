@@ -42,7 +42,7 @@ export const Main = ({ route }) => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <AntDesign name="home" size={30} color="#8531C6" />
+                <MaterialCommunityIcons name="home" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }
@@ -52,7 +52,7 @@ export const Main = ({ route }) => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <AntDesign name="user" size={30} color="#8531C6" />
+                <MaterialCommunityIcons name="account" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }
