@@ -20,7 +20,7 @@ import { Shadow } from "react-native-shadow-2";
 
 export const InfoLocal = ({ navigation, route }) => {
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={{height: "100%"}}>
       <ContainerInfoLocal>
         <StatusBar
           barStyle={"dark-content"}
