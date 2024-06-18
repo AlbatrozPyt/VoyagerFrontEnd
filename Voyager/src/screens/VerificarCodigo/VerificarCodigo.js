@@ -38,6 +38,7 @@ import { Text } from 'react-native';
 import api from "../../service/Service";
 import { MostrarModal } from '../../utils/MostrarModal';
 import { ModalInformativo } from '../../components/Modal';
+import { LinkVoltar } from '../InfoLocal/style';
 
 export const VerificarCodigo = ({ navigation, route }) => {
     const [codes, setCodes] = useState(["", "", "", ""]);
@@ -156,19 +157,19 @@ export const VerificarCodigo = ({ navigation, route }) => {
                                 </Button>
                             </ButtonBox>
 
-                            <LinkMedium
+                            <LinkVoltar
                                 onPress={reenviarCodigo}
-                                style={{ marginTop: 5, left: -120, color: '#8531C6' }}
+                                style={{ marginTop: 5, color: '#8531C6' }}
                             >
                                 <Text>{resending ? "Reenviando..." : "Reenviar Código"}</Text>
-                            </LinkMedium>
+                            </LinkVoltar>
 
-                            <LinkMedium
+                            <LinkVoltar
                                 onPress={() => navigation.goBack()}
-                                style={{ marginTop: -10, left: -150, color: '#8531C6' }}
+                                style={{ marginTop: -10, color: '#8531C6' }}
                             >
                                 <Text>cancelar</Text>
-                            </LinkMedium>
+                            </LinkVoltar>
 
                         </FormBox>
                     </CenteredContent>

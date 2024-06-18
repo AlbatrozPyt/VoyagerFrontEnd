@@ -6,6 +6,8 @@ import { Grid } from "react-native-easy-grid"
 import api from "../../service/Service";
 import { TitleDefault } from "../Text/style"
 import { useEffect, useState } from "react"
+import { ModalInformativo } from "../Modal"
+import { MostrarModal } from "../../utils/MostrarModal"
 
 
 export const Explorar = ({navigation}) => {
@@ -13,12 +15,15 @@ export const Explorar = ({navigation}) => {
     const [showLoading, setShowLoading] = useState(false)
     const [placesList, setPlacesList] = useState([])
 
+    const [mensagemModal, setMensagemModal] = useState("")
+    const [showModalMensagem, setShowModalMensagem] = useState(false)
+
     const HandleSearch = async (place) => {
         setShowLoading(true)
         await api.post(`/PlaceSearch?local=${place}`).then(response => {
             setPlacesList(response.data)
         }).catch(erro => {
-            alert(erro)
+            MostrarModal("Não foi possível encontrar informações dobre o local informado. Verifique se o nome foi digitado corretamente ou inclua mais detalhes em relação ao nome e localização do mesmo. Após isto tente novamente", setShowModalMensagem, setMensagemModal)
         })
         setShowLoading(false)
         
@@ -63,6 +68,12 @@ export const Explorar = ({navigation}) => {
                     </Grid>
                 </ContainerList>
                 : null}
+
+                <ModalInformativo
+                    mensagem={mensagemModal}
+                    showModal={showModalMensagem}
+                    setShowModal={setShowModalMensagem}
+                />
         </ContainerExplorar>
     )
 }

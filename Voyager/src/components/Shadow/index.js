@@ -107,6 +107,21 @@ export const ShadowOpacity = ({ render, styleRender = {} }) => {
   );
 };
 
+export const ShadowInfoLocal = ({ render, styleRender = {} }) => {
+  return (
+    <Shadow
+      startColor="rgba(0, 0, 0, .2)"
+      endColor="rgba(0, 0, 0, .2)"
+      distance={0}
+      offset={[4, 4]}
+      style={{ borderRadius: 10 }}
+      childrenViewProps={styleRender}
+    >
+      {render}
+    </Shadow>
+  );
+};
+
 export const ShadowPerfilImage = ({ children }) => {
   return (
     <Shadow

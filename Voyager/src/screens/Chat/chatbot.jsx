@@ -88,7 +88,7 @@ export const ChatBot = ({ navigation, route }) => {
   const [editavel, setEditavel] = useState(true);
 
   const mensagemInicial = `
-  Olá! Eu sou seu assistente de viagem pessoal! Para te ajudar a planejar sua viagem à ${route.params.destino}
+  Olá! Eu sou seu assistente de viagem pessoal! Para te ajudar a planejar sua viagem à ${route.params.cidadeDestino}
   
   Comigo, você pode:
   => Decidir uma lista de tarefas personalizada para sua viagem;

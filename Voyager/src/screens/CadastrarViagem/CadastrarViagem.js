@@ -27,11 +27,11 @@ export const CadastrarViagem = ({ navigation }) => {
 
   const [tipoViagem, setTipoViagem] = useState('9fbdf547-246f-44ea-8c23-7135978bab62');
 
-  const [paisOrigem, setPaisOrigem] = useState(null)
-  const [cidadeOrigem, setCidadeOrigem] = useState(null)
+  const [paisOrigem, setPaisOrigem] = useState("")
+  const [cidadeOrigem, setCidadeOrigem] = useState("")
 
-  const [paisDestino, setPaisDestino] = useState(null)
-  const [cidadeDestino, setCidadeDestino] = useState(null)
+  const [paisDestino, setPaisDestino] = useState("")
+  const [cidadeDestino, setCidadeDestino] = useState("")
 
   function clearForm() {
     setShow1(false)
@@ -60,11 +60,13 @@ export const CadastrarViagem = ({ navigation }) => {
           <InputViagem
             placeholder={`País`}
             onChangeText={(txt) => setPaisOrigem(txt)}
+            value={paisOrigem}
           />
 
           <InputViagem
             placeholder={`Cidade`}
             onChangeText={(txt) => setCidadeOrigem(txt)}
+            value={cidadeOrigem}
           />
         </View>
 
@@ -79,10 +81,12 @@ export const CadastrarViagem = ({ navigation }) => {
           <InputViagem
             placeholder={`País`}
             onChangeText={(txt) => setPaisDestino(txt)}
+            value={paisDestino}
           />
           <InputViagem
             placeholder={`Cidade`}
             onChangeText={(txt) => setCidadeDestino(txt)}
+            value={cidadeDestino}
           />
 
           <View

@@ -7,7 +7,7 @@ import {
 import { Text, View } from "react-native";
 import { ShadowDefault } from "../Shadow";
 
-export const InputViagem = ({ placeholder, onChangeText }) => {
+export const InputViagem = ({ placeholder, onChangeText, value }) => {
   return (
     <ShadowDefault
       render={
@@ -15,6 +15,7 @@ export const InputViagem = ({ placeholder, onChangeText }) => {
           placeholder={placeholder}
           placeholderTextColor={`#BA31C6`}
           onChangeText={onChangeText}
+          value={value}
         />
       }
     />
