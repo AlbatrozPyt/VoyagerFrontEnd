@@ -125,6 +125,7 @@ export const ChatBot = ({ navigation, route }) => {
     + "**c)** Responder com informações imprecisas ou falsas. Se não souber a resposta, peça ao usuário para reformular a pergunta ou indique recursos que possam ajudar.\n"
     + "**d)** Usar linguagem coloquial ou informal. Mantenha um tom profissional e amigável."
     + "**e)** Usar emojis em suas respostas."
+    + "**f)** Retornar respostas que não estejam em formatos de textos ou parágrafos."
   `;
   const safetySettings = [
     {

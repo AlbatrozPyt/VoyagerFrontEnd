@@ -51,7 +51,7 @@ export const HistoricoViagens = ({ navigation }) => {
       </TitleViagensFuturas>
 
       <ScrollView style={{ width: "100%" }}>
-        {viagensConcluidas !== null ?
+        {viagensConcluidas !== null && viagensConcluidas.length > 0 ?
           <ContainerPostIts>
             {viagensConcluidas.map((viagem) =>
               <PostIts

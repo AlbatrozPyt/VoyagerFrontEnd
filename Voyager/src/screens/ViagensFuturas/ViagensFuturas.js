@@ -55,7 +55,7 @@ export const ViagensFuturas = ({ navigation }) => {
       </TitleViagensFuturas>
 
       <ScrollView style={{ width: "100%" }}>
-        {viagensPendentes.length > 0  ?
+        {viagensPendentes != null && viagensPendentes.length > 0  ?
           <ContainerPostIts>
             {viagensPendentes.map((viagem) =>
               <PostIts
