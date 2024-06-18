@@ -4,7 +4,7 @@ import { AddPicture, ContainerOtherImages, ImageDestaque, InputPost, OtherImages
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
-import { Image, ScrollView, View } from "react-native";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { useEffect, useState } from "react";
 import { ShadowDefault } from "../../components/Shadow";
 
@@ -58,9 +58,9 @@ export const CriarPost = ({ navigation, route }) => {
     }
 
     async function Postar(idViagem) {
-        if(titulo === "" || descricao == ""){
+        if (titulo === "" || descricao == "") {
             MostrarModal("Campos vazios. Um ou mais campos de senha foram digitados incorretamente, preencha todos os campos para continuar", setShowModalMensagem, setMensagemModal)
-            return
+            return;
         }
 
         setLoading(true)
@@ -81,7 +81,7 @@ export const CriarPost = ({ navigation, route }) => {
 
     async function PostImages(idPostagem, array) {
 
-        array.forEach( async (imagem, index) => {
+        array.forEach(async (imagem) => {
             const form = new FormData();
 
             form.append("IdPostagem", idPostagem)
@@ -97,6 +97,7 @@ export const CriarPost = ({ navigation, route }) => {
                 }
             }).catch((e) => console.log(e) && alert(e))
         });
+        navigation.replace(`main`, { screen: "Home" })
     }
 
     useEffect(() => {
@@ -111,7 +112,7 @@ export const CriarPost = ({ navigation, route }) => {
 
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: "#FCEDFF" }} >
             <Container>
                 <ImageDestaque
                     source={{ uri: arrayImages[0] }}
@@ -126,10 +127,11 @@ export const CriarPost = ({ navigation, route }) => {
                             arrayImages.length > 0 &&
                             arrayImages.map((x, i) => {
                                 return (
-                                    <OtherImages
-                                        key={i}
-                                        source={{ uri: x }}
-                                    />
+                                    <TouchableOpacity key={i}>
+                                        <OtherImages
+                                            source={{ uri: x }}
+                                        />
+                                    </TouchableOpacity>
                                 )
                             })
                         }
@@ -190,9 +192,8 @@ export const CriarPost = ({ navigation, route }) => {
                     render={
                         <ButtonViagem
                             style={{ backgroundColor: `#8531C6` }}
-                            onPress={() => {
+                            onPress={loading ? null : () => {
                                 Postar(route.params.idViagem)
-                                navigation.navigate(`Home`)
                             }}
                         >
                             <TextButtonViagem style={{ color: `#fff` }}>{loading ? "Postando..." : "Postar"}</TextButtonViagem>

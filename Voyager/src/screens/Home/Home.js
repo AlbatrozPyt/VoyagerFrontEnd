@@ -56,7 +56,7 @@ export const Home = ({ navigation, route }) => {
       />
 
       <Shadow startColor="#00000040">
-        <Header navigation={navigation} user={user} />
+        <Header navigation={navigation} user={user}/>
       </Shadow>
 
       <Guia setGuia={setGuia} />

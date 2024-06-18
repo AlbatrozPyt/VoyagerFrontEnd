@@ -48,7 +48,7 @@ export const Login = ({ navigation, route }) => {
     })
       .then((e) => {
         setUser(DecodeToken(e.data.token))
-        navigation.navigate("main", { screen: "Home" });
+        navigation.replace("main", { screen: "Home" });
       })
       .catch((e) => {
         MostrarModal("Email ou senha inválidos", setShowModalMensagem, setMensagemModal)
@@ -60,6 +60,8 @@ export const Login = ({ navigation, route }) => {
     if (route.params) {
       if (route.params.cadastrado) {
         MostrarModal("Parabéns! Você acaba de se cadastrar na Voyager, verifique seu email para visualizar a nossa mensagem de boas vindas personalizada e boa viagem!!!", setShowModalMensagem, setMensagemModal)
+        setEmail(route.params.email)
+        setSenha(route.params.senha)
       }
     }
   }, [route])
@@ -86,6 +88,7 @@ export const Login = ({ navigation, route }) => {
                 placeholder="Email:"
                 placeholderTextColor="#D527B7"
                 onChangeText={(txt) => setEmail(txt)}
+                value={email}
               />
             </InputBox>
 
@@ -97,6 +100,7 @@ export const Login = ({ navigation, route }) => {
                 placeholderTextColor="#D527B7"
                 secureTextEntry
                 onChangeText={(txt) => setSenha(txt)}
+                value={senha}
               />
               {/* {errorMessage && <ErrorMessage error={errorMessage} />} */}
 

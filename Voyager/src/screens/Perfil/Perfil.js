@@ -32,6 +32,7 @@ import { ModalComentario } from "../../components/Modal/index"
 
 import api from "../../service/Service";
 import { useFocusEffect } from "@react-navigation/native";
+import { TitleViagensFuturas } from "../ViagensFuturas/style";
 
 
 export const Perfil = ({ navigation }) => {
@@ -184,7 +185,7 @@ export const Perfil = ({ navigation }) => {
             likedPostData.map((x) => {
               return <PostFeed
                 key={x.id}
-                post={x}
+                post={x.postagemViagem}
                 navigation={navigation}
                 user={user}
                 setModalComment={setModalComment}
@@ -195,7 +196,6 @@ export const Perfil = ({ navigation }) => {
               />;
             })
             : null)
-
         }
 
         <ModalComentario

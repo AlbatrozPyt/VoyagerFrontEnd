@@ -46,7 +46,7 @@ export const Cadastro = ({ navigation }) => {
             email: dadosCadastro.email,
             senha: dadosCadastro.senha
         }).then(() => {
-            navigation.replace("Login", {cadastrado: true})
+            navigation.replace("Login", {cadastrado: true, email: dadosCadastro.email, senha: dadosCadastro.senha})
         }).catch(erro => {
             MostrarModal("Erro ao cadastrar usuário. Verifique os campos digitados e tente novamente após alguns minutos", setShowModalMensagem, setMensagemModal)
         })

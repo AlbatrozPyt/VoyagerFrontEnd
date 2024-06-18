@@ -41,6 +41,9 @@ export const ViagemAtual = ({ navigation, route }) => {
   const [listaAtividades, setListaAtividades] = useState(null)
   const {user} = useContext(UserContext);
 
+  const [postagemViagem, setPostagemViagem] = useState(null)
+  const [viagemPossuiPostagem, setViagemPossuiPostagem] = useState(true)
+
   const [mensagemModal, setMensagemModal] = useState("")
   const [showModalMensagem, setShowModalMensagem] = useState(false)
 
@@ -52,11 +55,30 @@ export const ViagemAtual = ({ navigation, route }) => {
       .then(response => {
         setDadosViagem(response.data)
         BuscarAtividadesViagem(route.params.idViagem)
+        BuscarPostagemViagemAtual()
       })
       .catch(erro => {
         alert(erro)
         console.log(erro);
       })   
+  }
+
+  const BuscarPostagemViagemAtual = async () => {
+    console.log("Chegou");
+    await api.get(`/PostagensViagens/BuscarPorViagem/${route.params.idViagem}`).then(postagem => { 
+      setPostagemViagem(postagem.data)
+      console.log(postagem.data);
+      console.log();
+      setViagemPossuiPostagem(true)
+      console.log("fez a requisição");
+    })
+    .catch(erro => {
+      if(erro.response.status === 404){
+        setViagemPossuiPostagem(false)
+        console.log("caiu aqui");
+        console.log(route.params.idViagem);
+      }
+    })
   }
 
   const BuscarAtividadesViagem = async (idViagem) => {
@@ -75,8 +97,7 @@ export const ViagemAtual = ({ navigation, route }) => {
     .then(() => {
       BuscarAtividadesViagem(route.params.idViagem)
     }).catch(erro => {
-      alert(erro)
-      console.log(erro);
+      MostrarModal("Ocorreu um erro ao tentar iniciar a viagem. Tente novamente mais tarde", setShowModalMensagem, setMensagemModal)
     })
   }
 
@@ -86,8 +107,7 @@ export const ViagemAtual = ({ navigation, route }) => {
       setShowModalPostagem(true)
     })
     .catch(erro => {
-      alert(erro)
-      console.log(erro);
+      MostrarModal("Ocorreu um erro ao tentar finalizar a viagem. Tente novamente mais tarde", setShowModalMensagem, setMensagemModal)
     })
   }
 
@@ -106,6 +126,10 @@ export const ViagemAtual = ({ navigation, route }) => {
   useEffect(() => {
     BuscarDadosViagem()
   }, [route.params])
+
+  useFocusEffect(useCallback(() => {
+    BuscarDadosViagem()
+  }, []))
 
   return dadosViagem != null ? (
     <Container>
@@ -175,11 +199,11 @@ export const ViagemAtual = ({ navigation, route }) => {
           <ShadowDefault
             render={
               <ButtonViagem
-                onPress={() => navigation.navigate(`CriarPost`, {idViagem: dadosViagem.id})}
+                onPress={viagemPossuiPostagem ? () => navigation.replace("ViewPost", { post: postagemViagem, screenBack: "Viagens" }) : () => navigation.navigate(`CriarPost`, {idViagem: dadosViagem.id})}
                 bgColor={"#8531C6"}
               >
                 <TextButtonViagem style={{ color: "#fff" }}>
-                  Adicionar post
+                  {viagemPossuiPostagem ? "Visualizar" : "Adicionar"} postagem
                 </TextButtonViagem>
               </ButtonViagem>
             }

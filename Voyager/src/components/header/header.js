@@ -13,8 +13,24 @@ import {
   UserName,
 } from "./style";
 import DropShadow from "react-native-drop-shadow";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import api from "../../service/Service";
 
 export const Header = ({ navigation, user }) => {
+  const [fotoPerfil, setFotoPerfil] = useState("")
+
+  const BuscarFotoUsuario = async (id) => {
+    await api.get(`/Usuarios/${id}`)
+    .then(usuario => {
+      setFotoPerfil(usuario.data.foto)
+    }).catch(erro => console.log(erro))
+  }
+
+  useFocusEffect(useCallback(() => {
+    BuscarFotoUsuario(user.jti)
+  }, []))
+
   return (
     <ContainerHeader>
       <LogoHeader
@@ -32,7 +48,7 @@ export const Header = ({ navigation, user }) => {
         <BoxShadowUser>
           <UserImage
             source={{
-              uri: user.foto,
+              uri: fotoPerfil !== "" ? fotoPerfil : "https://voyagerblobstorage.blob.core.windows.net/voyagercontainerblob/user.png"
             }}
           />
         </BoxShadowUser>
