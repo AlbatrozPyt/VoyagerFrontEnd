@@ -28,7 +28,7 @@ export const DescricaoLocalBox = styled.View`
     gap: 15px;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     /* border: 1px solid black; */
 `
 
