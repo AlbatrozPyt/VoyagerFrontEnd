@@ -8,35 +8,44 @@ import {
 import { Header } from "../../components/header/header";
 import { Guia } from "../../components/MenuGuia/MenuGuia";
 import { PostFeed } from "../../components/PostFeed/PostFeed";
-import { useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Shadow } from "react-native-shadow-2";
 import { SearchBar } from "../../components/Search/style";
 import { NovaViagem } from "../Viagens/style";
 import { Explorar } from "../../components/Explorar/Explorar";
 import { ModalComentario } from "../../components/Modal";
+import { UserContext } from "../../contexts/MyContext";
+
+import api from "../../service/Service"
+import { useFocusEffect } from "@react-navigation/native";
 
 
-const mockFeed = [
-  {
-    title: "Pedro - Roma",
-    description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
-  },
-  {
-    title: "Renato - Paris",
-    description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
-  },
-  {
-    title: "Murilo - Japão",
-    description: "Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi.Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi."
-  },
-]
-
-
-
-export const Home = ({ navigation }) => {
+export const Home = ({ navigation, route }) => {
   const [guia, setGuia] = useState("feed");
-
   const [modalComment, setModalComment] = useState(false);
+
+  const { user } = useContext(UserContext);
+
+  const [posts, setPosts] = useState(null);
+  const [post, setPost] = useState(null);
+
+
+  async function GetAllPosts() {
+    await api.get(`/PostagensViagens`)
+      .then((r) => {
+        setPosts(r.data)
+      })
+      .catch((r) => {
+        console.log(r)
+      })
+  }
+
+  useEffect(() => {
+    GetAllPosts()
+  }, [route])
+
+  useFocusEffect(useCallback(() => { GetAllPosts() }, []))
+
 
   return (
     <Container>
@@ -46,29 +55,42 @@ export const Home = ({ navigation }) => {
         backgroundColor={"transparent"}
       />
 
-      <Shadow
-        startColor="#00000040"
-      >
-        <Header />
+      <Shadow startColor="#00000040">
+        <Header navigation={navigation} user={user}/>
       </Shadow>
 
       <Guia setGuia={setGuia} />
 
       {guia === "feed" ? (
         <ListFeed
-          data={mockFeed}
-          renderItem={
-            ({ item }) => <PostFeed setModalComment={setModalComment} post={item} navigation={navigation} />
-          }
+          data={posts}
+          renderItem={({ item }) => (
+            <PostFeed
+              post={item}
+              setPost={setPost}
+              user={user}
+              navigation={navigation}
+              setModalComment={setModalComment}
+              screenBack={"Home"}
+            />
+          )}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />
       ) : (
-        <Explorar />
+        <>
+          <Explorar navigation={navigation} />
+          <View style={{marginBottom: 30}} />
+        </>
       )}
 
-
-      <ModalComentario visible={modalComment} setVisible={setModalComment} />
+      <ModalComentario
+        post={post}
+        setPost={setPost}
+        visible={modalComment}
+        setVisible={setModalComment}
+        user={user}
+      />
     </Container>
   );
 };

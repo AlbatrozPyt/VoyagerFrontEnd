@@ -1,3 +1,4 @@
+import { Image } from "react-native";
 import styled from "styled-components";
 
 export const TitleViagensFuturas = styled.Text`
@@ -14,6 +15,12 @@ export const ContainerPostIts = styled.View`
     align-self: center;
     justify-content: space-between;
     margin: 10px 0;
+`
+
+export const PostItImage = styled(Image)`
+    position: absolute;
+    width: 110%;
+    height: 110%;
 `
 
 export const PostIts = styled.TouchableOpacity`

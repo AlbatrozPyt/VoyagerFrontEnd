@@ -9,6 +9,7 @@ export const TitlePost = styled.Text`
   font-family: "MoonGet";
   font-size: 25px;
   margin: 32px 0;
+  line-height: 40px;
 `;
 
 export const BoxDescription = styled.View`

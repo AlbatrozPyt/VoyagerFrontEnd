@@ -11,13 +11,27 @@ import { CadastrarViagem } from "../CadastrarViagem/CadastrarViagem";
 import { CriarRotina } from "../CriarRotina/CriarRotina";
 import { CriarPost } from "../CriarPost/CriarPost";
 
-export const Main = () => {
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createContext, useEffect, useState, useContext } from "react";
+import { DecodeToken } from "../../utils/Auth";
+import { UserContext } from "../../contexts/MyContext";
+import { InfoLocal } from "../InfoLocal/InfoLocal";
+import { ChatBot } from "../Chat/chatbot";
+
+export const Main = ({ route }) => {
   const BottomTab = createBottomTabNavigator();
+
+  const [telaRedirecionada, setTelaRedirecionada] = useState(route.params.screen)
+
+  useEffect(() => {
+    setTelaRedirecionada(route.params.screen)
+  })
 
   return (
     <BottomTab.Navigator
       screenOptions={({ route }) => ({
-        initialRouteName: "Home",
+        initialRouteName: telaRedirecionada,
         headerShown: false,
         tabBarStyle: { height: 60, borderTopWidth: 2, borderColor: "#000" },
         tabBarActiveBackgroundColor: "transparent",
@@ -28,10 +42,7 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image
-                  style={{ width: 20, height: 20 }}
-                  source={require("../../assets/images/icon-home.png")}
-                />
+                <MaterialCommunityIcons name="home" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }
@@ -41,9 +52,7 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image
-                  source={require("../../assets/images/icon-perfil.png")}
-                />
+                <MaterialCommunityIcons name="account" size={30} color="#8531C6" />
               </BoxIcon>
             );
           }
@@ -53,8 +62,10 @@ export const Main = () => {
               <BoxIcon
                 tabBarActive={focused ? `rgba(133, 48, 198, .2)` : `#fff`}
               >
-                <Image
-                  source={require("../../assets/images/icon-viagens.png")}
+                <MaterialCommunityIcons
+                  name="airplane-takeoff"
+                  size={30}
+                  color="#8531C6"
                 />
               </BoxIcon>
             );
@@ -99,6 +110,19 @@ export const Main = () => {
       <BottomTab.Screen
         name="CriarPost"
         component={CriarPost}
+        options={{ tabBarButton: () => null }}
+      />
+
+      <BottomTab.Screen
+
+        name="InfoLocal"
+        component={InfoLocal}
+        options={{ tabBarButton: () => null }}
+      />
+
+      <BottomTab.Screen
+        name="ChatBot"
+        component={ChatBot}
         options={{ tabBarButton: () => null }}
       />
     </BottomTab.Navigator>

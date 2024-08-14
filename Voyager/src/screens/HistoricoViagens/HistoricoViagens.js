@@ -1,53 +1,84 @@
 import { Image, ScrollView, TouchableOpacity } from "react-native";
 import { Container } from "../../components/container/style";
-import { IconBack } from "../ViewPost/style";
 import { LogoViagens } from "../Viagens/style";
 import {
   ContainerPostIts,
+  PostItImage,
   PostIts,
   TextData,
   TextDestino,
   TitleViagensFuturas,
 } from "../ViagensFuturas/style";
 
+import { Back } from "../../components/Button/index";
+import { MinhasViagens } from "../../components/Logo/Logo";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import api from "../../service/Service";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../contexts/MyContext";
+import moment from "moment";
+
 export const HistoricoViagens = ({ navigation }) => {
+
+  const [viagensConcluidas, setViagensConcluidas] = useState(null)
+  const { user } = useContext(UserContext)
+
+  const BuscarHistoricoDeViagens = async () => {
+    await api.get(`/Viagens/ListarViagensPassadas/${user.jti}`)
+      .then(response => {
+        setViagensConcluidas(response.data);
+        // console.log(viagensConcluidas.dataFinal);
+      })
+      .catch(erro => {
+        alert(erro)
+      })
+  }
+
+  useEffect(() => {
+    BuscarHistoricoDeViagens()
+  }, [user])
+
   return (
     <Container>
-      <TouchableOpacity
-        style={{ width: "100%" }}
-        onPress={() => navigation.navigate("Viagens")}
-      >
-        <IconBack source={require("../../assets/images/back.png")} />
-      </TouchableOpacity>
+      <Back navigation={navigation} screen={"Viagens"} />
 
-      <LogoViagens
-        source={require("../../assets/images/LogoMinhasViagens.png")}
-      />
+      <MinhasViagens />
 
       <TitleViagensFuturas>
         Histórico de viagens{" "}
-        <Image source={require("../../assets/images/historico.png")} />
+        <MaterialCommunityIcons name="airplane-clock" size={30} color="black" />
       </TitleViagensFuturas>
 
       <ScrollView style={{ width: "100%" }}>
-        <ContainerPostIts>
-          {[0, 1, 2, 3, 4].map((x) => {
-            return (
+        {viagensConcluidas !== null && viagensConcluidas.length > 0 ?
+          <ContainerPostIts>
+            {viagensConcluidas.map((viagem) =>
               <PostIts
-                key={x}
-                onPress={() => navigation.navigate('ViagemAtual', { type: 'historico' })}
+                key={viagem.id}
+                onPress={() =>
+                  navigation.navigate("ViagemAtual", { type: "historico", idViagem: viagem.id })
+                }
               >
-                <Image
-                  style={{ position: "absolute" }}
-                  source={require("../../assets/images/post-it-2.png")}
+                <PostItImage
+                  source={{
+                    uri: "https://github.com/AlbatrozPyt/VoyagerFrontEnd/blob/develop/Voyager/src/assets/images/post-it-2.png?raw=true"
+                  }}
                 />
 
-                <TextDestino>Paris</TextDestino>
-                <TextData>29/08 - 02/09</TextData>
+                <TextDestino>{viagem.endereco.cidadeDestino}</TextDestino>
+                <TextData>{moment(viagem.dataInicial).format("DD/MM")} - {moment(viagem.dataFinal).format("DD/MM")}</TextData>
               </PostIts>
-            );
-          })}
-        </ContainerPostIts>
+
+            )}
+          </ContainerPostIts>
+          : <TitleViagensFuturas style={{ width: `90%`, alignSelf: `center`, textAlign: `center` }}>
+            Você ainda não terminou nenhuma viagem!!!
+          </TitleViagensFuturas>
+        }
+
+
+
       </ScrollView>
     </Container>
   );

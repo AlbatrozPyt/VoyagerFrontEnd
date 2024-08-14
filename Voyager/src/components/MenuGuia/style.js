@@ -9,6 +9,19 @@ export const ContainerGuia = styled.View`
     margin: 32px 0;
 `
 
+export const ContainerGuiaItem = styled.View`
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+`
+
+export const TitleGuiaItem = styled.Text`
+    font-size: 15px;
+    text-transform: uppercase;
+    font-family: "LouisGeorgeCafe-Bold";
+`
+
 export const ButtonGuia = styled.TouchableHighlight.attrs({
     underlayColor: `#8531C6`
 })`

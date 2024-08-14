@@ -1,50 +1,93 @@
-import {
-  ScrollView,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, View } from "react-native";
 import { Container } from "../../components/container/style";
-import { LogoViagens } from "../Viagens/style";
 import { ButtonViagem, TextButtonViagem } from "../ViagemAtual/style";
 import { ButtonViagemDate, InputViagem } from "../../components/Comps";
-import DatePicker from "react-native-date-picker";
-import { useEffect, useRef, useState } from "react";
-import DateTimePickerAndroid from "@react-native-community/datetimepicker";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { SelectTipoViagem } from "../../components/SelectTipoAtividade";
-import { Shadow } from "react-native-shadow-2";
+import { ShadowDefault } from "../../components/Shadow";
+
+import { MinhasViagens } from "../../components/Logo/Logo";
+import { ModalCalendar, ModalInformativo } from "../../components/Modal";
+import { TitleDefault } from "../../components/Text/style";
+
+import { UserContext } from "../../contexts/MyContext"
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const CadastrarViagem = ({ navigation }) => {
-  const [datePartida, setDatePartida] = useState(new Date());
-  const [dateRetorno, setDateRetorno] = useState(new Date());
+
+  const { user } = useContext(UserContext)
+  
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
 
-  const onChangeDate1 = ({ type }, selectedDate) => {
-    const currentDate = selectedDate;
-    setShow1(false);
-    setDatePartida(currentDate);
-  };
+  const [date1, setDate1] = useState(null)
+  const [date2, setDate2] = useState(null)
 
-  const onChangeDate2 = ({ type }, selectedDate) => {
-    const currentDate = selectedDate;
-    setDateRetorno(currentDate);
-    setShow2(false);
-  };
+  const [tipoViagem, setTipoViagem] = useState('9fbdf547-246f-44ea-8c23-7135978bab62');
+
+  const [paisOrigem, setPaisOrigem] = useState("")
+  const [cidadeOrigem, setCidadeOrigem] = useState("")
+
+  const [paisDestino, setPaisDestino] = useState("")
+  const [cidadeDestino, setCidadeDestino] = useState("")
+
+  function clearForm() {
+    setShow1(false)
+    setShow2(false)
+    setDate1(null)
+    setDate2(null)
+    setPaisOrigem(null)
+    setCidadeOrigem(null)
+    setPaisDestino(null)
+    setCidadeDestino(null)
+  }
 
   return (
     <ScrollView>
       <Container>
-        <LogoViagens
-          style={{ marginTop: 80 }}
-          source={require(`../../assets/images/LogoMinhasViagens.png`)}
-        />
+        <MinhasViagens />
 
         <View style={{ gap: 20, padding: 10 }}>
-          <InputViagem placeholder={`País`} />
-          <InputViagem placeholder={`Cidade`} />
+
+          <TitleDefault
+            style={{ fontFamily: 'MoonGet' }}
+          >
+            Origem
+          </TitleDefault>
+
+          <InputViagem
+            placeholder={`País`}
+            onChangeText={(txt) => setPaisOrigem(txt)}
+            value={paisOrigem}
+          />
+
+          <InputViagem
+            placeholder={`Cidade`}
+            onChangeText={(txt) => setCidadeOrigem(txt)}
+            value={cidadeOrigem}
+          />
+        </View>
+
+        <View style={{ gap: 20, padding: 10 }}>
+
+          <TitleDefault
+            style={{ fontFamily: 'MoonGet' }}
+          >
+            Destino
+          </TitleDefault>
+
+          <InputViagem
+            placeholder={`País`}
+            onChangeText={(txt) => setPaisDestino(txt)}
+            value={paisDestino}
+          />
+          <InputViagem
+            placeholder={`Cidade`}
+            onChangeText={(txt) => setCidadeDestino(txt)}
+            value={cidadeDestino}
+          />
 
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -52,53 +95,89 @@ export const CadastrarViagem = ({ navigation }) => {
             <ButtonViagemDate
               setState={setShow1}
               labelButton={"Data de partida"}
-              value={moment(datePartida).format("DD/MM/YYYY")}
+              value={
+                date1 !== null
+                  ? moment(date1).format("DD/MM/YYYY")
+                  : 'DD/MM/YYYY'
+              }
             />
 
             <ButtonViagemDate
               setState={setShow2}
               labelButton={"Data de retorno"}
-              value={moment(dateRetorno).format("DD/MM/YYYY")}
+              value={
+                date2 !== null
+                  ? moment(date2).format("DD/MM/YYYY")
+                  : 'DD/MM/YYYY'
+              }
             />
-
-            {show1 && (
-              <DateTimePickerAndroid
-                value={new Date()}
-                display="calendar"
-                mode="datetime"
-                onChange={onChangeDate1}
-              />
-            )}
-
-            {show2 && (
-              <DateTimePickerAndroid
-                value={new Date()}
-                display="calendar"
-                mode="datetime"
-                onChange={onChangeDate2}
-              />
-            )}
           </View>
         </View>
 
-        <SelectTipoViagem />
+        <SelectTipoViagem tipoViagem={tipoViagem} setTipoViagem={setTipoViagem} />
 
-        <Shadow
-          startColor="#000"
-          endColor="#000"
-          distance={0}
-          offset={[2.5, 2.5]}
-          containerStyle={{ marginBottom: 10 }}
-        >
-          <ButtonViagem
-            onPress={() => navigation.navigate("CriarRotina")}
-            style={{ backgroundColor: "#8531C6" }}
-          >
-            <TextButtonViagem style={{ color: "#fff" }}>
-              Continuar
-            </TextButtonViagem>
-          </ButtonViagem>
-        </Shadow>
+        <View style={{ marginBottom: 20 }}>
+          <ShadowDefault
+            render={
+              <ButtonViagem
+                onPress={() => {
+                  navigation.navigate("CriarRotina", {
+                    dataInicial: date1,
+                    dataFinal: date2,
+                    paisOrigem: paisOrigem.trim(),
+                    cidadeOrigem: cidadeOrigem.trim(),
+                    paisDestino: paisDestino.trim(),
+                    cidadeDestino: cidadeDestino.trim(),
+                    idTipoViagem: tipoViagem,
+                    idUsuario: user.jti
+                  })
+                  clearForm()
+                }}
+                style={{ backgroundColor: "#8531C6" }}
+
+                disabled={
+                  paisOrigem === null ||
+                    cidadeOrigem === null ||
+                    paisDestino === null ||
+                    cidadeDestino === null ||
+                    date1 === null ||
+                    date2 === null ||
+                    tipoViagem === null ? true : false
+                }
+
+              >
+                <TextButtonViagem style={{ color: "#fff" }}>
+                  {
+                    paisOrigem === null ||
+                      cidadeOrigem === null ||
+                      paisDestino === null ||
+                      cidadeDestino === null ||
+                      date1 === null ||
+                      date2 === null ||
+                      tipoViagem === null
+                      ? <MaterialCommunityIcons name="block-helper" size={24} color="#fff" />
+                      : 'Continuar'
+                  }
+                </TextButtonViagem>
+              </ButtonViagem>
+            }
+          />
+        </View>
+
+        <ModalCalendar
+          visible={show1}
+          setVisible={setShow1}
+          date={date1}
+          setDate={setDate1}
+        />
+
+        <ModalCalendar
+          visible={show2}
+          setVisible={setShow2}
+          date={date2}
+          setDate={setDate2}
+          validDate={date1}
+        />
       </Container>
     </ScrollView>
   );

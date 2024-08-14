@@ -5,7 +5,7 @@ import { TitleDefault } from "../../components/Text/style";
 
 // Modal de rotina
 export const TitleRotina = styled.Text`
-  width: 202px;
+  width: 250px;
   font-family: "MoonGet";
   font-size: 24px;
   text-transform: uppercase;
@@ -34,7 +34,7 @@ export const BackgroundModalRotina= styled.View`
 
 export const ContainerModalRotina = styled.View`
   width: 90%;
-  height: 361px;
+  height: 400px;
   background-color: #fff;
   border: 2px solid;
   align-self: center;
@@ -50,6 +50,7 @@ export const LabelModalRotina = styled.Text`
 
 export const InputRotina = styled(InputCadastarViagem)`
   width: 300px;
+  height: 50px;
 `
 
 export const ButtonModalRotina = styled(ButtonCadastrarViagem)`
@@ -82,7 +83,7 @@ export const ContainerListComment = styled.View.attrs({
 })`
   width: 90%;
   height: 220px;
-  margin: 10px;
+  margin: 20px 10px;
 `
 
 export const ContentComment = styled.View`
@@ -112,7 +113,7 @@ export const UserComment = styled.Text`
 export const TextComment = styled.Text`
   font-family: 'LouisGeorgeCafe';
   font-size: 12px;
-  width: 70%;
+  width: 100%;
 `
 
 export const InputComment = styled.TextInput`
